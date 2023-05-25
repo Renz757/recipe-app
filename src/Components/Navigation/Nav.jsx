@@ -1,4 +1,10 @@
-const Nav = () => {
+const Nav = (props) => {
+
+    const searchHandler = (event) => {
+      
+        props.setSearchInput(event.target.value)
+    } 
+
   return (
     <>
       <div className="bg-blue-400 p-7 flex flex-col justify-center items-center">
@@ -12,11 +18,12 @@ const Nav = () => {
             id="searchRecipe"
             placeholder="Search"
             className="p-2 rounded"
+            onChange={searchHandler}
           />
         </div>
 
         <div className="mt-3">
-          <button className="border px-6 rounded">Log In</button>
+          <button onClick={props.fecthData} className="border px-6 rounded">Search</button>
         </div>
       </div>
     </>
