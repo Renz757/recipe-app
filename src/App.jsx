@@ -23,7 +23,6 @@ const App = () => {
    function getIngredients(id) {
     setRecipeInfo
     (recipeData.filter(recipeInfo => recipeInfo.id == id))
-    console.log(recipeInfo)
   }
 
   const router = createBrowserRouter([
