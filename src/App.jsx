@@ -7,7 +7,8 @@ import RecipeInfo from "./Pages/RecipeInfo";
 const App = () => {
   const [searchInput, setSearchInput] = useState("");
   const [recipeData, setRecipeData] = useState([]);
- 
+  const [recipeInfo, setRecipeInfo
+  ] = useState([]);
 
   // todo: create custom hook for API calls
   async function fecthData() {
@@ -16,25 +17,33 @@ const App = () => {
     );
     const data = await response.json();
     setRecipeData(data.results);
-    console.log(data.results);
+    console.log("request sent for receipe", data.results);
   }
 
-  
+   function getIngredients(id) {
+    setRecipeInfo
+    (recipeData.filter(recipeInfo => recipeInfo.id == id))
+    console.log(recipeInfo)
+  }
 
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <Nav setSearchInput={setSearchInput} fecthData={fecthData} />,
-      children: [
-        { path: "/", element: <Recipes recipeData={recipeData} /> },
-        { path: "/recipe/:recipeId", element: <RecipeInfo /> },
-      ],
+      element: (
+        <Recipes recipeData={recipeData} getIngredients={getIngredients}/>
+      ),
+    },
+    {
+      path: "/recipeInfo/:recipeId",
+      element: <RecipeInfo recipeInfo={recipeInfo}/>,
     },
   ]);
 
   // todo: implement react router
   return (
     <>
+      {/* <RouterProvider router={router} /> */}
+      <Nav setSearchInput={setSearchInput} fecthData={fecthData} />
       <RouterProvider router={router} />
     </>
   );
