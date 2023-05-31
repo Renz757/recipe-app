@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const Nav = (props) => {
 
     const searchHandler = (event) => {
@@ -9,10 +11,11 @@ const Nav = (props) => {
     <>
       <div className="bg-blue-400 p-7 flex flex-col justify-center items-center">
         <div>
-          <h1 className="text-2xl">Recipe App</h1>
+          <h1 className="text-2xl"><Link>Recipe App</Link></h1>
         </div>
         {/* Create Search bar it's own component */}
         <div className="mt-2">
+          {/* todo: add validation */}
           <input
             type="text"
             id="searchRecipe"
@@ -25,6 +28,9 @@ const Nav = (props) => {
         <div className="mt-3">
           <button onClick={props.fecthData} className="border px-6 rounded">Search</button>
         </div>
+        <ul>
+          <li><Link to="favorites">Favorites</Link></li>
+        </ul>
       </div>
     </>
   );
