@@ -25,8 +25,6 @@ const App = () => {
   }, transformRecipeData);
 
 
-  //todo: handler errors
-
   const getIngredients = (id) => {
     setRecipeInfo(recipeData.filter((recipeInfo) => recipeInfo.id == id));
   };

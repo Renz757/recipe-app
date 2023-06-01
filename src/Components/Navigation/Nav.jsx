@@ -1,35 +1,38 @@
 import { Link } from "react-router-dom";
+import NavLinks from "./NavLinks";
 
 const Nav = (props) => {
-
-    const searchHandler = (event) => {
-      
-        props.setSearchInput(event.target.value)
-    } 
+  const searchHandler = (event) => {
+    props.setSearchInput(event.target.value);
+  };
 
   return (
     <>
-      <div className="bg-blue-400 p-7 flex flex-col justify-center items-center">
+      <div className="bg-blue-400 py-7 flex flex-col justify-center items-center">
         <div>
-          <h1 className="text-2xl"><Link>Recipe App</Link></h1>
+          <h1 className="text-2xl">
+            <Link>Recipe App</Link>
+          </h1>
         </div>
         {/* Create Search bar it's own component */}
-        <div className="mt-2">
+        <div className="mt-2 flex justify-center items-center gap-2">
           {/* todo: add validation */}
-          <input
-            type="text"
-            id="searchRecipe"
-            placeholder="Search"
-            className="p-2 rounded"
-            onChange={searchHandler}
-          />
+          <label className="" htmlFor="searchRecipe">
+            <input
+              type="text"
+              id="searchRecipe"
+              placeholder="Search"
+              className="p-2 rounded"
+              onChange={searchHandler}
+            />
+          </label>
+          <button onClick={props.fecthData} className="border px-6 py-2 rounded">
+            Search
+          </button>
         </div>
 
-        <div className="mt-3">
-          <button onClick={props.fecthData} className="border px-6 rounded">Search</button>
-        </div>
-        <ul>
-          <li><Link to="favorites">Favorites</Link></li>
+        <ul className="flex gap-3 mt-3">
+          <NavLinks />
         </ul>
       </div>
     </>
