@@ -5,6 +5,7 @@ import Recipes from "./Pages/Recipes";
 import RecipeInfo from "./Pages/RecipeInfo";
 import Favorites from "./Pages/Favorites";
 import RootLayout from "./Pages/Root";
+import useHttp from "./hooks/use-https";
 
 const App = () => {
   //make a context with use reducer hook or implement redux for state management
@@ -13,23 +14,25 @@ const App = () => {
   const [recipeInfo, setRecipeInfo] = useState([]);
   const [favorites, setFavorites] = useState([]);
 
-  // todo: create custom hook for API calls
+  const transformRecipeData = (recepieObj) => {
+    setRecipeData(recepieObj.results);
+  };
+
+  const { error, isLoading, fecthData } = useHttp({
+    url: `https://api.spoonacular.com/recipes/complexSearch?apiKey=${
+      import.meta.env.VITE_API_KEY
+    }&query=${searchInput}&addRecipeInformation=true&fillIngredients=true&instructionsRequired=true`,
+  }, transformRecipeData);
+
+
   //todo: handler errors
-  async function fecthData() {
-    const response = await fetch(
-      `https://api.spoonacular.com/recipes/complexSearch?apiKey=${
-        import.meta.env.VITE_API_KEY
-      }&query=${searchInput}&addRecipeInformation=true&fillIngredients=true&instructionsRequired=true`
-    );
-    const data = await response.json();
-    setRecipeData(data.results);
-  }
 
   const getIngredients = (id) => {
     setRecipeInfo(recipeData.filter((recipeInfo) => recipeInfo.id == id));
   };
 
   //implement localStorage ... eventually firebase
+  //check if receipe is already in favorites
   const onAddFav = (favObject) => {
     setFavorites([...favorites, favObject]);
   };
@@ -46,7 +49,7 @@ const App = () => {
         {
           path: "/",
           element: (
-            <Recipes recipeData={recipeData} getIngredients={getIngredients} />
+            <Recipes recipeData={recipeData} getIngredients={getIngredients}/>
           ),
         },
         {
@@ -65,8 +68,6 @@ const App = () => {
 
   return (
     <>
-      {/* <RouterProvider router={router} /> */}
-
       <RouterProvider router={router} />
     </>
   );
