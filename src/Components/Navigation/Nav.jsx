@@ -26,9 +26,14 @@ const Nav = (props) => {
               onChange={searchHandler}
             />
           </label>
-          <button onClick={props.fecthData} className="border px-6 py-2 rounded">
-            Search
-          </button>
+          <Link to="recipes">
+            <button
+              onClick={props.fecthData}
+              className="border px-6 py-2 rounded"
+            >
+              Search
+            </button>
+          </Link>
         </div>
 
         <ul className="flex gap-3 mt-3">

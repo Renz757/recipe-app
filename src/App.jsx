@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Nav from "./Components/Navigation/Nav";
+import Home from "./Pages/Home";
 import Recipes from "./Pages/Recipes";
 import RecipeInfo from "./Pages/RecipeInfo";
 import Favorites from "./Pages/Favorites";
@@ -18,12 +19,14 @@ const App = () => {
     setRecipeData(recepieObj.results);
   };
 
-  const { error, isLoading, fecthData } = useHttp({
-    url: `https://api.spoonacular.com/recipes/complexSearch?apiKey=${
-      import.meta.env.VITE_API_KEY
-    }&query=${searchInput}&addRecipeInformation=true&fillIngredients=true&instructionsRequired=true`,
-  }, transformRecipeData);
-
+  const { error, isLoading, fecthData } = useHttp(
+    {
+      url: `https://api.spoonacular.com/recipes/complexSearch?apiKey=${
+        import.meta.env.VITE_API_KEY
+      }&query=${searchInput}&addRecipeInformation=true&fillIngredients=true&instructionsRequired=true`,
+    },
+    transformRecipeData
+  );
 
   const getIngredients = (id) => {
     setRecipeInfo(recipeData.filter((recipeInfo) => recipeInfo.id == id));
@@ -47,7 +50,13 @@ const App = () => {
         {
           path: "/",
           element: (
-            <Recipes recipeData={recipeData} getIngredients={getIngredients}/>
+            <Home getIngredients={getIngredients} />
+          ),
+        },
+        {
+          path: "/recipes",
+          element: (
+            <Recipes recipeData={recipeData} getIngredients={getIngredients} />
           ),
         },
         {
