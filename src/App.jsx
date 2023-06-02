@@ -35,7 +35,19 @@ const App = () => {
   //implement localStorage ... eventually firebase
   //check if receipe is already in favorites
   const onAddFav = (favObject) => {
-    setFavorites([...favorites, favObject]);
+    //if id's match, get index of favorite
+    const existingFavoriteIndex = favorites.findIndex(
+      (index) => index.id === favObject.id
+    );
+
+    const existingFavorite = favorites[existingFavoriteIndex];
+
+    if (existingFavorite) {
+      console.log(existingFavorite);
+      setFavorites([...favorites]);
+    } else {
+      setFavorites([...favorites, favObject]);
+    }
   };
 
   //todo: create removeFavorite function
@@ -49,9 +61,7 @@ const App = () => {
       children: [
         {
           path: "/",
-          element: (
-            <Home getIngredients={getIngredients} />
-          ),
+          element: <Home getIngredients={getIngredients} />,
         },
         {
           path: "/recipes",
