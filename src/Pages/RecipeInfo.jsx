@@ -1,14 +1,15 @@
 import HeartIcon from "../UI/heartIcon";
 
-const RecipeInfo = ({ recipeInfo, onAddFav }) => {
+const RecipeInfo = ({ recipeInfo, onUpdateFavorite, favorites }) => {
   const favoriteRecipeHandler = (title, image, id) => {
     const favObject = {
       id: id,
       title: title,
       image: image,
+      isFavorite: true
     };
 
-    onAddFav(favObject);
+    onUpdateFavorite(favObject);
   };
 
   return (
@@ -30,7 +31,7 @@ const RecipeInfo = ({ recipeInfo, onAddFav }) => {
                     recipeInfo.id
                   )}
                 >
-                  <HeartIcon />
+                  <HeartIcon currentId={recipeInfo.id} favorites={favorites}/>
                 </div>
               </div>
 

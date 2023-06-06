@@ -34,7 +34,7 @@ const App = () => {
 
   //implement localStorage ... eventually firebase
   //check if receipe is already in favorites
-  const onAddFav = (favObject) => {
+  const onUpdateFavorite = (favObject) => {
     //if id's match, get index of favorite
     const existingFavoriteIndex = favorites.findIndex(
       (index) => index.id === favObject.id
@@ -43,14 +43,17 @@ const App = () => {
     const existingFavorite = favorites[existingFavoriteIndex];
 
     if (existingFavorite) {
-      console.log(existingFavorite);
-      setFavorites([...favorites]);
+      //if recipe is in favorites, remove 
+      setFavorites(favorites.filter(index => index.id !== favObject.id))
     } else {
+      //if recipe is not in favorites, add
       setFavorites([...favorites, favObject]);
     }
   };
 
-  //todo: create removeFavorite function
+ 
+
+
 
   const router = createBrowserRouter([
     {
@@ -71,7 +74,7 @@ const App = () => {
         },
         {
           path: "/recipeInfo/:recipeId",
-          element: <RecipeInfo recipeInfo={recipeInfo} onAddFav={onAddFav} />,
+          element: <RecipeInfo recipeInfo={recipeInfo} onUpdateFavorite={onUpdateFavorite} favorites={favorites}/>,
         },
         {
           path: "/favorites",
