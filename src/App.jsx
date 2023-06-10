@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { QueryClientProvider, QueryClient } from "react-query";
 import Nav from "./Components/Navigation/Nav";
 import Home from "./Pages/Home";
 import Recipes from "./Pages/Recipes";
@@ -7,6 +8,8 @@ import RecipeInfo from "./Pages/RecipeInfo";
 import Favorites from "./Pages/Favorites";
 import RootLayout from "./Pages/Root";
 import useHttp from "./hooks/use-https";
+
+const queryClient = new QueryClient();
 
 const App = () => {
   //make a context with use reducer hook or implement redux for state management
@@ -17,6 +20,7 @@ const App = () => {
 
   const transformRecipeData = (recepieObj) => {
     setRecipeData(recepieObj.results);
+    
   };
 
   const { error, isLoading, fecthData } = useHttp(
@@ -43,17 +47,13 @@ const App = () => {
     const existingFavorite = favorites[existingFavoriteIndex];
 
     if (existingFavorite) {
-      //if recipe is in favorites, remove 
-      setFavorites(favorites.filter(index => index.id !== favObject.id))
+      //if recipe is in favorites, remove
+      setFavorites(favorites.filter((index) => index.id !== favObject.id));
     } else {
       //if recipe is not in favorites, add
       setFavorites([...favorites, favObject]);
     }
   };
-
- 
-
-
 
   const router = createBrowserRouter([
     {
@@ -74,7 +74,13 @@ const App = () => {
         },
         {
           path: "/recipeInfo/:recipeId",
-          element: <RecipeInfo recipeInfo={recipeInfo} onUpdateFavorite={onUpdateFavorite} favorites={favorites}/>,
+          element: (
+            <RecipeInfo
+              recipeInfo={recipeInfo}
+              onUpdateFavorite={onUpdateFavorite}
+              favorites={favorites}
+            />
+          ),
         },
         {
           path: "/favorites",
@@ -88,7 +94,9 @@ const App = () => {
 
   return (
     <>
-      <RouterProvider router={router} />
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router} />
+      </QueryClientProvider>
     </>
   );
 };

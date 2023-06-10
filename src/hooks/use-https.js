@@ -20,13 +20,14 @@ const useHttp = (requestConfig, transformRecipeData) => {
             }
 
             const data = await response.json();
+            console.log(data)
 
             transformRecipeData(data)
         } catch (error) {
             setError(error.message)
         }
         setIsLoading(false)
-
+        
     }
 
     return {
