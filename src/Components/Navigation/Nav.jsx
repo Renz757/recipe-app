@@ -1,9 +1,20 @@
 import { Link } from "react-router-dom";
+import { useState } from "react";
 import NavLinks from "./NavLinks";
+import { useQuery } from "react-query";
+import { getRecipe } from "../../http-functions/https-functions";
 
 const Nav = (props) => {
+  const [searchInput, setSearchInput] = useState("");
+
+  const { data, refetch } = useQuery("recpies", () => getRecipe(searchInput), {
+    refetchOnWindowFocus: false,
+    staleTime: Infinity,
+    enabled: false,
+  });
+
   const searchHandler = (event) => {
-    props.setSearchInput(event.target.value);
+    setSearchInput(event.target.value);
   };
 
   return (
@@ -27,10 +38,7 @@ const Nav = (props) => {
             />
           </label>
           <Link to="recipes">
-            <button
-              onClick={props.fecthData}
-              className="border px-6 py-2 rounded"
-            >
+            <button onClick={refetch} className="border px-6 py-2 rounded">
               Search
             </button>
           </Link>

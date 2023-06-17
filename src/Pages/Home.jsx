@@ -1,34 +1,37 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useQuery } from "react-query";
+import axios from "axios";
+import { getRandomRecipe } from "../http-functions/https-functions";
 
-async function getRandomRecipe() {
-  const response = await fetch(
-    `https://api.spoonacular.com/recipes/random?apiKey=${
-      import.meta.env.VITE_API_KEY
-    }&number=1`
-  );
-  const data = await response.json();
-  return data.recipes;
-}
 
 const Home = () => {
-  const [randomRecipe, setRandomRecipe] = useState([]);
-
-  const { data } = useQuery("randomRecipe", getRandomRecipe, {
+  const { data, isError, error } = useQuery(["randomRecipe"], getRandomRecipe, {
     refetchOnWindowFocus: false,
     staleTime: Infinity,
   });
 
-  const recipeDataObject = data[0];
+  if (isError) {
+    return <h1>{`An Error Has Occured ${error}`}</h1>;
+  }
 
-  console.log(recipeDataObject);
 
   return (
     <>
       <div className="flex flex-col justify-center items-center">
         <h1 className="text-3xl text-center mt-4">Random Recipe of The Day!</h1>
-        <h1 className="mt-3">{`${recipeDataObject.title}`}</h1>
-        <img className="rounded-xl mt-4" src={`${recipeDataObject.image}`} />
+        {isError && <p>{error}</p>}
+        {!data ? (
+          <h1>Loading...</h1>
+        ) : (
+          data.map((recipeInfo, index) => {
+            return (
+              <div key={index}>
+                <h1 className="mt-3">{recipeInfo.title}</h1>
+                <img className="rounded-xl mt-4" src={`${recipeInfo.image}`} />
+              </div>
+            );
+          })
+        )}
       </div>
     </>
   );

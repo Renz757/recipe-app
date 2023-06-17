@@ -1,36 +1,20 @@
 import { useState } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { QueryClientProvider, QueryClient } from "react-query";
-import Nav from "./Components/Navigation/Nav";
+import { useQuery } from "react-query";
+import { ReactQueryDevtools } from "react-query/devtools";
 import Home from "./Pages/Home";
 import Recipes from "./Pages/Recipes";
 import RecipeInfo from "./Pages/RecipeInfo";
 import Favorites from "./Pages/Favorites";
 import RootLayout from "./Pages/Root";
-import useHttp from "./hooks/use-https";
-
-const queryClient = new QueryClient();
 
 const App = () => {
   //make a context with use reducer hook or implement redux for state management
-  const [searchInput, setSearchInput] = useState("");
-  const [recipeData, setRecipeData] = useState([]);
+  
+  // const [recipeData, setRecipeData] = useState([]);
   const [recipeInfo, setRecipeInfo] = useState([]);
   const [favorites, setFavorites] = useState([]);
 
-  const transformRecipeData = (recepieObj) => {
-    setRecipeData(recepieObj.results);
-    
-  };
-
-  const { error, isLoading, fecthData } = useHttp(
-    {
-      url: `https://api.spoonacular.com/recipes/complexSearch?apiKey=${
-        import.meta.env.VITE_API_KEY
-      }&query=${searchInput}&addRecipeInformation=true&fillIngredients=true&instructionsRequired=true`,
-    },
-    transformRecipeData
-  );
 
   const getIngredients = (id) => {
     setRecipeInfo(recipeData.filter((recipeInfo) => recipeInfo.id == id));
@@ -59,7 +43,8 @@ const App = () => {
     {
       path: "/",
       element: (
-        <RootLayout setSearchInput={setSearchInput} fecthData={fecthData} />
+        <RootLayout
+        />
       ),
       children: [
         {
@@ -69,7 +54,7 @@ const App = () => {
         {
           path: "/recipes",
           element: (
-            <Recipes recipeData={recipeData} getIngredients={getIngredients} />
+            <Recipes getIngredients={getIngredients} />
           ),
         },
         {
@@ -94,9 +79,8 @@ const App = () => {
 
   return (
     <>
-      <QueryClientProvider client={queryClient}>
-        <RouterProvider router={router} />
-      </QueryClientProvider>
+      <RouterProvider router={router} />
+      <ReactQueryDevtools initialIsOpen={false} />
     </>
   );
 };
