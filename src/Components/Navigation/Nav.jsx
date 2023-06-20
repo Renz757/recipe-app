@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import NavLinks from "./NavLinks";
 import { useQuery } from "react-query";
-import { getRecipe } from "../../http-functions/https-functions";
 import axios from "axios";
 
 const Nav = (props) => {
@@ -25,12 +24,13 @@ const Nav = (props) => {
       enabled: false,
     }
   );
-  
+
   if (data) {
     props.setRecipeData(data);
   }
 
   const searchHandler = (event) => {
+    event.preventDefault()
     setSearchInput(event.target.value);
   };
 
@@ -45,7 +45,8 @@ const Nav = (props) => {
         {/* Create Search bar it's own component */}
         <div className="mt-2 flex justify-center items-center gap-2">
           {/* todo: add validation */}
-          <label className="" htmlFor="searchRecipe">
+
+          <form>
             <input
               type="text"
               id="searchRecipe"
@@ -53,12 +54,17 @@ const Nav = (props) => {
               className="p-2 rounded"
               onChange={searchHandler}
             />
-          </label>
-          <Link to="recipes">
-            <button onClick={refetch} className="border px-6 py-2 rounded">
-              Search
-            </button>
-          </Link>
+
+            <Link to="recipes">
+              <button
+                onClick={refetch}
+                className="border px-6 py-2 rounded"
+                type="submit"
+              >
+                Search
+              </button>
+            </Link>
+          </form>
         </div>
 
         <ul className="flex gap-3 mt-3">
