@@ -3,15 +3,32 @@ import { useState } from "react";
 import NavLinks from "./NavLinks";
 import { useQuery } from "react-query";
 import { getRecipe } from "../../http-functions/https-functions";
+import axios from "axios";
 
 const Nav = (props) => {
   const [searchInput, setSearchInput] = useState("");
 
-  const { data, refetch } = useQuery("recpies", () => getRecipe(searchInput), {
-    refetchOnWindowFocus: false,
-    staleTime: Infinity,
-    enabled: false,
-  });
+  const { data, refetch, isFecthed } = useQuery(
+    ["recpies", searchInput],
+    async () => {
+      const { data } = await axios.get(
+        `https://api.spoonacular.com/recipes/complexSearch?apiKey=${
+          import.meta.env.VITE_API_KEY
+        }&query=${searchInput}&addRecipeInformation=true&fillIngredients=true&instructionsRequired=true`
+      );
+
+      return data.results;
+    },
+    {
+      refetchOnWindowFocus: false,
+      staleTime: Infinity,
+      enabled: false,
+    }
+  );
+  
+  if (data) {
+    props.setRecipeData(data);
+  }
 
   const searchHandler = (event) => {
     setSearchInput(event.target.value);

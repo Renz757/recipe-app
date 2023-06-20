@@ -1,10 +1,10 @@
 import { Outlet } from "react-router-dom";
 import Nav from "../Components/Navigation/Nav";
 
-const RootLayout = () => {
+const RootLayout = (props) => {
     return (
         <>
-            <Nav/>
+            <Nav setRecipeData={props.setRecipeData}/>
             <Outlet />
         </>
     );

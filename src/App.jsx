@@ -11,7 +11,7 @@ import RootLayout from "./Pages/Root";
 const App = () => {
   //make a context with use reducer hook or implement redux for state management
   
-  // const [recipeData, setRecipeData] = useState([]);
+  const [recipeData, setRecipeData] = useState([]);
   const [recipeInfo, setRecipeInfo] = useState([]);
   const [favorites, setFavorites] = useState([]);
 
@@ -43,8 +43,7 @@ const App = () => {
     {
       path: "/",
       element: (
-        <RootLayout
-        />
+        <RootLayout setRecipeData={setRecipeData}/>
       ),
       children: [
         {
@@ -54,7 +53,7 @@ const App = () => {
         {
           path: "/recipes",
           element: (
-            <Recipes getIngredients={getIngredients} />
+            <Recipes recipeData={recipeData} getIngredients={getIngredients} />
           ),
         },
         {

@@ -1,23 +1,11 @@
-import { useQuery, QueryCache } from "react-query";
 import { Link } from "react-router-dom";
 import HeartIcon from "../UI/heartIcon";
 
-const queryCache = new QueryCache()
+const Recipes = ({ recipeData, getIngredients }) => {
 
-const Recipes = (props) => {
-
-  const { data: recipeData, refetch } = useQuery("recpies", () => getRecipe(searchInput), {
-    staleTime: Infinity,
-    enabled: false,
-    cache: queryCache
-  });
-
-  console.log(recipeData)
-
- 
   return (
     <>
-      {!recipeData ? (
+      {recipeData == [] ? (
         <p>Search a Recipe!</p>
       ) : (
         recipeData.map((recipe) => {
@@ -36,7 +24,7 @@ const Recipes = (props) => {
               <p>
                 <Link
                   to={`/recipeInfo/${recipe.id}`}
-                  onClick={props.getIngredients.bind(null, recipe.id)}
+                  onClick={getIngredients.bind(null, recipe.id)}
                 >
                   Show Full Recipe
                 </Link>
