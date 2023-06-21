@@ -3,6 +3,9 @@ import { useState } from "react";
 import NavLinks from "./NavLinks";
 import { useQuery } from "react-query";
 import axios from "axios";
+import MenuIcon from "../../UI/menuIcon";
+import ShoppingBagIcon from "../../UI/shoppingBagIcon";
+import SearchIcon from "../../UI/SearchIcon";
 
 const Nav = (props) => {
   const [searchInput, setSearchInput] = useState("");
@@ -30,46 +33,45 @@ const Nav = (props) => {
   }
 
   const searchHandler = (event) => {
-    event.preventDefault()
+    event.preventDefault();
     setSearchInput(event.target.value);
   };
 
   return (
     <>
-      <div className="bg-blue-400 py-7 flex flex-col justify-center items-center">
-        <div>
-          <h1 className="text-2xl">
-            <Link>Recipe App</Link>
-          </h1>
+      <div className="bg-blue-400 flex flex-col justify-center items-center p-7">
+        <div className="flex w-full justify-between p-6 items-center">
+          <Link to="/">
+            <h1 className="text-2xl font-Geologica">Recipe App</h1>
+          </Link>
+          <ul className="flex gap-3 mt-3">
+            <NavLinks />
+          </ul>
+          <div className="flex items-center gap-3">
+            <ShoppingBagIcon />
+            <MenuIcon />
+          </div>
         </div>
+
         {/* Create Search bar it's own component */}
-        <div className="mt-2 flex justify-center items-center gap-2">
-          {/* todo: add validation */}
 
-          <form>
-            <input
-              type="text"
-              id="searchRecipe"
-              placeholder="Search"
-              className="p-2 rounded"
-              onChange={searchHandler}
-            />
+        {/* todo: add validation */}
 
-            <Link to="recipes">
-              <button
-                onClick={refetch}
-                className="border px-6 py-2 rounded"
-                type="submit"
-              >
-                Search
-              </button>
-            </Link>
-          </form>
-        </div>
+        <form className="flex w-10/12 justify-center bg-white rounded-xl mx-zuto">
+          <input
+            type="text"
+            id="searchRecipe"
+            placeholder="Search a Recipe"
+            className="p-2 w-10/12 outline-none bg-white"
+            onChange={searchHandler}
+          />
 
-        <ul className="flex gap-3 mt-3">
-          <NavLinks />
-        </ul>
+          <Link to="recipes">
+            <button onClick={refetch} className=" py-2 bg-white" type="submit">
+              <SearchIcon />
+            </button>
+          </Link>
+        </form>
       </div>
     </>
   );

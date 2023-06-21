@@ -17,7 +17,7 @@ const Home = () => {
 
   return (
     <>
-      <div className="flex flex-col justify-center items-center">
+      <div className="flex flex-col">
         <h1 className="text-3xl text-center mt-4 font-Geologica">Random Recipe of The Day!</h1>
         {isError && <p>{error}</p>}
         {!data ? (
