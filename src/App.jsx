@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { useQuery } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
@@ -10,11 +10,10 @@ import RootLayout from "./Pages/Root";
 
 const App = () => {
   //make a context with use reducer hook or implement redux for state management
-  
+
   const [recipeData, setRecipeData] = useState([]);
   const [recipeInfo, setRecipeInfo] = useState([]);
   const [favorites, setFavorites] = useState([]);
-
 
   const getIngredients = (id) => {
     setRecipeInfo(recipeData.filter((recipeInfo) => recipeInfo.id == id));
@@ -42,9 +41,7 @@ const App = () => {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: (
-        <RootLayout setRecipeData={setRecipeData}/>
-      ),
+      element: <RootLayout setRecipeData={setRecipeData} />,
       children: [
         {
           path: "/",
@@ -60,7 +57,7 @@ const App = () => {
           path: "/recipeInfo/:recipeId",
           element: (
             <RecipeInfo
-              recipeInfo={recipeInfo}
+              recipeInfoId={recipeInfo}
               onUpdateFavorite={onUpdateFavorite}
               favorites={favorites}
             />

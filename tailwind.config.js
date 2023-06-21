@@ -14,7 +14,7 @@ export default {
       colors: {
         "darkgold": "#A98743",
         "eggshell": "#EEEBD3",
-        "saffron": "#F9D476",
+        "saffron": "#FDEDC4",
         "curelean": "#437C90",
         "vandyke": "#523F38"
       }

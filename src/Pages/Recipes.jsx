@@ -4,7 +4,7 @@ import HeartIcon from "../UI/heartIcon";
 const Recipes = ({ recipeData, getIngredients }) => {
   console.log(recipeData);
   return (
-    <div className="bg-eggshell">
+    <>
       {recipeData == [] ? (
         <p>Search a Recipe!</p>
       ) : (
@@ -21,6 +21,7 @@ const Recipes = ({ recipeData, getIngredients }) => {
                   />
                 </div>
                 <div className="p-4">
+                  <h1 className="text-3xl font-Caveat">{recipe.title}</h1>
                   <div className="flex gap-2 font-noto">
                     <p>{`Prep Time: ${recipe.readyInMinutes} Minutes - `}</p>
                     <p>{`Servings: ${recipe.servings}`}</p>
@@ -39,7 +40,7 @@ const Recipes = ({ recipeData, getIngredients }) => {
           );
         })
       )}
-    </div>
+    </>
   );
 };
 
