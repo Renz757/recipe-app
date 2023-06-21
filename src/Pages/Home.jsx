@@ -18,7 +18,7 @@ const Home = () => {
   return (
     <>
       <div className="flex flex-col justify-center items-center">
-        <h1 className="text-3xl text-center mt-4">Random Recipe of The Day!</h1>
+        <h1 className="text-3xl text-center mt-4 font-Geologica">Random Recipe of The Day!</h1>
         {isError && <p>{error}</p>}
         {!data ? (
           <h1>Loading...</h1>
@@ -26,8 +26,9 @@ const Home = () => {
           data.map((recipeInfo, index) => {
             return (
               <div key={index}>
-                <h1 className="mt-3">{recipeInfo.title}</h1>
-                <img className="rounded-xl mt-4" src={`${recipeInfo.image}`} />
+                <img className="mt-4 w-full aspect-video object-cover" src={`${recipeInfo.image}`} />
+                <h1 className="text-4xl font-Caveat p-3">{recipeInfo.title}</h1>
+                <p className="font-noto pl-3 underline">Give it a try!</p>
               </div>
             );
           })
