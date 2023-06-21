@@ -6,7 +6,7 @@ const RecipeInfo = ({ recipeInfo, onUpdateFavorite, favorites }) => {
       id: id,
       title: title,
       image: image,
-      isFavorite: true
+      isFavorite: true,
     };
 
     onUpdateFavorite(favObject);
@@ -18,12 +18,17 @@ const RecipeInfo = ({ recipeInfo, onUpdateFavorite, favorites }) => {
         return (
           <div key={index}>
             {/* Recipe Info */}
-            <div className="flex flex-col items-center mt-4 ">
-              <h1 className="text-2xl">{recipeInfo.title}</h1>
+            <div className="flex flex-col ">
               <div className="relative">
-                <img className="rounded-xl mt-4" src={recipeInfo.image} />
+                <img
+                  className="w-full aspect-video object-cover blur-none"
+                  src={recipeInfo.image}
+                />
+              </div>
+              <div className="flex items-center">
+                <h1 className="text-4xl font-Caveat p-3">{recipeInfo.title}</h1>
                 <div
-                  className="absolute bottom-0 top-6 left-2 bg-zinc-500 h-7 w-7 flex justify-center items-center rounded-full"
+                  className="bg-zinc-500 h-7 w-7 flex justify-center items-center rounded-full"
                   onClick={favoriteRecipeHandler.bind(
                     null,
                     recipeInfo.title,
@@ -31,28 +36,40 @@ const RecipeInfo = ({ recipeInfo, onUpdateFavorite, favorites }) => {
                     recipeInfo.id
                   )}
                 >
-                  <HeartIcon currentId={recipeInfo.id} favorites={favorites}/>
+                  <HeartIcon currentId={recipeInfo.id} favorites={favorites} />
                 </div>
               </div>
-
-              <p className="mt-2">{`Serving Time: ${recipeInfo.readyInMinutes} minutes`}</p>
-              <p className="mt-2">{`Servings: ${recipeInfo.servings}`}</p>
+              <div className="font-noto w-10/12 mx-auto">
+                <p className="mt-2 p-2 border-b-2 border-zinc-500">{`Ready In: ${recipeInfo.readyInMinutes} minutes`}</p>
+                <p className="mt-2 p-2 border-b-2 border-zinc-500">{`Servings: ${recipeInfo.servings}`}</p>
+                <p className="mt-2 p-2 border-b-2 border-zinc-500">{`Ingredients: ${recipeInfo.extendedIngredients.length}`}</p>
+              </div>
             </div>
+
             {/* Ingredients */}
-            <div className="flex flex-col items-center mt-4">
-              <h2 className="text-2xl">Ingredients</h2>
+            <div className="flex flex-col mt-16 px-5 py-7 border-t-2 border-zinc-500">
+              <h2 className="text-2xl text-zinc-600 font-Geologica">
+                Ingredients
+              </h2>
               {recipeInfo.extendedIngredients.map((ingredients, index) => {
-                return <p key={index}>{ingredients.original}</p>;
+                return (
+                  <p key={index} className="font-noto pt-2">
+                    {ingredients.original}
+                  </p>
+                );
               })}
             </div>
-            <div className="mt-4 flex flex-col items-center">
-              <h1 className="text-2xl">Instructions</h1>
+
+            <div className="flex flex-col mt-16 px-5 py-7 border-t-2 border-zinc-500 mb-10">
+              <h1 className="text-2xl text-zinc-600 font-Geologica">
+                Instructions
+              </h1>
               {recipeInfo.analyzedInstructions.map((instructions, index) => {
                 return instructions.steps.map((steps, index) => {
                   return (
-                    <div key={index} className="flex m-3 gap-2 justify-center">
-                      <p className="ml-2">{`${steps.number}: `}</p>
-                      <p>{steps.step}</p>
+                    <div key={index} className="flex m-3 gap-2">
+                      <p className="ml-2 font-noto">{`${steps.number}: `}</p>
+                      <p className="font-noto tracking-wide">{steps.step}</p>
                     </div>
                   );
                 });

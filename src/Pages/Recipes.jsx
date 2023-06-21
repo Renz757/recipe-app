@@ -20,8 +20,7 @@ const Recipes = ({ recipeData, getIngredients }) => {
                     className="w-full aspect-video object-cover blur-none"
                   />
                 </div>
-                <div className="p-2">
-                  <h1 className="text-2xl font-Geologica">{recipe.title}</h1>
+                <div className="p-4">
                   <div className="flex gap-2 font-noto">
                     <p>{`Prep Time: ${recipe.readyInMinutes} Minutes - `}</p>
                     <p>{`Servings: ${recipe.servings}`}</p>
