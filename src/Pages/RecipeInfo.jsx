@@ -16,7 +16,7 @@ const RecipeInfo = ({ recipeInfo, onUpdateFavorite, favorites }) => {
     <>
       {recipeInfo.map((recipeInfo, index) => {
         return (
-          <div key={index}>
+          <div key={index} className="bg-saffron">
             {/* Recipe Info */}
             <div className="flex flex-col ">
               <div className="relative">
@@ -60,7 +60,7 @@ const RecipeInfo = ({ recipeInfo, onUpdateFavorite, favorites }) => {
               })}
             </div>
 
-            <div className="flex flex-col mt-16 px-5 py-7 border-t-2 border-zinc-500 mb-10">
+            <div className="flex flex-col mt-16 px-5 py-7 border-t-2 border-zinc-500 pb-10">
               <h1 className="text-2xl text-zinc-600 font-Geologica">
                 Instructions
               </h1>

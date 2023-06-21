@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const Favorites = ({ favorites, getIngredients }) => {
   return (
-    <>
+    <div className="bg-eggshell h-screen">
       {favorites <= 0 ? (
         <p>No Favorites</p>
       ) : (
@@ -25,7 +25,7 @@ const Favorites = ({ favorites, getIngredients }) => {
           );
         })
       )}
-    </>
+    </div>
   );
 };
 

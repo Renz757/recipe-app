@@ -4,7 +4,7 @@ import HeartIcon from "../UI/heartIcon";
 const Recipes = ({ recipeData, getIngredients }) => {
   console.log(recipeData);
   return (
-    <>
+    <div className="bg-eggshell">
       {recipeData == [] ? (
         <p>Search a Recipe!</p>
       ) : (
@@ -39,7 +39,7 @@ const Recipes = ({ recipeData, getIngredients }) => {
           );
         })
       )}
-    </>
+    </div>
   );
 };
 

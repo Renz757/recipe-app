@@ -39,7 +39,7 @@ const Nav = (props) => {
 
   return (
     <>
-      <div className="bg-blue-400 flex flex-col justify-center items-center p-7">
+      <div className="bg-darkgold flex flex-col justify-center items-center p-7">
         <div className="flex w-full justify-between p-6 items-center">
           <Link to="/">
             <h1 className="text-2xl font-Geologica">Recipe App</h1>
