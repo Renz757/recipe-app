@@ -10,8 +10,8 @@ import SearchIcon from "../../UI/SearchIcon";
 const Nav = (props) => {
   const [searchInput, setSearchInput] = useState("");
 
-  const { data, refetch, isFecthed } = useQuery(
-    ["recpies", searchInput],
+  const { data, refetch } = useQuery(
+    ["recpies"],
     async () => {
       const { data } = await axios.get(
         `https://api.spoonacular.com/recipes/complexSearch?apiKey=${

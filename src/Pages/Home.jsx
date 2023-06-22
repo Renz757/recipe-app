@@ -4,12 +4,17 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { getRandomRecipe } from "../http-functions/https-functions";
 
-const Home = ({getIngredients}) => {
-  const { data, isError, error } = useQuery(["randomRecipe"], getRandomRecipe, {
+const Home = ({ setRecipeInfo }) => {
+  const {
+    data: recipeInfo,
+    isError,
+    error,
+  } = useQuery(["randomRecipe"], getRandomRecipe, {
     refetchOnWindowFocus: false,
     staleTime: Infinity,
   });
 
+  console.log(recipeInfo);
   if (isError) {
     return <h1>{`An Error Has Occured ${error}`}</h1>;
   }
@@ -21,26 +26,22 @@ const Home = ({getIngredients}) => {
           Random Recipe of The Day!
         </h1>
         {isError && <p>{error}</p>}
-        {!data ? (
+        {!recipeInfo ? (
           <h1>Loading...</h1>
         ) : (
-          data.map((recipeInfo, index) => {
-            return (
-              <div key={index}>
-                <img
-                  className="mt-4 w-full aspect-video object-cover"
-                  src={`${recipeInfo.image}`}
-                />
-                <h1 className="text-4xl font-Caveat p-3">{recipeInfo.title}</h1>
-                <Link
-                  to={`/recipeInfo/${recipeInfo.id}`}
-                  onClick={getIngredients.bind(null, recipeInfo.id)}
-                >
-                  Give it a Try!
-                </Link>
-              </div>
-            );
-          })
+          <div>
+            <img
+              className="mt-4 w-full aspect-video object-cover"
+              src={`${recipeInfo.image}`}
+            />
+            <h1 className="text-4xl font-Caveat p-3">{recipeInfo.title}</h1>
+            <Link
+              onClick={() => setRecipeInfo(recipeInfo.id)}
+              to={`/recipeInfo/${recipeInfo.id}`}
+            >
+              Give it a Try!
+            </Link>
+          </div>
         )}
       </div>
     </>

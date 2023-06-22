@@ -10,5 +10,5 @@ export const getRandomRecipe = async () => {
             console.log(err);
         });
 
-    return res.data.recipes
+    return res.data.recipes[0]
 };

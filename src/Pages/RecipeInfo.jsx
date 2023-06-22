@@ -6,9 +6,7 @@ const RecipeInfo = ({ recipeInfoId, onUpdateFavorite, favorites }) => {
   const { data: recipeInfo } = useQuery("recipeInfo", async () => {
     const { data } = await axios
       .get(
-        `https://api.spoonacular.com/recipes/${
-          recipeInfoId[0].id
-        }/information?apiKey=${import.meta.env.VITE_API_KEY}`
+        `https://api.spoonacular.com/recipes/${recipeInfoId}/information?apiKey=${import.meta.env.VITE_API_KEY}`
       )
       .catch((err) => {
         console.log(err);

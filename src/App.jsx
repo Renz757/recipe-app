@@ -45,12 +45,12 @@ const App = () => {
       children: [
         {
           path: "/",
-          element: <Home getIngredients={getIngredients} />,
+          element: <Home setRecipeInfo={setRecipeInfo}/>,
         },
         {
           path: "/recipes",
           element: (
-            <Recipes recipeData={recipeData} getIngredients={getIngredients} />
+            <Recipes recipeData={recipeData} setRecipeInfo={setRecipeInfo}/>
           ),
         },
         {
@@ -66,7 +66,7 @@ const App = () => {
         {
           path: "/favorites",
           element: (
-            <Favorites favorites={favorites} getIngredients={getIngredients} />
+            <Favorites favorites={favorites} setRecipeInfo={setRecipeInfo} />
           ),
         },
       ],

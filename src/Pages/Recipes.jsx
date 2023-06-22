@@ -1,8 +1,11 @@
 import { Link } from "react-router-dom";
 import HeartIcon from "../UI/heartIcon";
+import { useQueryClient } from "react-query";
 
-const Recipes = ({ recipeData, getIngredients }) => {
-  console.log(recipeData);
+const Recipes = ({ recipeData, setRecipeInfo }) => {
+  const queryClient = useQueryClient();
+  const data = queryClient.getQueryData("recipes");
+  console.log(data);
   return (
     <>
       {recipeData == [] ? (
@@ -26,14 +29,15 @@ const Recipes = ({ recipeData, getIngredients }) => {
                     <p>{`Prep Time: ${recipe.readyInMinutes} Minutes - `}</p>
                     <p>{`Servings: ${recipe.servings}`}</p>
                   </div>
-                 
-                    <Link
-                      to={`/recipeInfo/${recipe.id}`}
-                      onClick={getIngredients.bind(null, recipe.id)}
-                    >
-                      <p className="underline font-Geologica text-zinc-600">Show Recipe</p>
-                    </Link>
-                  
+
+                  <Link
+                    to={`/recipeInfo/${recipe.id}`}
+                    onClick={() => setRecipeInfo(recipe.id)}
+                  >
+                    <p className="underline font-Geologica text-zinc-600">
+                      Show Recipe
+                    </p>
+                  </Link>
                 </div>
               </div>
             </div>

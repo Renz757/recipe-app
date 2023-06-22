@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 //todo: style favorites page
 
-const Favorites = ({ favorites, getIngredients }) => {
+const Favorites = ({ favorites, getIngredients, setRecipeInfo }) => {
   console.log(favorites);
   return (
     <div className="bg-eggshell h-screen">
@@ -24,7 +24,7 @@ const Favorites = ({ favorites, getIngredients }) => {
                 />
                 <Link
                   to={`/recipeInfo/${favorites.id}`}
-                  onClick={getIngredients.bind(null, favorites.id)}
+                  onClick={() => setRecipeInfo(favorites.id)}
                 >
                   Show Full Recipe
                 </Link>
