@@ -1,6 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { useQuery } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import Home from "./Pages/Home";
 import Recipes from "./Pages/Recipes";
@@ -14,10 +13,6 @@ const App = () => {
   const [recipeData, setRecipeData] = useState([]);
   const [recipeInfo, setRecipeInfo] = useState([]);
   const [favorites, setFavorites] = useState([]);
-
-  const getIngredients = (id) => {
-    setRecipeInfo(recipeData.filter((recipeInfo) => recipeInfo.id == id));
-  };
 
   //implement localStorage ... eventually firebase
   //check if receipe is already in favorites
