@@ -9,14 +9,8 @@ const SideMenu = (props) => {
           props.isOpen ? "translate-x-0" : "translate-x-[-100%]"
         }`}
       >
-        <div className="conatiner-fluid h-auto p-6 w-full">
-          <div
-            className="cursor-pointer flex justify-between"
-            onClick={props.setSideBar}
-          ></div>
-        </div>
         <ul className="text-white text-center">
-          <NavLinks />
+          <NavLinks setSideBar={props.setSideBar}/>
         </ul>
       </div>
     </>

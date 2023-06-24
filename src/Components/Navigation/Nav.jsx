@@ -55,9 +55,6 @@ const Nav = (props) => {
           <Link to="/">
             <h1 className="text-2xl font-Geologica">Recipe App</h1>
           </Link>
-          <ul className="flex gap-3 mt-3">
-            <NavLinks setIsOpen={setIsOpen}/>
-          </ul>
           <div className="flex items-center gap-3">
             <ShoppingBagIcon />
             <div onClick={sideBarHandler} className="md:hidden cursor-pointer">

@@ -1,22 +1,16 @@
 import { Link } from "react-router-dom";
 
-const NavLinks = ({ setIsOpen }) => {
+const NavLinks = ({ setSideBar }) => {
   return (
     <>
-      <li>
-        <Link onClick={() => setIsOpen(false)} to="/">
-          Home
-        </Link>
+      <li onClick={setSideBar}>
+        <Link to="/">Home</Link>
       </li>
-      <li>
-        <Link onClick={() => setIsOpen(false)} to="/recipes">
-          Recipes
-        </Link>
+      <li onClick={setSideBar}>
+        <Link to="/recipes">Recipes</Link>
       </li>
-      <li>
-        <Link onClick={() => setIsOpen(false)} to="/favorites">
-          Favorite
-        </Link>
+      <li onClick={setSideBar}>
+        <Link to="/favorites">Favorite</Link>
       </li>
     </>
   );
