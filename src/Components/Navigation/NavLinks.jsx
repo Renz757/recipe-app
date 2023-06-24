@@ -3,15 +3,21 @@ import { Link } from "react-router-dom";
 const NavLinks = ({ setSideBar }) => {
   return (
     <>
-      <li onClick={setSideBar}>
-        <Link to="/">Home</Link>
-      </li>
-      <li onClick={setSideBar}>
-        <Link to="/recipes">Recipes</Link>
-      </li>
-      <li onClick={setSideBar}>
-        <Link to="/favorites">Favorite</Link>
-      </li>
+      <Link to="/" className="hover:bg-vandyke w-full p-4">
+        <li onClick={setSideBar}>Home</li>
+      </Link>
+      <Link to="recipes" className="hover:bg-vandyke w-full p-4">
+        <li onClick={setSideBar}>Recipes</li>
+      </Link>
+      <Link to="favorites" className="hover:bg-vandyke w-full p-4">
+        <li onClick={setSideBar}>Favorite</li>
+      </Link>
+      <Link to="/" className="hover:bg-vandyke w-full p-4">
+        <li onClick={setSideBar}>Shopping Cart</li>
+      </Link>
+      <Link to="/" className="hover:bg-vandyke w-full p-4">
+        <li onClick={setSideBar}>Add Custom Recipe</li>
+      </Link>
     </>
   );
 };
