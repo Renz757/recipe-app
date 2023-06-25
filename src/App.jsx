@@ -6,6 +6,7 @@ import Recipes from "./Pages/Recipes";
 import RecipeInfo from "./Pages/RecipeInfo";
 import Favorites from "./Pages/Favorites";
 import ShoppingList from "./Pages/shoppingList";
+import CustomRecipes from "./Pages/CustomRecipes";
 import RootLayout from "./Pages/Root";
 
 const App = () => {
@@ -69,6 +70,12 @@ const App = () => {
           path: "/shoppingList",
           element: (
             <ShoppingList />
+          ),
+        },
+        {
+          path: "/customRecipes",
+          element: (
+            <CustomRecipes />
           ),
         },
       ],

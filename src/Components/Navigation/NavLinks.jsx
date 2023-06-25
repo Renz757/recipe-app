@@ -15,7 +15,7 @@ const NavLinks = ({ setSideBar }) => {
       <Link to="/shoppingList" className="hover:bg-vandyke w-full p-4">
         <li onClick={setSideBar}>Shopping List</li>
       </Link>
-      <Link to="/" className="hover:bg-vandyke w-full p-4">
+      <Link to="/customRecipes" className="hover:bg-vandyke w-full p-4">
         <li onClick={setSideBar}>Add Custom Recipe</li>
       </Link>
     </>
