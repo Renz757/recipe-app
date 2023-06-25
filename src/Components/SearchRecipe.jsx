@@ -35,7 +35,7 @@ const SearchRecipe = (props) => {
 
   return (
     <>
-      <form className="flex w-10/12 justify-center bg-white rounded-xl mx-zuto">
+      <form className="flex w-10/12 justify-center bg-white rounded-xl mx-auto">
         <input
           type="text"
           id="searchRecipe"
@@ -45,7 +45,7 @@ const SearchRecipe = (props) => {
         />
 
         <Link to="recipes">
-          <button onClick={refetch} className=" py-2 bg-white" type="submit">
+          <button onClick={refetch} className="py-2 bg-white" type="submit">
             <SearchIcon />
           </button>
         </Link>

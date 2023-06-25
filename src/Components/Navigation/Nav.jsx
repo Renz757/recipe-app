@@ -20,7 +20,7 @@ const Nav = (props) => {
   return (
     <>
       {isOpen && <Backdrop closeSideBar={sideBarHandler} />}
-      <div className="bg-darkgold flex flex-col justify-center items-center p-7 relative z-40">
+      <div className="bg-darkgold flex flex-col justify-center items-center p-7">
         <div className="flex w-full justify-between p-6 items-center">
           <Link to="/">
             <h1 className="text-2xl font-Geologica">Recipe App</h1>
@@ -35,7 +35,7 @@ const Nav = (props) => {
         {/* todo: add validation */}
 
         <SearchRecipe setRecipeData={props.setRecipeData}/>
-        <SideMenu isOpen={isOpen} setSideBar={sideBarHandler} />
+        <SideMenu isOpen={isOpen} setSideBar={sideBarHandler} setRecipeData={props.setRecipeData} />
       </div>
     </>
   );
