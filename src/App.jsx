@@ -5,6 +5,7 @@ import Home from "./Pages/Home";
 import Recipes from "./Pages/Recipes";
 import RecipeInfo from "./Pages/RecipeInfo";
 import Favorites from "./Pages/Favorites";
+import ShoppingList from "./Pages/shoppingList";
 import RootLayout from "./Pages/Root";
 
 const App = () => {
@@ -62,6 +63,12 @@ const App = () => {
           path: "/favorites",
           element: (
             <Favorites favorites={favorites} setRecipeInfo={setRecipeInfo} />
+          ),
+        },
+        {
+          path: "/shoppingList",
+          element: (
+            <ShoppingList />
           ),
         },
       ],
