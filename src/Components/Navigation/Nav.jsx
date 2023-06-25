@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import SideMenu from "../SideMenu";
+import SideMenu from "./SideMenu";
 import NavLinks from "./NavLinks";
 import { useQuery } from "react-query";
 import axios from "axios";

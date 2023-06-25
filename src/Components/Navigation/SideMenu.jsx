@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import ExitIcon from "../UI/exitIcon";
-import NavLinks from "./Navigation/NavLinks";
+import ExitIcon from "../../UI/exitIcon";
+import NavLinks from "./NavLinks";
 
 const SideMenu = (props) => {
   return (
