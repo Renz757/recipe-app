@@ -1,4 +1,11 @@
-const HeartIcon = () => {
+const HeartIcon = ({ favorites, currentId }) => {
+  let isFavorite = false;
+  favorites.map((favorite) => {
+    if (currentId === favorite.id) {
+      isFavorite = true;
+    }
+  });
+
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -6,7 +13,9 @@ const HeartIcon = () => {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="currentColor"
-      className="w-6 h-6 stroke-red-500 hover:fill-red-500"
+      className={`w-6 h-6 stroke-red-500 ${
+        isFavorite ? "fill-red-500" : "stroke-red-500  hover:fill-red-500"
+      } `}
     >
       <path
         strokeLinecap="round"
