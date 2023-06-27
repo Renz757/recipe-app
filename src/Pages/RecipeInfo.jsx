@@ -2,11 +2,13 @@ import { useQuery } from "react-query";
 import axios from "axios";
 import HeartIcon from "../UI/heartIcon";
 
-const RecipeInfo = ({ recipeInfoId, onUpdateFavorite, favorites }) => {
+const RecipeInfo = ({ recipeInfoId, onUpdateFavorite, favorites, onAddIngredients }) => {
   const { data: recipeInfo } = useQuery("recipeInfo", async () => {
     const { data } = await axios
       .get(
-        `https://api.spoonacular.com/recipes/${recipeInfoId}/information?apiKey=${import.meta.env.VITE_API_KEY}`
+        `https://api.spoonacular.com/recipes/${recipeInfoId}/information?apiKey=${
+          import.meta.env.VITE_API_KEY
+        }`
       )
       .catch((err) => {
         console.log(err);
@@ -23,6 +25,19 @@ const RecipeInfo = ({ recipeInfoId, onUpdateFavorite, favorites }) => {
     };
 
     onUpdateFavorite(favObject);
+  };
+
+  const shoppingListHandler = (id, title) => {
+    const ingredientObject = {
+      id: id,
+      title: title,
+      ingredients: recipeInfo.extendedIngredients.map(
+        (items) => items.original
+      ),
+    };
+
+    onAddIngredients(ingredientObject)
+    
   };
 
   return (
@@ -72,6 +87,16 @@ const RecipeInfo = ({ recipeInfoId, onUpdateFavorite, favorites }) => {
                 </p>
               );
             })}
+            <button
+              onClick={shoppingListHandler.bind(
+                null,
+                recipeInfo.id,
+                recipeInfo.title
+              )}
+              className="text-left mt-5 bg-green-400 w-7/12 p-2 rounded-xl cursor-pointer"
+            >
+              Add Ingredients to Shopping List
+            </button>
           </div>
 
           <div className="flex flex-col mt-16 px-5 py-7 border-t-2 border-zinc-500 pb-10">

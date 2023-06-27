@@ -15,6 +15,7 @@ const App = () => {
   const [recipeData, setRecipeData] = useState([]);
   const [recipeInfo, setRecipeInfo] = useState([]);
   const [favorites, setFavorites] = useState([]);
+  const [shoppingList, setShoppingList] = useState([]);
 
   //implement localStorage ... eventually firebase
   //check if receipe is already in favorites
@@ -35,6 +36,24 @@ const App = () => {
     }
   };
 
+  const onAddIngredients = (ingredientObject) => {
+    const existingIngredientIndex = shoppingList.findIndex(
+      (index) => index.id === ingredientObject.id
+    );
+
+    const existingIngredients = shoppingList[existingIngredientIndex];
+
+    if (existingIngredients) {
+      //if recipe is in favorites, remove
+      setShoppingList(shoppingList.filter((index) => index.id !== ingredientObject.id));
+    } else {
+      //if recipe is not in favorites, add
+      setShoppingList([...shoppingList, ingredientObject]);
+    }
+  };
+
+  console.log(shoppingList)
+
   const router = createBrowserRouter([
     {
       path: "/",
@@ -42,12 +61,12 @@ const App = () => {
       children: [
         {
           path: "/",
-          element: <Home setRecipeInfo={setRecipeInfo}/>,
+          element: <Home setRecipeInfo={setRecipeInfo} />,
         },
         {
           path: "/recipes",
           element: (
-            <Recipes recipeData={recipeData} setRecipeInfo={setRecipeInfo}/>
+            <Recipes recipeData={recipeData} setRecipeInfo={setRecipeInfo} />
           ),
         },
         {
@@ -56,6 +75,7 @@ const App = () => {
             <RecipeInfo
               recipeInfoId={recipeInfo}
               onUpdateFavorite={onUpdateFavorite}
+              onAddIngredients={onAddIngredients}
               favorites={favorites}
             />
           ),
@@ -68,15 +88,11 @@ const App = () => {
         },
         {
           path: "/shoppingList",
-          element: (
-            <ShoppingList />
-          ),
+          element: <ShoppingList shoppingList={shoppingList}/>,
         },
         {
           path: "/customRecipes",
-          element: (
-            <CustomRecipes />
-          ),
+          element: <CustomRecipes />,
         },
       ],
     },
