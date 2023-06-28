@@ -5,8 +5,9 @@ import RemoveIcon from "../UI/removeIcon";
 const ShoppingList = ({ shoppingList, onRemoveIngredients }) => {
   return (
     <>
-      {shoppingList <= 0 && <h1>Shopping List is Empty</h1>}
       <h1 className="text-3xl text-center m-3 font-Geologica">Shopping List</h1>
+      {shoppingList <= 0 && <div className="text-center mt-20 text-3xl">Browse Recipes to Add Ingredients to Shopping List!</div>}
+
       <div className="text-start p-4">
         {shoppingList.map((recipeIngredients, index) => {
           return (
@@ -16,7 +17,9 @@ const ShoppingList = ({ shoppingList, onRemoveIngredients }) => {
                   {recipeIngredients.title}
                 </h1>
                 <CheckIcon />
-                <div onClick={onRemoveIngredients.bind(null, recipeIngredients.id)}>
+                <div
+                  onClick={onRemoveIngredients.bind(null, recipeIngredients.id)}
+                >
                   <RemoveIcon />
                 </div>
               </div>
