@@ -2,7 +2,7 @@ import { useState } from "react";
 import CheckIcon from "../UI/checkIcon";
 import RemoveIcon from "../UI/removeIcon";
 
-const ShoppingList = ({ shoppingList }) => {
+const ShoppingList = ({ shoppingList, onRemoveIngredients }) => {
   return (
     <>
       {shoppingList <= 0 && <h1>Shopping List is Empty</h1>}
@@ -16,7 +16,9 @@ const ShoppingList = ({ shoppingList }) => {
                   {recipeIngredients.title}
                 </h1>
                 <CheckIcon />
-                <RemoveIcon />
+                <div onClick={onRemoveIngredients.bind(null, recipeIngredients.id)}>
+                  <RemoveIcon />
+                </div>
               </div>
               <ul>
                 {recipeIngredients.ingredients.map((items) => (

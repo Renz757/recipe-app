@@ -36,7 +36,7 @@ const App = () => {
     }
   };
 
-  const onAddIngredients = (ingredientObject) => {
+  const onUpdateIngredients = (ingredientObject) => {
     const existingIngredientIndex = shoppingList.findIndex(
       (index) => index.id === ingredientObject.id
     );
@@ -45,14 +45,19 @@ const App = () => {
 
     if (existingIngredients) {
       //if recipe is in favorites, remove
-      setShoppingList(shoppingList.filter((index) => index.id !== ingredientObject.id));
+      console.log('recipe is in the shopping cart ')
     } else {
       //if recipe is not in favorites, add
       setShoppingList([...shoppingList, ingredientObject]);
     }
   };
 
-  console.log(shoppingList)
+  const onRemoveIngredients = (id) => {
+    setShoppingList(shoppingList.filter(index => index.id !== id))
+    console.log(shoppingList)
+  }
+
+  
 
   const router = createBrowserRouter([
     {
@@ -75,7 +80,7 @@ const App = () => {
             <RecipeInfo
               recipeInfoId={recipeInfo}
               onUpdateFavorite={onUpdateFavorite}
-              onAddIngredients={onAddIngredients}
+              onUpdateIngredients={onUpdateIngredients}
               favorites={favorites}
             />
           ),
@@ -88,7 +93,7 @@ const App = () => {
         },
         {
           path: "/shoppingList",
-          element: <ShoppingList shoppingList={shoppingList}/>,
+          element: <ShoppingList shoppingList={shoppingList} onRemoveIngredients={onRemoveIngredients}/>,
         },
         {
           path: "/customRecipes",

@@ -2,7 +2,7 @@ import { useQuery } from "react-query";
 import axios from "axios";
 import HeartIcon from "../UI/heartIcon";
 
-const RecipeInfo = ({ recipeInfoId, onUpdateFavorite, favorites, onAddIngredients }) => {
+const RecipeInfo = ({ recipeInfoId, onUpdateFavorite, favorites, onUpdateIngredients }) => {
   const { data: recipeInfo } = useQuery("recipeInfo", async () => {
     const { data } = await axios
       .get(
@@ -34,9 +34,10 @@ const RecipeInfo = ({ recipeInfoId, onUpdateFavorite, favorites, onAddIngredient
       ingredients: recipeInfo.extendedIngredients.map(
         (items) => items.original
       ),
+      isComplete: false
     };
 
-    onAddIngredients(ingredientObject)
+    onUpdateIngredients(ingredientObject)
     
   };
 
