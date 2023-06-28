@@ -6,10 +6,7 @@ import MenuIcon from "../../UI/menuIcon";
 import ShoppingBagIcon from "../../UI/shoppingBagIcon";
 import Backdrop from "../../UI/Overlay";
 
-
 const Nav = (props) => {
-  
-
   const [isOpen, setIsOpen] = useState(false);
 
   const sideBarHandler = () => {
@@ -26,7 +23,9 @@ const Nav = (props) => {
             <h1 className="text-2xl font-Geologica">Recipe App</h1>
           </Link>
           <div className="flex items-center gap-3">
-            <ShoppingBagIcon />
+            <Link to="/shoppingList">
+              <ShoppingBagIcon />
+            </Link>
             <div onClick={sideBarHandler} className="md:hidden cursor-pointer">
               <MenuIcon />
             </div>
@@ -34,8 +33,12 @@ const Nav = (props) => {
         </div>
         {/* todo: add validation */}
 
-        <SearchRecipe setRecipeData={props.setRecipeData}/>
-        <SideMenu isOpen={isOpen} setSideBar={sideBarHandler} setRecipeData={props.setRecipeData} />
+        <SearchRecipe setRecipeData={props.setRecipeData} />
+        <SideMenu
+          isOpen={isOpen}
+          setSideBar={sideBarHandler}
+          setRecipeData={props.setRecipeData}
+        />
       </div>
     </>
   );

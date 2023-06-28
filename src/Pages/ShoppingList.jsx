@@ -4,8 +4,8 @@ import RemoveIcon from "../UI/removeIcon";
 
 const ShoppingList = ({ shoppingList, onRemoveIngredients }) => {
   return (
-    <>
-      <h1 className="text-3xl text-center m-3 font-Geologica">Shopping List</h1>
+    <div className="bg-eggshell h-screen">
+      <h1 className="text-3xl text-center p-3 font-Geologica">Shopping List</h1>
       {shoppingList <= 0 && <div className="text-center mt-20 text-3xl">Browse Recipes to Add Ingredients to Shopping List!</div>}
 
       <div className="text-start p-4">
@@ -38,7 +38,7 @@ const ShoppingList = ({ shoppingList, onRemoveIngredients }) => {
           );
         })}
       </div>
-    </>
+    </div>
   );
 };
 
