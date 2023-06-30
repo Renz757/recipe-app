@@ -1,10 +1,20 @@
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
 import HeartIcon from "../UI/heartIcon";
 import { useQueryClient } from "react-query";
+import { useDispatch } from "react-redux";
+import { navActions } from "../store";
 
 const Recipes = ({ recipeData, setRecipeInfo }) => {
   const queryClient = useQueryClient();
   const data = queryClient.getQueryData("recipes");
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(navActions.closeNav())
+  }, []);
+
+
   console.log(data);
   return (
     <>

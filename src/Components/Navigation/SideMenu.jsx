@@ -31,7 +31,6 @@ const SideMenu = (props) => {
         </div>
         <SearchRecipe
           setRecipeData={props.setRecipeData}
-          setSideBar={props.setSideBar}
         />
         <ul className="text-eggshell font-Geologica text-2xl flex flex-col items-start mt-6">
           <NavLinks />
