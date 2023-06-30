@@ -1,11 +1,15 @@
 import { useState } from "react";
 import { useQuery } from "react-query";
+import { useSelector, useDispatch } from "react-redux";
+import { navActions } from "../store";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import SearchIcon from "../UI/SearchIcon";
 
 const SearchRecipe = (props) => {
-  const [searchInput, setSearchInput] = useState("");
+  const searchInput = useSelector(state => state.searchInput)
+  const dispatch = useDispatch();
+  // const [searchInput, setSearchInput] = useState("");
   const { data, refetch } = useQuery(
     ["recpies"],
     async () => {
@@ -24,13 +28,13 @@ const SearchRecipe = (props) => {
     }
   );
 
-    if (data) {
-      props.setRecipeData(data);
-    }
+  //   if (data) {
+  //     props.setRecipeData(data);
+  //   }
 
   const searchHandler = (event) => {
     event.preventDefault();
-    setSearchInput(event.target.value);
+    dispatch(navActions.updateSearchInput(event.target.value))
   };
 
   return (

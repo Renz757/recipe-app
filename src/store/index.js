@@ -2,7 +2,8 @@ import { configureStore } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    isOpen: false
+    isOpen: false,
+    searchInput: ""
 }
 
 const navSlice = createSlice({
@@ -14,6 +15,9 @@ const navSlice = createSlice({
         },
         closeNav(state) {
             state.isOpen = false
+        },
+        updateSearchInput (state, action) {
+            state.searchInput = action.payload
         }
     }
 
