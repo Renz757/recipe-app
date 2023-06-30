@@ -1,22 +1,29 @@
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { navActions } from "../../store";
 
-const NavLinks = ({ setSideBar }) => {
+const NavLinks = () => {
+  const dispatch = useDispatch();
+  const sideBarHandler = () => {
+    dispatch(navActions.toggleNav())
+  };
+
   return (
     <>
       <Link to="/" className="hover:bg-vandyke w-full p-4">
-        <li onClick={setSideBar}>Home</li>
+        <li onClick={sideBarHandler}>Home</li>
       </Link>
       <Link to="recipes" className="hover:bg-vandyke w-full p-4">
-        <li onClick={setSideBar}>Recipes</li>
+        <li onClick={sideBarHandler}>Recipes</li>
       </Link>
       <Link to="favorites" className="hover:bg-vandyke w-full p-4">
-        <li onClick={setSideBar}>Favorite</li>
+        <li onClick={sideBarHandler}>Favorite</li>
       </Link>
       <Link to="/shoppingList" className="hover:bg-vandyke w-full p-4">
-        <li onClick={setSideBar}>Shopping List</li>
+        <li onClick={sideBarHandler}>Shopping List</li>
       </Link>
       <Link to="/customRecipes" className="hover:bg-vandyke w-full p-4">
-        <li onClick={setSideBar}>Add Custom Recipe</li>
+        <li onClick={sideBarHandler}>Add Custom Recipe</li>
       </Link>
     </>
   );

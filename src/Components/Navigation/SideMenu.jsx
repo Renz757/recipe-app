@@ -1,19 +1,27 @@
-import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { navActions } from "../../store";
 import ExitIcon from "../../UI/exitIcon";
 import NavLinks from "./NavLinks";
 import SearchRecipe from "../SearchRecipe";
 import { Link } from "react-router-dom";
 
 const SideMenu = (props) => {
+  const dispatch = useDispatch();
+  const isOpen = useSelector((state) => state.isOpen);
+
+  const sideBarHandler = () => {
+    dispatch(navActions.toggleNav())
+  };
+
   return (
     <>
       <div
         className={`w-72 h-screen  bg-darkgold fixed overflow-auto top-0 left-0 pt-8 transform transition-all ease-in-out duration-600 z-30 ${
-          props.isOpen ? "translate-x-0" : "translate-x-[-100%]"
+          isOpen ? "translate-x-0" : "translate-x-[-100%]"
         }`}
       >
         <div
-          onClick={props.setSideBar}
+          onClick={sideBarHandler}
           className="w-full flex justify-between p-5"
         >
           <Link to="/">
@@ -26,7 +34,7 @@ const SideMenu = (props) => {
           setSideBar={props.setSideBar}
         />
         <ul className="text-eggshell font-Geologica text-2xl flex flex-col items-start mt-6">
-          <NavLinks setSideBar={props.setSideBar} />
+          <NavLinks />
         </ul>
       </div>
     </>

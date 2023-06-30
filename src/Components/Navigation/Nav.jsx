@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { navActions } from "../../store";
 import SearchRecipe from "../SearchRecipe";
 import SideMenu from "./SideMenu";
 import MenuIcon from "../../UI/menuIcon";
@@ -7,11 +9,12 @@ import ShoppingBagIcon from "../../UI/shoppingBagIcon";
 import Backdrop from "../../UI/Overlay";
 
 const Nav = (props) => {
-  const [isOpen, setIsOpen] = useState(false);
+  // const [isOpen, setIsOpen] = useState(false);
+  const dispatch = useDispatch()
+  const isOpen = useSelector(state => state.isOpen)
 
   const sideBarHandler = () => {
-    setIsOpen(!isOpen);
-    console.log("click");
+    dispatch(navActions.toggleNav())
   };
 
   return (
