@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { navActions } from "../../store";
 import SearchRecipe from "../SearchRecipe";
@@ -8,8 +7,7 @@ import MenuIcon from "../../UI/menuIcon";
 import ShoppingBagIcon from "../../UI/shoppingBagIcon";
 import Backdrop from "../../UI/Overlay";
 
-const Nav = (props) => {
-  // const [isOpen, setIsOpen] = useState(false);
+const Nav = () => {
   const dispatch = useDispatch()
   const isOpen = useSelector(state => state.isOpen)
 
@@ -19,7 +17,7 @@ const Nav = (props) => {
 
   return (
     <>
-      {isOpen && <Backdrop closeSideBar={sideBarHandler} />}
+      {isOpen && <div onClick={sideBarHandler}><Backdrop /></div>}
       <div className="bg-darkgold flex flex-col justify-center items-center p-7">
         <div className="flex w-full justify-between p-6 items-center">
           <Link to="/">
@@ -36,12 +34,8 @@ const Nav = (props) => {
         </div>
         {/* todo: add validation */}
 
-        <SearchRecipe setRecipeData={props.setRecipeData} />
-        <SideMenu
-          isOpen={isOpen}
-          setSideBar={sideBarHandler}
-          setRecipeData={props.setRecipeData}
-        />
+        <SearchRecipe />
+        <SideMenu/>
       </div>
     </>
   );

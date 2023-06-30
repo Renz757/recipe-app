@@ -9,8 +9,7 @@ import SearchIcon from "../UI/SearchIcon";
 const SearchRecipe = (props) => {
   const searchInput = useSelector(state => state.searchInput)
   const dispatch = useDispatch();
-  // const [searchInput, setSearchInput] = useState("");
-  const { data, refetch } = useQuery(
+  const { refetch } = useQuery(
     ["recpies"],
     async () => {
       const { data } = await axios.get(

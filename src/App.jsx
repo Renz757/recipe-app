@@ -12,7 +12,6 @@ import RootLayout from "./Pages/Root";
 const App = () => {
   //make a context with use reducer hook or implement redux for state management
 
-  const [recipeData, setRecipeData] = useState([]);
   const [recipeInfo, setRecipeInfo] = useState([]);
   const [favorites, setFavorites] = useState([]);
   const [shoppingList, setShoppingList] = useState([]);
@@ -62,7 +61,7 @@ const App = () => {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <RootLayout setRecipeData={setRecipeData} />,
+      element: <RootLayout  />,
       children: [
         {
           path: "/",
@@ -71,7 +70,7 @@ const App = () => {
         {
           path: "/recipes",
           element: (
-            <Recipes recipeData={recipeData} setRecipeInfo={setRecipeInfo} />
+            <Recipes  setRecipeInfo={setRecipeInfo} />
           ),
         },
         {
