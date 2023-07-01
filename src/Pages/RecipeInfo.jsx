@@ -1,8 +1,7 @@
 import { useQuery } from "react-query";
 import axios from "axios";
 import HeartIcon from "../UI/heartIcon";
-import { db } from "../firebase_setup/firebase";
-import { ref, set } from "firebase/database";
+
 const RecipeInfo = ({ recipeInfoId, onUpdateFavorite, favorites, onUpdateIngredients }) => {
   const { data: recipeInfo } = useQuery("recipeInfo", async () => {
     const { data } = await axios
@@ -25,10 +24,6 @@ const RecipeInfo = ({ recipeInfoId, onUpdateFavorite, favorites, onUpdateIngredi
       isFavorite: true,
     };
 
-    const reference = ref(db, 'favorites')
-    set(reference , {
-      ...favObject
-    })
 
     onUpdateFavorite(favObject);
   };

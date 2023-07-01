@@ -9,6 +9,7 @@ import ShoppingList from "./Pages/shoppingList";
 import CustomRecipes from "./Pages/CustomRecipes";
 import RootLayout from "./Pages/Root";
 
+
 const App = () => {
   //make a context with use reducer hook or implement redux for state management
 
