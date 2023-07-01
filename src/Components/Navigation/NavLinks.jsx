@@ -1,11 +1,13 @@
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { navActions } from "../../store";
 
 const NavLinks = () => {
   const dispatch = useDispatch();
+  const isOpen = useSelector(state => state.isOpen)
   const sideBarHandler = () => {
     dispatch(navActions.toggleNav())
+    console.log(isOpen)
   };
 
   return (
