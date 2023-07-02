@@ -1,4 +1,3 @@
-import { useState } from "react";
 import CheckIcon from "../UI/checkIcon";
 import RemoveIcon from "../UI/removeIcon";
 

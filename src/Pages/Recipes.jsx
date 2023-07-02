@@ -1,13 +1,12 @@
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
-import HeartIcon from "../UI/heartIcon";
 import { useQuery } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
 import { navActions } from "../store";
 
 const Recipes = ({ setRecipeInfo }) => {
   const searchInput = useSelector(state => state.searchInput)
-  const { data: recipeData } = useQuery(
+  const { data: recipeData, isLoading } = useQuery(
     ["recpies"],
     async () => {
       const { data } = await axios.get(
@@ -37,8 +36,8 @@ const Recipes = ({ setRecipeInfo }) => {
 
   return (
     <>
-      {recipeData == [] ? (
-        <p>Search a Recipe!</p>
+      {isLoading ? (
+        <p>...Loading</p>
       ) : (
         recipeData.map((recipe, index) => {
           return (

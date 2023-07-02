@@ -3,7 +3,7 @@ import axios from "axios";
 import HeartIcon from "../UI/heartIcon";
 
 const RecipeInfo = ({ recipeInfoId, onUpdateFavorite, favorites, onUpdateIngredients }) => {
-  const { data: recipeInfo } = useQuery("recipeInfo", async () => {
+  const { data: recipeInfo, isLoading } = useQuery("recipeInfo", async () => {
     const { data } = await axios
       .get(
         `https://api.spoonacular.com/recipes/${recipeInfoId}/information?apiKey=${
@@ -44,7 +44,7 @@ const RecipeInfo = ({ recipeInfoId, onUpdateFavorite, favorites, onUpdateIngredi
 
   return (
     <>
-      {!recipeInfo ? (
+      {!recipeInfo || isLoading ? (
         <h1>Loading...</h1>
       ) : (
         <div key={recipeInfo.id} className="bg-saffron">

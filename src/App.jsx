@@ -9,7 +9,7 @@ import ShoppingList from "./Pages/shoppingList";
 import CustomRecipes from "./Pages/CustomRecipes";
 import RootLayout from "./Pages/Root";
 import { db } from "./firebase_setup/firebase";
-import { collection, getDocs, addDoc, onSnapshot, doc, deleteDoc } from "firebase/firestore";
+import { collection, addDoc, onSnapshot, doc, deleteDoc } from "firebase/firestore";
 
 const App = () => {
   //make a context with use reducer hook or implement redux for state management

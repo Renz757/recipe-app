@@ -1,6 +1,4 @@
-import { useState } from "react";
 import { useQuery } from "react-query";
-import axios from "axios";
 import { Link } from "react-router-dom";
 import { getRandomRecipe } from "../http-functions/https-functions";
 
@@ -14,7 +12,6 @@ const Home = ({ setRecipeInfo }) => {
     staleTime: Infinity,
   });
 
-  console.log(recipeInfo);
   if (isError) {
     return <h1>{`An Error Has Occured ${error}`}</h1>;
   }

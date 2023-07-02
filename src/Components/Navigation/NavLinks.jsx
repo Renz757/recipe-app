@@ -7,7 +7,6 @@ const NavLinks = () => {
   const isOpen = useSelector(state => state.isOpen)
   const sideBarHandler = () => {
     dispatch(navActions.toggleNav())
-    console.log(isOpen)
   };
 
   return (
