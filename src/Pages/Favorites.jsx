@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 //todo: style favorites page
 
 const Favorites = ({ favorites, getIngredients, setRecipeInfo }) => {
-  console.log(favorites);
   return (
     <div className="bg-eggshell h-screen">
       {favorites <= 0 ? (

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ReactQueryDevtools } from "react-query/devtools";
 import Home from "./Pages/Home";
@@ -8,16 +8,23 @@ import Favorites from "./Pages/Favorites";
 import ShoppingList from "./Pages/shoppingList";
 import CustomRecipes from "./Pages/CustomRecipes";
 import RootLayout from "./Pages/Root";
-
+import { db } from "./firebase_setup/firebase";
+import { collection, getDocs, addDoc, onSnapshot, doc, deleteDoc } from "firebase/firestore";
 
 const App = () => {
   //make a context with use reducer hook or implement redux for state management
-
   const [recipeInfo, setRecipeInfo] = useState([]);
   const [favorites, setFavorites] = useState([]);
   const [shoppingList, setShoppingList] = useState([]);
 
-  //implement localStorage ... eventually firebase
+  const colRef = collection(db, "favorites");
+  useEffect(() => {
+    onSnapshot(colRef, (snapshot) => {
+
+      setFavorites(snapshot.docs.map((doc) => ({ ...doc.data(), dbID: doc.id })));
+    })
+  }, []);
+
   //check if receipe is already in favorites
   const onUpdateFavorite = (favObject) => {
     //if id's match, get index of favorite
@@ -29,10 +36,13 @@ const App = () => {
 
     if (existingFavorite) {
       //if recipe is in favorites, remove
-      setFavorites(favorites.filter((index) => index.id !== favObject.id));
+      const docRef = doc(db, 'favorites', existingFavorite.dbID)
+      deleteDoc(docRef)
     } else {
       //if recipe is not in favorites, add
-      setFavorites([...favorites, favObject]);
+      addDoc(colRef, {
+        ...favObject,
+      });
     }
   };
 
@@ -45,7 +55,7 @@ const App = () => {
 
     if (existingIngredients) {
       //if recipe is in favorites, remove
-      console.log('recipe is in the shopping cart ')
+      console.log("recipe is in the shopping cart ");
     } else {
       //if recipe is not in favorites, add
       setShoppingList([...shoppingList, ingredientObject]);
@@ -53,16 +63,14 @@ const App = () => {
   };
 
   const onRemoveIngredients = (id) => {
-    setShoppingList(shoppingList.filter(index => index.id !== id))
-    console.log(shoppingList)
-  }
-
-  
+    setShoppingList(shoppingList.filter((index) => index.id !== id));
+    console.log(shoppingList);
+  };
 
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <RootLayout  />,
+      element: <RootLayout />,
       children: [
         {
           path: "/",
@@ -70,9 +78,7 @@ const App = () => {
         },
         {
           path: "/recipes",
-          element: (
-            <Recipes  setRecipeInfo={setRecipeInfo} />
-          ),
+          element: <Recipes setRecipeInfo={setRecipeInfo} />,
         },
         {
           path: "/recipeInfo/:recipeId",
@@ -93,7 +99,12 @@ const App = () => {
         },
         {
           path: "/shoppingList",
-          element: <ShoppingList shoppingList={shoppingList} onRemoveIngredients={onRemoveIngredients}/>,
+          element: (
+            <ShoppingList
+              shoppingList={shoppingList}
+              onRemoveIngredients={onRemoveIngredients}
+            />
+          ),
         },
         {
           path: "/customRecipes",
