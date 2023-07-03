@@ -9,7 +9,7 @@ import Backdrop from "../../UI/Overlay";
 
 const Nav = () => {
   const dispatch = useDispatch()
-  const isOpen = useSelector(state => state.isOpen)
+  const isOpen = useSelector(state => state.nav.isOpen)
 
   const sideBarHandler = () => {
     dispatch(navActions.toggleNav())

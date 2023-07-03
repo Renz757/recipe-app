@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 
 const SideMenu = (props) => {
   const dispatch = useDispatch();
-  const isOpen = useSelector((state) => state.isOpen);
+  const isOpen = useSelector((state) => state.nav.isOpen);
 
   const sideBarHandler = () => {
     dispatch(navActions.toggleNav())

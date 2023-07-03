@@ -4,7 +4,6 @@ import { navActions } from "../../store/nav-slice";
 
 const NavLinks = () => {
   const dispatch = useDispatch();
-  const isOpen = useSelector(state => state.isOpen)
   const sideBarHandler = () => {
     dispatch(navActions.toggleNav())
   };

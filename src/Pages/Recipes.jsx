@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { navActions } from "../store/nav-slice";
 
 const Recipes = ({ setRecipeInfo }) => {
-  const searchInput = useSelector(state => state.searchInput)
+  const searchInput = useSelector(state => state.nav.searchInput)
   const { data: recipeData, isLoading } = useQuery(
     ["recpies"],
     async () => {

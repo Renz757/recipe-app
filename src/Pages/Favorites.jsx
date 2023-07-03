@@ -1,8 +1,28 @@
 import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { favActions } from "../store/favorites-slice";
+import { collection, onSnapshot } from "firebase/firestore";
+import { db } from "../firebase_setup/firebase";
+import { useEffect } from "react";
 
 //todo: style favorites page
 
-const Favorites = ({ favorites, getIngredients, setRecipeInfo }) => {
+const Favorites = ({  setRecipeInfo }) => {
+  const dispatch = useDispatch()
+  const colRef = collection(db, "favorites");
+
+  useEffect(() => {
+    onSnapshot(colRef, (snapshot) => {
+      let favorites = [];
+      for (const doc of snapshot.docs) {
+        favorites.push({ ...doc.data(), dbID: doc.id });
+      }
+      dispatch(favActions.initialize(favorites))
+    });
+  }, []);
+
+  const favorites = useSelector((state) => state.favorites.favoriteRecipes);
+  
   return (
     <div className="bg-eggshell h-screen">
       {favorites <= 0 ? (

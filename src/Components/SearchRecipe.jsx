@@ -6,7 +6,7 @@ import axios from "axios";
 import SearchIcon from "../UI/SearchIcon";
 
 const SearchRecipe = (props) => {
-  const searchInput = useSelector(state => state.searchInput)
+  const searchInput = useSelector(state => state.nav.searchInput)
   const dispatch = useDispatch();
   const { refetch } = useQuery(
     ["recpies"],
