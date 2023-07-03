@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { navActions } from "../../store";
+import { navActions } from "../../store/nav-slice";
 
 const NavLinks = () => {
   const dispatch = useDispatch();

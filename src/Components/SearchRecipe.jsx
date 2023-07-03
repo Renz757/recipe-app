@@ -1,6 +1,6 @@
 import { useQuery } from "react-query";
 import { useSelector, useDispatch } from "react-redux";
-import { navActions } from "../store";
+import { navActions } from "../store/nav-slice";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import SearchIcon from "../UI/SearchIcon";

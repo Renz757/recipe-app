@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { navActions } from "../../store";
+import { navActions } from "../../store/nav-slice";
 import SearchRecipe from "../SearchRecipe";
 import SideMenu from "./SideMenu";
 import MenuIcon from "../../UI/menuIcon";

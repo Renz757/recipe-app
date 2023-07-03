@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { navActions } from "../../store";
+import { navActions } from "../../store/nav-slice";
 import ExitIcon from "../../UI/exitIcon";
 import NavLinks from "./NavLinks";
 import SearchRecipe from "../SearchRecipe";

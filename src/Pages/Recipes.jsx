@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import { useQuery } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
-import { navActions } from "../store";
+import { navActions } from "../store/nav-slice";
 
 const Recipes = ({ setRecipeInfo }) => {
   const searchInput = useSelector(state => state.searchInput)
