@@ -1,8 +1,13 @@
 import { useQuery } from "react-query";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { favActions } from "../store/favorites-slice";
 import HeartIcon from "../UI/heartIcon";
 
-const RecipeInfo = ({ recipeInfoId, onUpdateFavorite, favorites, onUpdateIngredients }) => {
+const RecipeInfo = ({ recipeInfoId, onUpdateIngredients }) => {
+  const dispatch = useDispatch();
+  const favorites = useSelector((state) => state.favorites.favoriteRecipes);
+
   const { data: recipeInfo, isLoading } = useQuery("recipeInfo", async () => {
     const { data } = await axios
       .get(
@@ -12,6 +17,7 @@ const RecipeInfo = ({ recipeInfoId, onUpdateFavorite, favorites, onUpdateIngredi
       )
       .catch((err) => {
         console.log(err);
+        return <p>{err}</p>;
       });
     return data;
   });
@@ -24,8 +30,7 @@ const RecipeInfo = ({ recipeInfoId, onUpdateFavorite, favorites, onUpdateIngredi
       isFavorite: true,
     };
 
-
-    onUpdateFavorite(favObject);
+    dispatch(favActions.updateFavorite(favObject));
   };
 
   const shoppingListHandler = (id, title) => {
@@ -35,11 +40,10 @@ const RecipeInfo = ({ recipeInfoId, onUpdateFavorite, favorites, onUpdateIngredi
       ingredients: recipeInfo.extendedIngredients.map(
         (items) => items.original
       ),
-      isComplete: false
+      isComplete: false,
     };
 
-    onUpdateIngredients(ingredientObject)
-    
+    onUpdateIngredients(ingredientObject);
   };
 
   return (

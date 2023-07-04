@@ -7,8 +7,8 @@ import { useEffect } from "react";
 
 //todo: style favorites page
 
-const Favorites = ({  setRecipeInfo }) => {
-  const dispatch = useDispatch()
+const Favorites = ({ setRecipeInfo }) => {
+  const dispatch = useDispatch();
   const colRef = collection(db, "favorites");
 
   useEffect(() => {
@@ -17,12 +17,13 @@ const Favorites = ({  setRecipeInfo }) => {
       for (const doc of snapshot.docs) {
         favorites.push({ ...doc.data(), dbID: doc.id });
       }
-      dispatch(favActions.initialize(favorites))
+      dispatch(favActions.initialize(favorites));
     });
   }, []);
 
   const favorites = useSelector((state) => state.favorites.favoriteRecipes);
-  
+
+
   return (
     <div className="bg-eggshell h-screen">
       {favorites <= 0 ? (
