@@ -14,7 +14,7 @@ const App = () => {
   const [recipeInfo, setRecipeInfo] = useState([]);
   const [shoppingList, setShoppingList] = useState([]);
 
-
+  //todo: merge shoppingList state to redux 
   const onUpdateIngredients = (ingredientObject) => {
     const existingIngredientIndex = shoppingList.findIndex(
       (index) => index.id === ingredientObject.id
@@ -23,10 +23,10 @@ const App = () => {
     const existingIngredients = shoppingList[existingIngredientIndex];
 
     if (existingIngredients) {
-      //if recipe is in favorites, remove
+      //if recipe is in list, remove
       console.log("recipe is in the shopping cart ");
     } else {
-      //if recipe is not in favorites, add
+      //if recipe is not in list, add
       setShoppingList([...shoppingList, ingredientObject]);
     }
   };
@@ -61,9 +61,7 @@ const App = () => {
         },
         {
           path: "/favorites",
-          element: (
-            <Favorites setRecipeInfo={setRecipeInfo}/>
-          ),
+          element: <Favorites setRecipeInfo={setRecipeInfo} />,
         },
         {
           path: "/shoppingList",

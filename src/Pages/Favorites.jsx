@@ -11,6 +11,7 @@ const Favorites = ({ setRecipeInfo }) => {
   const dispatch = useDispatch();
   const colRef = collection(db, "favorites");
 
+  //initialize favorites state from firebase on component mount 
   useEffect(() => {
     onSnapshot(colRef, (snapshot) => {
       let favorites = [];
@@ -22,7 +23,6 @@ const Favorites = ({ setRecipeInfo }) => {
   }, []);
 
   const favorites = useSelector((state) => state.favorites.favoriteRecipes);
-
 
   return (
     <div className="bg-eggshell h-screen">

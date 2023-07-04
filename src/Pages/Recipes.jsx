@@ -30,6 +30,7 @@ const Recipes = ({ setRecipeInfo }) => {
 
   const dispatch = useDispatch();
 
+  //close nav on component mount 
   useEffect(() => {
     dispatch(navActions.closeNav());
   }, []);

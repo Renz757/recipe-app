@@ -22,7 +22,7 @@ export const favoriteSlice = createSlice({
             const existingFavoriteIndex = currentState.findIndex(
                 (index) => index.id === action.payload.id
             );
-            
+
             const existingFavorite = currentState[existingFavoriteIndex];
 
             if (existingFavorite) {
