@@ -6,7 +6,6 @@ import { db } from "../firebase_setup/firebase";
 import { useEffect } from "react";
 
 //todo: style favorites page
-
 const Favorites = ({ setRecipeInfo }) => {
   const dispatch = useDispatch();
   const colRef = collection(db, "favorites");

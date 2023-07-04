@@ -1,11 +1,38 @@
+import { useEffect } from "react";
+import { onSnapshot, collection } from "firebase/firestore";
+import { db } from "../firebase_setup/firebase";
+import { shoppingListActions } from "../store/shoppingList-slice";
+import { useSelector, useDispatch } from "react-redux";
 import CheckIcon from "../UI/checkIcon";
 import RemoveIcon from "../UI/removeIcon";
 
-const ShoppingList = ({ shoppingList, onRemoveIngredients }) => {
+const ShoppingList = ({ onRemoveIngredients }) => {
+  const colRef = collection(db, "shoppingList");
+
+  useEffect(() => {
+    onSnapshot(colRef, (snapshot) => {
+      let shoppingList = [];
+      for (const doc of snapshot.docs) {
+        shoppingList.push({ ...doc.data(), dbID: doc.id });
+      }
+      dispatch(shoppingListActions.initialize(shoppingList));
+    });
+  }, []);
+
+  const dispatch = useDispatch();
+  const shoppingList = useSelector((state) => state.shoppingList.shoppingList);
+
+  if (!shoppingList) return <p>not today</p>;
+
   return (
     <div className="bg-eggshell h-screen">
       <h1 className="text-3xl text-center p-3 font-Geologica">Shopping List</h1>
-      {shoppingList <= 0 && <div className="text-center mt-20 text-3xl">Browse Recipes to Add Ingredients to Shopping List!</div>}
+      {}
+      {shoppingList == [] && (
+        <div className="text-center mt-20 text-3xl">
+          Browse Recipes to Add Ingredients to Shopping List!
+        </div>
+      )}
 
       <div className="text-start p-4">
         {shoppingList.map((recipeIngredients, index) => {
