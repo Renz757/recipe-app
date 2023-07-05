@@ -1,10 +1,11 @@
 import { useState } from "react";
+import CustomRecipeForm from "../Components/CustomRecipeForm/CustomRecipeForm";
 
 const CustomRecipes = () => {
   const [customRepices, setCustomRecipes] = useState([]);
   return (
     <>
-     {customRepices ? <h1>No Custom Recipes</h1> : <h1>Custom Recipes</h1>}
+     <CustomRecipeForm />
     </>
   );
 };
