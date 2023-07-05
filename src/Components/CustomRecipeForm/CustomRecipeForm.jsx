@@ -19,19 +19,19 @@ const CustomRecipeForm = () => {
 
   return (
     <>
-      <h1 className="text-3xl">Custom Recipe</h1>
-      <form className="">
-        <div>{pageTitles[page]}</div>
+      <h1 className="text-3xl text-center">Custom Recipe</h1>
+      <form className="h-screen flex flex-col items-center p-10 relative">
         {/* Form Components */}
         <div>{showPage()}</div>
         {/* Controls */}
-        <div className="flex gap-3">
+        <div className="flex gap-3 mt-12">
           <button
             disabled={page <= 0}
             onClick={() => {
               setPage((curPage) => curPage - 1);
             }}
-            className="p-2 bg-blue-700"
+            className="px-7 py-2
+             bg-zinc-400 rounded"
             type="button"
           >
             Prev
@@ -41,7 +41,8 @@ const CustomRecipeForm = () => {
             onClick={() => {
               setPage((curPage) => curPage + 1);
             }}
-            className="p-2 bg-blue-700"
+            className="px-7 py-2
+             bg-zinc-400 rounded"
             type="button"
           >
             {page == pageTitles.length - 1 ? "Submit" : "Next"}
