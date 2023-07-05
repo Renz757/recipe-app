@@ -2,6 +2,7 @@ import { useQuery } from "react-query";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { favActions } from "../store/favorites-slice";
+import { shoppingListActions } from "../store/shoppingList-slice";
 import HeartIcon from "../UI/heartIcon";
 
 const RecipeInfo = ({ recipeInfoId, onUpdateIngredients }) => {
@@ -43,7 +44,7 @@ const RecipeInfo = ({ recipeInfoId, onUpdateIngredients }) => {
       isComplete: false,
     };
 
-    onUpdateIngredients(ingredientObject);
+    dispatch(shoppingListActions.addIngredients(ingredientObject))
   };
 
   return (

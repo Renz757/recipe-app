@@ -10,7 +10,7 @@ const Favorites = ({ setRecipeInfo }) => {
   const dispatch = useDispatch();
   const colRef = collection(db, "favorites");
 
-  //initialize favorites state from firebase on component mount 
+  //initialize favorites state in redux from firebase on component mount 
   useEffect(() => {
     onSnapshot(colRef, (snapshot) => {
       let favorites = [];
