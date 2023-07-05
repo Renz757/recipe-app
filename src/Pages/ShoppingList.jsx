@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import CheckIcon from "../UI/checkIcon";
 import RemoveIcon from "../UI/removeIcon";
 
-const ShoppingList = ({ onRemoveIngredients }) => {
+const ShoppingList = () => {
   const colRef = collection(db, "shoppingList");
 
   useEffect(() => {
@@ -22,13 +22,15 @@ const ShoppingList = ({ onRemoveIngredients }) => {
   const dispatch = useDispatch();
   const shoppingList = useSelector((state) => state.shoppingList.shoppingList);
 
-  if (!shoppingList) return <p>not today</p>;
+  const removeHandler = (id) => {
+    dispatch(shoppingListActions.removeIngredients(id));
+  }
 
   return (
     <div className="bg-eggshell h-screen">
       <h1 className="text-3xl text-center p-3 font-Geologica">Shopping List</h1>
       {}
-      {shoppingList == [] && (
+      {!shoppingList && (
         <div className="text-center mt-20 text-3xl">
           Browse Recipes to Add Ingredients to Shopping List!
         </div>
@@ -44,7 +46,7 @@ const ShoppingList = ({ onRemoveIngredients }) => {
                 </h1>
                 <CheckIcon />
                 <div
-                  onClick={onRemoveIngredients.bind(null, recipeIngredients.id)}
+                  onClick={removeHandler.bind(null, recipeIngredients.dbID)}
                 >
                   <RemoveIcon />
                 </div>

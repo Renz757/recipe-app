@@ -1,6 +1,6 @@
 import { createSlice, current } from "@reduxjs/toolkit";
 import { db } from "../firebase_setup/firebase";
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, doc, deleteDoc } from "firebase/firestore";
 
 const colRef = collection(db, 'shoppingList');
 
@@ -29,13 +29,14 @@ export const shoppingListSlice = createSlice({
                 addDoc(colRef, { ...action.payload });
             }
         },
-        removeIngredients(state, actions) {
+        removeIngredients(state, action) {
+            const docRef = doc(db, "shoppingList", action.payload)
+            deleteDoc(docRef)
+        },
+        clearTodos(state, action) {
 
         },
-        clearTodos(state, actions) {
-
-        },
-        updateIsComplete(state, actions) {
+        updateIsComplete(state, action) {
 
         }
     }
