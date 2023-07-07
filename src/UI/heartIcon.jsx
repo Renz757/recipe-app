@@ -1,4 +1,9 @@
-const HeartIcon = ({ favorites, currentId }) => {
+import { useSelector } from "react-redux";
+
+const HeartIcon = ({ currentId }) => {
+
+  const favorites = useSelector((state) => state.favorites.favoriteRecipes);
+
   let isFavorite = false;
   favorites.map((favorite) => {
     if (currentId === favorite.id) {
