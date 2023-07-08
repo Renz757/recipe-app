@@ -17,10 +17,14 @@ const CustomRecipeForm = () => {
     }
   };
 
+  const submitHandler = (event) => {
+    event.preventDefault()
+  };
+
   return (
     <>
-      <h1 className="text-3xl text-center">Custom Recipe</h1>
-      <form className="h-screen flex flex-col items-center p-10 relative">
+      <h1 className="text-3xl text-center">{pageTitles[page]}</h1>
+      <form onSubmit={submitHandler} className="h-screen flex flex-col items-center p-10 relative">
         {/* Form Components */}
         <div>{showPage()}</div>
         {/* Controls */}
