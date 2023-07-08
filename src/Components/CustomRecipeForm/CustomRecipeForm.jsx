@@ -22,13 +22,13 @@ const CustomRecipeForm = () => {
   };
 
   return (
-    <>
+    <div className="mt-20">
       <h1 className="text-3xl text-center">{pageTitles[page]}</h1>
       <form onSubmit={submitHandler} className="h-screen flex flex-col items-center p-10 relative">
         {/* Form Components */}
         <div>{showPage()}</div>
         {/* Controls */}
-        <div className="flex gap-3 mt-12">
+        <div className="flex gap-3 mt-12 absolute top-[625px]">
           <button
             disabled={page <= 0}
             onClick={() => {
@@ -53,7 +53,7 @@ const CustomRecipeForm = () => {
           </button>
         </div>
       </form>
-    </>
+    </div>
   );
 };
 

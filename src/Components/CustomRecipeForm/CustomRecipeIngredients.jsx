@@ -1,10 +1,11 @@
 import React from "react";
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import RemoveIcon from "../../UI/removeIcon";
 
 //todo: add input to add ingredients\
 const CustomRecipeIngredients = () => {
 
+  //initialize localStorage and ingredient state 
   const ingredientArray = JSON.parse(
     localStorage.getItem("ingredientArray") || "[]"
   );
@@ -13,10 +14,7 @@ const CustomRecipeIngredients = () => {
   const [ingredientList, setIngredientList] = useState(ingredientArray);
   const [item, setItem] = useState("");
 
-  useEffect(() => {}, []);
-
-  const addIngredient = (event) => {
-    event.preventDefault();
+  const addIngredient = () => {
     setIngredientList([...ingredientList, item]);
     localStorage.setItem(
       "ingredientArray",
@@ -76,14 +74,14 @@ const CustomRecipeIngredients = () => {
         </button>
       </div>
 
-      <ul>
+      <ul className="overflow-x-scroll no-scrollbar h-3/6 border-none p-0">
         {ingredientList.map((item, index) => {
           return (
             <div
               key={index}
               className="flex items-center justify-between pt-6 pb-2 border-b-2 border-zinc-200"
             >
-              <li>{item}</li>
+              <li className="p-0 border-none">{item}</li>
               <div onClick={removeIngredient.bind(null, index)}>
                 <RemoveIcon />
               </div>
