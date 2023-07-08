@@ -1,5 +1,6 @@
 import React from "react";
 import { useEffect, useState } from "react";
+import RemoveIcon from "../../UI/removeIcon";
 
 //todo: add input to add ingredients
 const CustomRecipeIngredients = () => {
@@ -13,6 +14,14 @@ const CustomRecipeIngredients = () => {
     event.preventDefault();
     setIngredientList([...ingredientList, item]);
     setItem(" ");
+  };
+
+  const removeIngredient = (index) => {
+    setIngredientList(
+      ingredientList.filter(
+        (itemIndex) => ingredientList.indexOf(itemIndex) !== index
+      )
+    );
   };
 
   const inputHandler = (event) => {
@@ -48,7 +57,17 @@ const CustomRecipeIngredients = () => {
 
       <ul>
         {ingredientList.map((item, index) => {
-          return <li key={index}>{item}</li>;
+          return (
+            <div
+              key={index}
+              className="flex items-center justify-between pt-6 pb-2 border-b-2 border-zinc-200"
+            >
+              <li>{item}</li>
+              <div onClick={removeIngredient.bind(null, index)}>
+                <RemoveIcon />
+              </div>
+            </div>
+          );
         })}
       </ul>
     </>
