@@ -2,10 +2,15 @@ import React from "react";
 import { useEffect, useState } from "react";
 import RemoveIcon from "../../UI/removeIcon";
 
-//todo: add input to add ingredients
+//todo: add input to add ingredients\
 const CustomRecipeIngredients = () => {
+
+  const ingredientArray = JSON.parse(
+    localStorage.getItem("ingredientArray") || "[]"
+  );
+
   //Add ingredientList to local Storage to persist after page reload
-  const [ingredientList, setIngredientList] = useState([]);
+  const [ingredientList, setIngredientList] = useState(ingredientArray);
   const [item, setItem] = useState("");
 
   useEffect(() => {}, []);
@@ -13,6 +18,10 @@ const CustomRecipeIngredients = () => {
   const addIngredient = (event) => {
     event.preventDefault();
     setIngredientList([...ingredientList, item]);
+    localStorage.setItem(
+      "ingredientArray",
+      JSON.stringify([...ingredientList, item])
+    );
     setItem(" ");
   };
 
@@ -20,6 +29,14 @@ const CustomRecipeIngredients = () => {
     setIngredientList(
       ingredientList.filter(
         (itemIndex) => ingredientList.indexOf(itemIndex) !== index
+      )
+    );
+    localStorage.setItem(
+      "ingredientArray",
+      JSON.stringify(
+        ingredientList.filter(
+          (itemIndex) => ingredientList.indexOf(itemIndex) !== index
+        )
       )
     );
   };
@@ -41,6 +58,10 @@ const CustomRecipeIngredients = () => {
           onKeyUp={(event) => {
             if (event.key === "Enter") {
               setIngredientList([...ingredientList, item]);
+              localStorage.setItem(
+                "ingredientArray",
+                JSON.stringify([...ingredientList, item])
+              );
               setItem(" ");
             }
           }}
