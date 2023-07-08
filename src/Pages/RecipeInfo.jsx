@@ -94,6 +94,8 @@ const RecipeInfo = ({ recipeInfoId, onUpdateIngredients }) => {
                 </p>
               );
             })}
+
+            {/* Todo: show modal onClick */}
             <button
               onClick={shoppingListHandler.bind(
                 null,

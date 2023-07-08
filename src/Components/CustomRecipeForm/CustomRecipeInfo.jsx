@@ -1,5 +1,7 @@
 import React from "react";
 
+//revise form input styling 
+
 const CustomRecipeInfo = () => {
   return (
     <div className="flex flex-col gap-3 justify-between font-noto mt-14">
