@@ -30,6 +30,10 @@ const CustomRecipeForm = () => {
     setPage(0);
   };
 
+  const prevPage = () => {
+    setPage((curPage) => curPage - 1);
+  };
+
   const nextPage = () => {
     if (page == 3) {
       submitHandler;
@@ -38,12 +42,24 @@ const CustomRecipeForm = () => {
     }
   };
 
+  const progressBarStyles = () => {
+    if (page === 1) {
+      return "w-8/12";
+    } else if (page === 2) {
+      return "w-12/12 rounded-r-xl";
+    }
+    return "w-4/12";
+  };
+
   return (
-    <div className="mt-20">
+    <div className="mt-20 border-blue-400 ">
       <h1 className="text-3xl text-center">{pageTitles[page]}</h1>
+      <div className="mx-auto w-9/12 pt-7">
+        <div className={`h-3 bg-blue-500 rounded-l-xl ${progressBarStyles()}`}></div>
+      </div>
       <form
         onSubmit={submitHandler}
-        className="h-screen flex flex-col items-center p-10 relative"
+        className="h-screen flex flex-col items-center relative"
       >
         {/* Form Components */}
         <div>{showPage()}</div>
@@ -51,9 +67,7 @@ const CustomRecipeForm = () => {
         <div className="flex gap-3 mt-12 absolute top-[625px]">
           <button
             disabled={page <= 0}
-            onClick={() => {
-              setPage((curPage) => curPage - 1);
-            }}
+            onClick={prevPage}
             className="px-7 py-2
              bg-zinc-400 rounded"
             type="button"

@@ -25,7 +25,7 @@ const CustomRecipeInfo = () => {
   }
 
   return (
-    <div className="flex flex-col gap-3 justify-between font-noto mt-14">
+    <div className="flex flex-col gap-10 justify-between font-noto mt-7">
       <div className="flex gap-2 items-center  justify-between">
         <label className="text-2xl">Title:</label>
         <input value={recipeInfo.title} onChange={titleHandler} id="title" type="text" className="border p-2 rounded" />

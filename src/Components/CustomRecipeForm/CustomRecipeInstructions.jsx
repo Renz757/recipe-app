@@ -22,7 +22,7 @@ const CustomRecipeInstructions = () => {
 
   return (
     <>
-      <div className="flex gap-3 justify-between font-noto mt-14">
+      <div className="flex gap-3 justify-between font-noto mt-7">
         <textarea
           type="area"
           className="border p-2 rounded grow"
