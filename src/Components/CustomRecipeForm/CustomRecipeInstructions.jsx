@@ -1,42 +1,23 @@
-import React, { useState } from "react";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { customRecipeActions } from "../../store/customRecipes-slice";
 import RemoveIcon from "../../UI/removeIcon";
 
 const CustomRecipeInstructions = () => {
-  //initialize localStorage and ingredient state
-  const instructionsArray = JSON.parse(
-    localStorage.getItem("instructionsArray") || "[]"
-  );
+  const dispatch = useDispatch();
+  const instructions = useSelector((state) => state.customRecipe);
 
-  const [instructions, setInstructions] = useState(instructionsArray);
-  const [step, setStep] = useState("");
 
   const inputHandler = (event) => {
-    setStep(event.target.value);
+    dispatch(customRecipeActions.setStep(event.target.value))
   };
 
   const addStep = () => {
-    setInstructions([...instructions, step]);
-    localStorage.setItem(
-      "instructionsArray",
-      JSON.stringify([...instructions, step])
-    );
-    setStep("");
+    dispatch(customRecipeActions.addStep())
   };
 
   const removeStep = (index) => {
-    setInstructions(
-      instructions.filter(
-        (stepIndex) => instructions.indexOf(stepIndex) !== index
-      )
-    );
-    localStorage.setItem(
-      "instructionsArray",
-      JSON.stringify(
-        instructions.filter(
-          (stepIndex) => instructions.indexOf(stepIndex) !== index
-        )
-      )
-    );
+    dispatch(customRecipeActions.removeStep(index))
   };
 
   return (
@@ -46,7 +27,7 @@ const CustomRecipeInstructions = () => {
           type="area"
           className="border p-2 rounded grow"
           id="ingredientInput"
-          value={step}
+          value={instructions.step}
           onChange={inputHandler}
         />
         <button onClick={addStep} type="button" className="px-7 bg-green-300">
@@ -54,7 +35,7 @@ const CustomRecipeInstructions = () => {
         </button>
       </div>
       <ul className="overflow-x-scroll no-scrollbar h-full border-none p-0">
-        {instructions.map((step, index) => {
+        {instructions.instructions.map((step, index) => {
           return (
             <div
               className="flex items-center justify-between pt-6 pb-2 border-b-2 border-zinc-200"

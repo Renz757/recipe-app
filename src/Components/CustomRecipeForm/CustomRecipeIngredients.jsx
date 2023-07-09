@@ -1,47 +1,22 @@
 import React from "react";
-import {  useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { customRecipeActions } from "../../store/customRecipes-slice";
 import RemoveIcon from "../../UI/removeIcon";
 
-//todo: add input to add ingredients\
 const CustomRecipeIngredients = () => {
-
-  //initialize localStorage and ingredient state 
-  const ingredientArray = JSON.parse(
-    localStorage.getItem("ingredientArray") || "[]"
-  );
-
-  //Add ingredientList to local Storage to persist after page reload
-  const [ingredientList, setIngredientList] = useState(ingredientArray);
-  const [item, setItem] = useState("");
+  const dispatch = useDispatch();
+  const ingredientList = useSelector((state) => state.customRecipe);
 
   const addIngredient = () => {
-    setIngredientList([...ingredientList, item]);
-    localStorage.setItem(
-      "ingredientArray",
-      JSON.stringify([...ingredientList, item])
-    );
-    setItem(" ");
+    dispatch(customRecipeActions.addIngredients());
   };
 
   const removeIngredient = (index) => {
-    setIngredientList(
-      ingredientList.filter(
-        (itemIndex) => ingredientList.indexOf(itemIndex) !== index
-      )
-    );
-    localStorage.setItem(
-      "ingredientArray",
-      JSON.stringify(
-        ingredientList.filter(
-          (itemIndex) => ingredientList.indexOf(itemIndex) !== index
-        )
-      )
-    );
+    dispatch(customRecipeActions.removeIngredients(index));
   };
 
   const inputHandler = (event) => {
-    event.preventDefault();
-    setItem(event.target.value);
+    dispatch(customRecipeActions.setItem(event.target.value));
   };
 
   return (
@@ -55,15 +30,10 @@ const CustomRecipeIngredients = () => {
           // add ingredient using Enter key, without submitting form
           onKeyUp={(event) => {
             if (event.key === "Enter") {
-              setIngredientList([...ingredientList, item]);
-              localStorage.setItem(
-                "ingredientArray",
-                JSON.stringify([...ingredientList, item])
-              );
-              setItem(" ");
+              dispatch(customRecipeActions.addIngredients());
             }
           }}
-          value={item}
+          value={ingredientList.item}
         />
         <button
           onClick={addIngredient}
@@ -74,8 +44,8 @@ const CustomRecipeIngredients = () => {
         </button>
       </div>
 
-      <ul className="overflow-x-scroll no-scrollbar h-3/6 border-none p-0">
-        {ingredientList.map((item, index) => {
+      <ul className="overflow-x-scroll no-scrollbar h-full border-none p-0">
+        {ingredientList.ingredients.map((item, index) => {
           return (
             <div
               key={index}

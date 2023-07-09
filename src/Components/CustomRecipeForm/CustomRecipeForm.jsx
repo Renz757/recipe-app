@@ -1,12 +1,17 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { customRecipeActions } from "../../store/customRecipes-slice";
 import CustomRecipeInfo from "./CustomRecipeInfo";
 import CustomRecipeIngredients from "./CustomRecipeIngredients";
 import CustomRecipeInstructions from "./CustomRecipeInstructions";
 
 const CustomRecipeForm = () => {
+  const dispatch = useDispatch();
+
   const [page, setPage] = useState(0);
   const pageTitles = ["Recipe Information", "Ingredients", "Instructions"];
 
+  console.log(page);
   const showPage = () => {
     if (page == 0) {
       return <CustomRecipeInfo />;
@@ -18,13 +23,28 @@ const CustomRecipeForm = () => {
   };
 
   const submitHandler = (event) => {
-    event.preventDefault()
+    event.preventDefault();
+    dispatch(customRecipeActions.submitForm());
+    localStorage.clear("ingredientArray", "instructionsArray");
+    dispatch(customRecipeActions.resetForm());
+    setPage(0);
+  };
+
+  const nextPage = () => {
+    if (page == 3) {
+      submitHandler;
+    } else {
+      setPage((curPage) => curPage + 1);
+    }
   };
 
   return (
     <div className="mt-20">
       <h1 className="text-3xl text-center">{pageTitles[page]}</h1>
-      <form onSubmit={submitHandler} className="h-screen flex flex-col items-center p-10 relative">
+      <form
+        onSubmit={submitHandler}
+        className="h-screen flex flex-col items-center p-10 relative"
+      >
         {/* Form Components */}
         <div>{showPage()}</div>
         {/* Controls */}
@@ -41,15 +61,12 @@ const CustomRecipeForm = () => {
             Prev
           </button>
           <button
-            disabled={page == pageTitles.length - 1}
-            onClick={() => {
-              setPage((curPage) => curPage + 1);
-            }}
+            onClick={nextPage}
             className="px-7 py-2
              bg-zinc-400 rounded"
-            type="button"
+            type={page > pageTitles.length - 1 ? "submit" : "button"}
           >
-            {page == pageTitles.length - 1 ? "Submit" : "Next"}
+            {page === pageTitles.length - 1 ? "Submit" : "Next"}
           </button>
         </div>
       </form>
