@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { customRecipeActions } from "../../store/customRecipes-slice";
-import RemoveIcon from "../../UI/removeIcon";
+import { customRecipeActions } from "../../../store/customRecipes-slice";
+import RemoveIcon from "../../../UI/removeIcon";
 
 const CustomRecipeIngredients = () => {
   const dispatch = useDispatch();

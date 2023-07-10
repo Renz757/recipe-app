@@ -2,6 +2,7 @@ import { createSlice, current } from "@reduxjs/toolkit";
 
 const initialState = {
     customRecipe: {},
+    customRecipeList: [],
     title: '',
     estimatedCookTime: '',
     servingSize: '',

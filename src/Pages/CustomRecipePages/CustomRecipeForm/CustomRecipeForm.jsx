@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { customRecipeActions } from "../../store/customRecipes-slice";
+import { customRecipeActions } from "../../../store/customRecipes-slice";
 import CustomRecipeInfo from "./CustomRecipeInfo";
-import CustomRecipeIngredients from "./CustomRecipeIngredients";
 import CustomRecipeInstructions from "./CustomRecipeInstructions";
+import CustomRecipeIngredients from "./CustomRecipeIngredients";
 
 const CustomRecipeForm = () => {
   const dispatch = useDispatch();

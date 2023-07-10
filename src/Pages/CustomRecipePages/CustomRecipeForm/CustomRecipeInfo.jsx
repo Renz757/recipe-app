@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { customRecipeActions } from "../../store/customRecipes-slice";
+import { customRecipeActions } from "../../../store/customRecipes-slice";
 
 //revise form input styling 
 

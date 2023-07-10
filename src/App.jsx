@@ -6,7 +6,8 @@ import Recipes from "./Pages/Recipes";
 import RecipeInfo from "./Pages/RecipeInfo";
 import Favorites from "./Pages/Favorites";
 import ShoppingList from "./Pages/shoppingList";
-import CustomRecipes from "./Pages/CustomRecipes";
+import CustomRecipes from "./Pages/CustomRecipePages/CustomRecipes";
+import CustomRecipeForm from "./pages/CustomRecipePages/CustomRecipeForm/CustomRecipeForm";
 import RootLayout from "./Pages/Root";
 
 const App = () => {
@@ -41,13 +42,15 @@ const App = () => {
         },
         {
           path: "/shoppingList",
-          element: (
-            <ShoppingList/>
-          ),
+          element: <ShoppingList />,
         },
         {
           path: "/customRecipes",
           element: <CustomRecipes />,
+        },
+        {
+          path: "/customRecipes/createCustomRecipe",
+          element: <CustomRecipeForm />,
         },
       ],
     },
