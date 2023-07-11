@@ -5,7 +5,7 @@ import { favActions } from "../store/favorites-slice";
 import { shoppingListActions } from "../store/shoppingList-slice";
 import HeartIcon from "../UI/heartIcon";
 
-const RecipeInfo = ({ recipeInfoId, onUpdateIngredients }) => {
+const RecipeInfo = ({ recipeInfoId }) => {
   const dispatch = useDispatch();
   const favorites = useSelector((state) => state.favorites.favoriteRecipes);
 
@@ -47,6 +47,7 @@ const RecipeInfo = ({ recipeInfoId, onUpdateIngredients }) => {
     dispatch(shoppingListActions.addIngredients(ingredientObject))
   };
 
+  //find a way to display custom recipes or data from API call in the same component 
   return (
     <>
       {!recipeInfo || isLoading ? (

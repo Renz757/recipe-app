@@ -4,6 +4,8 @@ import { db } from "../firebase_setup/firebase";
 
 const colRef = collection(db, 'customRecipes')
 
+//add initialize reducer to ste custom recpies to array 
+
 const initialState = {
     customRecipe: {},
     customRecipeList: [],

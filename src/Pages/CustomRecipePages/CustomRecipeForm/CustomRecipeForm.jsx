@@ -22,6 +22,7 @@ const CustomRecipeForm = () => {
     }
   };
 
+  
   const submitHandler = (event) => {
     event.preventDefault();
     dispatch(customRecipeActions.submitForm());
@@ -33,7 +34,7 @@ const CustomRecipeForm = () => {
   const prevPage = () => {
     setPage((curPage) => curPage - 1);
   };
-
+  //add form validation before going to the next step (no empty inputs)
   const nextPage = () => {
     if (page == 3) {
       submitHandler;
