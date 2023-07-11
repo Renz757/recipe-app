@@ -1,4 +1,8 @@
 import { createSlice, current } from "@reduxjs/toolkit";
+import { collection, addDoc, deleteDoc, doc } from "firebase/firestore";
+import { db } from "../firebase_setup/firebase";
+
+const colRef = collection(db, 'customRecipes')
 
 const initialState = {
     customRecipe: {},
@@ -30,7 +34,7 @@ export const customRecipeSlice = createSlice({
                 ingredients: state.ingredients,
                 instructions: state.instructions
             }
-
+            addDoc(colRef, {...state.customRecipe})
             console.log(state.customRecipe)
         },
         addRecipeTitle(state, action) {
