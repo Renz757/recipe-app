@@ -27,6 +27,7 @@ export const customRecipeSlice = createSlice({
     name: 'customRecipe',
     initialState,
     reducers: {
+        initialize(state, action) { state.customRecipeList = action.payload },
         submitForm(state) {
             state.customRecipe = {
                 title: state.title,
@@ -36,7 +37,7 @@ export const customRecipeSlice = createSlice({
                 ingredients: state.ingredients,
                 instructions: state.instructions
             }
-            addDoc(colRef, {...state.customRecipe})
+            addDoc(colRef, { ...state.customRecipe })
             console.log(state.customRecipe)
         },
         addRecipeTitle(state, action) {
