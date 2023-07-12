@@ -6,18 +6,33 @@ import { shoppingListActions } from "../store/shoppingList-slice";
 import HeartIcon from "../UI/heartIcon";
 import { useState, useEffect } from "react";
 
+//create redux slice for recipeInfo
+
 const RecipeInfo = ({ recipeInfoId }) => {
   const dispatch = useDispatch();
   const favorites = useSelector((state) => state.favorites.favoriteRecipes);
-  const customRecipeList = useSelector(
-    (state) => state.customRecipe.customRecipeList
-  );
+
+  const customRecipes = useSelector((state) => state.customRecipe);
+
   const [isNotCustomRecipe, setisNotCustomRecipe] = useState(false);
+  const [hasData, setHasData] = useState(false);
+  const [customRecipeInfo, setCustomRecipeInfo] = useState(null);
 
   useEffect(() => {
-    //id (recipeInfoId) from spoonacular API will will always be a number 
-    if (typeof recipeInfoId === 'number') {
+    //id (recipeInfoId) from spoonacular API will will always be a number
+    if (typeof recipeInfoId === "number") {
       setisNotCustomRecipe(true);
+      setHasData(true);
+    } else {
+      //filter customRecipeList array by dbID
+
+      const customRecipeByID = customRecipes.customRecipeList.filter(
+        (customRecipe) => recipeInfoId === customRecipe.dbID
+      );
+      setCustomRecipeInfo(customRecipeByID[0]);
+      //store just the object in customRecipeInfo
+      setHasData(true);
+      console.log(customRecipeInfo);
     }
   }, []);
 
@@ -38,7 +53,7 @@ const RecipeInfo = ({ recipeInfoId }) => {
     },
     {
       refetchOnWindowFocus: false,
-      //if recipeInfoId is a number, set isNotCustomrecipe to true to run reactQuery function to get recipeInfo 
+      //if recipeInfoId is a number, set isNotCustomrecipe to true to run reactQuery function to get recipeInfo
       enabled: isNotCustomRecipe,
     }
   );
@@ -67,25 +82,31 @@ const RecipeInfo = ({ recipeInfoId }) => {
     dispatch(shoppingListActions.addIngredients(ingredientObject));
   };
 
-  //find a way to display custom recipes or data from API call in the same component
   return (
     <>
-      {!recipeInfo || isLoading ? (
+      {hasData === false || isLoading ? (
         <h1>Loading...</h1>
       ) : (
-        <div key={recipeInfo.id} className="bg-saffron">
+        <div
+          key={isNotCustomRecipe ? recipeInfo.id : customRecipeInfo.dbID}
+          className="bg-saffron"
+        >
           {/* Recipe Info */}
           <div className="flex flex-col ">
             <div className="relative">
               <img
                 className="w-full aspect-video object-cover blur-none"
-                src={recipeInfo.image}
+                src={
+                  isNotCustomRecipe ? recipeInfo.image : customRecipeInfo.image
+                }
               />
             </div>
             <div className="flex items-center">
-              <h1 className="text-4xl font-Caveat p-3">{recipeInfo.title}</h1>
+              <h1 className="text-4xl font-Caveat p-3">
+                {isNotCustomRecipe ? recipeInfo.title : customRecipeInfo.title}
+              </h1>
               <div
-                className="bg-zinc-500 h-7 w-7 flex justify-center items-center rounded-full"
+                className={`${isNotCustomRecipe ? "bg-zinc-500 h-7 w-7 flex justify-center items-center rounded-full" : "hidden"}`}
                 onClick={favoriteRecipeHandler.bind(
                   null,
                   recipeInfo.title,
@@ -93,13 +114,25 @@ const RecipeInfo = ({ recipeInfoId }) => {
                   recipeInfo.id
                 )}
               >
-                <HeartIcon currentId={recipeInfo.id} favorites={favorites} />
+                <HeartIcon currentId={recipeInfo.id} favorites={favorites} />\
               </div>
             </div>
             <div className="font-noto w-10/12 mx-auto">
-              <p className="mt-2 p-2 border-b-2 border-zinc-500">{`Ready In: ${recipeInfo.readyInMinutes} minutes`}</p>
-              <p className="mt-2 p-2 border-b-2 border-zinc-500">{`Servings: ${recipeInfo.servings}`}</p>
-              <p className="mt-2 p-2 border-b-2 border-zinc-500">{`Ingredients: ${recipeInfo.extendedIngredients.length}`}</p>
+              <p className="mt-2 p-2 border-b-2 border-zinc-500">{`Ready In: ${
+                isNotCustomRecipe
+                  ? recipeInfo.readyInMinutes
+                  : customRecipeInfo.estimatedCookTime
+              } minutes`}</p>
+              <p className="mt-2 p-2 border-b-2 border-zinc-500">{`Servings: ${
+                isNotCustomRecipe
+                  ? recipeInfo.servings
+                  : customRecipeInfo.servingSize
+              }`}</p>
+              <p className="mt-2 p-2 border-b-2 border-zinc-500">{`Ingredients: ${
+                isNotCustomRecipe
+                  ? recipeInfo.extendedIngredients.length
+                  : customRecipeInfo.ingredients.length
+              }`}</p>
             </div>
           </div>
 
@@ -108,13 +141,21 @@ const RecipeInfo = ({ recipeInfoId }) => {
             <h2 className="text-2xl text-zinc-600 font-Geologica">
               Ingredients
             </h2>
-            {recipeInfo.extendedIngredients.map((ingredients, index) => {
-              return (
-                <p key={index} className="font-noto pt-2">
-                  {ingredients.original}
-                </p>
-              );
-            })}
+            {isNotCustomRecipe
+              ? recipeInfo.extendedIngredients.map((ingredients, index) => {
+                  return (
+                    <p key={index} className="font-noto pt-2">
+                      {ingredients.original}
+                    </p>
+                  );
+                })
+              : customRecipeInfo.ingredients.map((ingredients, index) => {
+                  return (
+                    <p key={index} className="font-noto pt-2">
+                      {ingredients}
+                    </p>
+                  );
+                })}
 
             {/* Todo: show modal onClick */}
             <button
@@ -133,16 +174,25 @@ const RecipeInfo = ({ recipeInfoId }) => {
             <h1 className="text-2xl text-zinc-600 font-Geologica">
               Instructions
             </h1>
-            {recipeInfo.analyzedInstructions.map((instructions, index) => {
-              return instructions.steps.map((steps, index) => {
-                return (
-                  <div key={index} className="flex m-3 gap-2">
-                    <p className="ml-2 font-noto">{`${steps.number}: `}</p>
-                    <p className="font-noto tracking-wide">{steps.step}</p>
-                  </div>
-                );
-              });
-            })}
+            {isNotCustomRecipe
+              ? recipeInfo.analyzedInstructions.map((instructions, index) => {
+                  return instructions.steps.map((steps, index) => {
+                    return (
+                      <div key={index} className="flex m-3 gap-2">
+                        <p className="ml-2 font-noto">{`${steps.number}: `}</p>
+                        <p className="font-noto tracking-wide">{steps.step}</p>
+                      </div>
+                    );
+                  });
+                })
+              : customRecipeInfo.instructions.map((instructions, index) => {
+                  return (
+                    <div key={index} className="flex m-3 gap-2">
+                      <p className="ml-2 font-noto">{`${index + 1}: `}</p>
+                      <p className="font-noto tracking-wide">{instructions}</p>
+                    </div>
+                  );
+                })}
           </div>
         </div>
       )}

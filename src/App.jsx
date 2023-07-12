@@ -46,11 +46,11 @@ const App = () => {
         },
         {
           path: "/customRecipes",
-          element: <CustomRecipes />,
+          element: <CustomRecipes setRecipeInfo={setRecipeInfo} />,
         },
         {
           path: "/customRecipes/createCustomRecipe",
-          element: <CustomRecipeForm setRecipeInfo={setRecipeInfo}/>,
+          element: <CustomRecipeForm />,
         },
       ],
     },
