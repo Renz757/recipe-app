@@ -114,7 +114,7 @@ const RecipeInfo = ({ recipeInfoId }) => {
                   recipeInfo.id
                 )}
               >
-                <HeartIcon currentId={recipeInfo.id} favorites={favorites} />\
+                <HeartIcon currentId={recipeInfo.id} favorites={favorites} />
               </div>
             </div>
             <div className="font-noto w-10/12 mx-auto">
