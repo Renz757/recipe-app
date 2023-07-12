@@ -4,24 +4,44 @@ import { useDispatch, useSelector } from "react-redux";
 import { favActions } from "../store/favorites-slice";
 import { shoppingListActions } from "../store/shoppingList-slice";
 import HeartIcon from "../UI/heartIcon";
+import { useState, useEffect } from "react";
 
 const RecipeInfo = ({ recipeInfoId }) => {
   const dispatch = useDispatch();
   const favorites = useSelector((state) => state.favorites.favoriteRecipes);
+  const customRecipeList = useSelector(
+    (state) => state.customRecipe.customRecipeList
+  );
+  const [isNotCustomRecipe, setisNotCustomRecipe] = useState(false);
 
-  const { data: recipeInfo, isLoading } = useQuery("recipeInfo", async () => {
-    const { data } = await axios
-      .get(
-        `https://api.spoonacular.com/recipes/${recipeInfoId}/information?apiKey=${
-          import.meta.env.VITE_API_KEY
-        }`
-      )
-      .catch((err) => {
-        console.log(err);
-        return <p>{err}</p>;
-      });
-    return data;
-  });
+  useEffect(() => {
+    //id (recipeInfoId) from spoonacular API will will always be a number 
+    if (typeof recipeInfoId === 'number') {
+      setisNotCustomRecipe(true);
+    }
+  }, []);
+
+  const { data: recipeInfo, isLoading } = useQuery(
+    "recipeInfo",
+    async () => {
+      const { data } = await axios
+        .get(
+          `https://api.spoonacular.com/recipes/${recipeInfoId}/information?apiKey=${
+            import.meta.env.VITE_API_KEY
+          }`
+        )
+        .catch((err) => {
+          console.log(err);
+          return <p>{err}</p>;
+        });
+      return data;
+    },
+    {
+      refetchOnWindowFocus: false,
+      //if recipeInfoId is a number, set isNotCustomrecipe to true to run reactQuery function to get recipeInfo 
+      enabled: isNotCustomRecipe,
+    }
+  );
 
   const favoriteRecipeHandler = (title, image, id) => {
     const favObject = {
@@ -44,10 +64,10 @@ const RecipeInfo = ({ recipeInfoId }) => {
       isComplete: false,
     };
 
-    dispatch(shoppingListActions.addIngredients(ingredientObject))
+    dispatch(shoppingListActions.addIngredients(ingredientObject));
   };
 
-  //find a way to display custom recipes or data from API call in the same component 
+  //find a way to display custom recipes or data from API call in the same component
   return (
     <>
       {!recipeInfo || isLoading ? (

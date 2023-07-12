@@ -50,7 +50,7 @@ const App = () => {
         },
         {
           path: "/customRecipes/createCustomRecipe",
-          element: <CustomRecipeForm />,
+          element: <CustomRecipeForm setRecipeInfo={setRecipeInfo}/>,
         },
       ],
     },
