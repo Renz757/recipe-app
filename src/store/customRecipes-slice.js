@@ -7,8 +7,8 @@ const colRef = collection(db, 'customRecipes')
 //add initialize reducer to ste custom recpies to array 
 
 const initialState = {
-    customRecipe: {},
     customRecipeList: [],
+    customRecipe: {},
     title: '',
     estimatedCookTime: '',
     servingSize: '',
@@ -100,7 +100,21 @@ export const customRecipeSlice = createSlice({
                 )
             );
         },
-        resetForm: (state) => initialState
+        resetForm(state) {
+            state.title = ''
+            state.estimatedCookTime = ''
+            state.servingSize = ''
+            state.image = ''
+            state.ingredients = JSON.parse(
+                localStorage.getItem("ingredientArray") || "[]"
+            )
+            state.item = ''
+            state.instructions = JSON.parse(
+                localStorage.getItem("instructionsArray") || "[]"
+            )
+            state.step = ''
+            state.customRecipe = {}
+        }
 
     }
 });
