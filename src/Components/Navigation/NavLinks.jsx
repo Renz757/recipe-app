@@ -10,20 +10,17 @@ const NavLinks = () => {
 
   return (
     <>
-      <Link to="/" className="hover:bg-vandyke w-full p-4">
-        <li onClick={sideBarHandler}>Home</li>
-      </Link>
-      <Link to="recipes" className="hover:bg-vandyke w-full p-4">
+      <Link to="recipes" className="hover:bg-vandyke w-full p-4 md:w-auto">
         <li onClick={sideBarHandler}>Recipes</li>
       </Link>
-      <Link to="favorites" className="hover:bg-vandyke w-full p-4">
+      <Link to="favorites" className="hover:bg-vandyke w-full p-4 md:w-auto">
         <li onClick={sideBarHandler}>Favorite</li>
       </Link>
-      <Link to="/shoppingList" className="hover:bg-vandyke w-full p-4">
+      <Link to="/shoppingList" className="hover:bg-vandyke w-full p-4 md:w-auto">
         <li onClick={sideBarHandler}>Shopping List</li>
       </Link>
-      <Link to="/customRecipes" className="hover:bg-vandyke w-full p-4">
-        <li onClick={sideBarHandler}>Add Custom Recipe</li>
+      <Link to="/customRecipes" className="hover:bg-vandyke w-full p-4 md:w-auto">
+        <li onClick={sideBarHandler}>Custom Recipe</li>
       </Link>
     </>
   );
