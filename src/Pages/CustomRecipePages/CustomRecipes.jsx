@@ -24,8 +24,8 @@ const CustomRecipes = ({ setRecipeInfo }) => {
 
   //create component that renders a list of custom recipes
   return (
-    <>
-      <div className="flex flex-col justify-center gap-y-6">
+    <div className="bg-eggshell h-full">
+      <div className="flex flex-col justify-center gap-y-6 lg:w-8/12 mx-auto">
         <div>
           {customRecipes.customRecipeList.map((recipe, index) => {
             if (index < 2) {
@@ -79,7 +79,7 @@ const CustomRecipes = ({ setRecipeInfo }) => {
       </div>
 
       {/* <CustomRecipeForm /> */}
-    </>
+    </div>
   );
 };
 

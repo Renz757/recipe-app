@@ -27,7 +27,7 @@ const ShoppingList = () => {
   }
 
   return (
-    <div className="bg-eggshell h-screen">
+    <div className="bg-eggshell h-full">
       <h1 className="text-3xl text-center p-3 font-Geologica">Shopping List</h1>
       {}
       {!shoppingList && (

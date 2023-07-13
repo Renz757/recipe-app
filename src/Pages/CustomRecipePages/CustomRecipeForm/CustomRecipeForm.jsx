@@ -53,7 +53,7 @@ const CustomRecipeForm = () => {
   };
 
   return (
-    <div className="mt-20 border-blue-400 ">
+    <div className="pt-20 bg-eggshell h-full">
       <h1 className="text-3xl text-center">{pageTitles[page]}</h1>
       <div className="mx-auto w-9/12 pt-7">
         <div className={`h-3 bg-blue-500 rounded-l-xl ${progressBarStyles()}`}></div>

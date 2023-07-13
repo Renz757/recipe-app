@@ -36,43 +36,45 @@ const Recipes = ({ setRecipeInfo }) => {
   }, []);
 
   return (
-    <>
+    <div className="bg-eggshell h-full">
       {isLoading && <p>...Loading</p>}
-      {!recipeData && <p className={`${isLoading ? 'hidden' : 'block'}`}>Please Search a recipe</p>}
+      {!recipeData && (
+        <p className={`${isLoading ? "hidden" : "block"}`}>
+          Please Search a recipe
+        </p>
+      )}
       {recipeData &&
         recipeData.map((recipe, index) => {
           return (
-            <div key={index} className=" grid grid-cols-1">
+            <div key={index} className="grid grid-cols-1 lg:w-8/12 mx-auto">
               <div className="">
-                <div className="">
-                  <img
-                    src={recipe.image}
-                    alt={recipe.title}
-                    key={recipe.id}
-                    className="w-full aspect-video object-cover blur-none"
-                  />
+                <img
+                  src={recipe.image}
+                  alt={recipe.title}
+                  key={recipe.id}
+                  className="w-full aspect-video object-cover blur-none lg:rounded"
+                />
+              </div>
+              <div className="p-4">
+                <h1 className="text-3xl font-Caveat">{recipe.title}</h1>
+                <div className="flex gap-2 font-noto">
+                  <p>{`Prep Time: ${recipe.readyInMinutes} Minutes - `}</p>
+                  <p>{`Servings: ${recipe.servings}`}</p>
                 </div>
-                <div className="p-4">
-                  <h1 className="text-3xl font-Caveat">{recipe.title}</h1>
-                  <div className="flex gap-2 font-noto">
-                    <p>{`Prep Time: ${recipe.readyInMinutes} Minutes - `}</p>
-                    <p>{`Servings: ${recipe.servings}`}</p>
-                  </div>
 
-                  <Link
-                    to={`/recipeInfo/${recipe.id}`}
-                    onClick={() => setRecipeInfo(recipe.id)}
-                  >
-                    <p className="underline font-Geologica text-zinc-600">
-                      Show Recipe
-                    </p>
-                  </Link>
-                </div>
+                <Link
+                  to={`/recipeInfo/${recipe.id}`}
+                  onClick={() => setRecipeInfo(recipe.id)}
+                >
+                  <p className="underline font-Geologica text-zinc-600">
+                    Show Recipe
+                  </p>
+                </Link>
               </div>
             </div>
           );
         })}
-    </>
+    </div>
   );
 };
 

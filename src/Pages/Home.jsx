@@ -18,7 +18,7 @@ const Home = ({ setRecipeInfo }) => {
 
   return (
     <>
-      <div className="flex flex-col">
+      <div className="flex flex-col bg-eggshell h-screen">
         <h1 className="text-3xl text-center mt-4 font-Geologica">
           Random Recipe of The Day!
         </h1>

@@ -24,16 +24,16 @@ const Favorites = ({ setRecipeInfo }) => {
   const favorites = useSelector((state) => state.favorites.favoriteRecipes);
 
   return (
-    <div className="bg-eggshell h-screen">
+    <div className="bg-eggshell h-full">
       {favorites <= 0 ? (
         <p>No Favorites</p>
       ) : (
         favorites.map((favorites, index) => {
           return (
-            <div key={index} className="grid grid-cols-1">
+            <div key={index} className="grid grid-cols-1 lg:w-8/12 mx-auto">
               <div className="text-center">
                 <img
-                  className="w-full aspect-video object-cover blur-none"
+                  className="w-full aspect-video object-cover blur-none lg:rounded"
                   src={favorites.image}
                   alt={favorites.title}
                 />
