@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { navActions } from "../store/nav-slice";
 
 const Recipes = ({ setRecipeInfo }) => {
-  const searchInput = useSelector(state => state.nav.searchInput)
+  const searchInput = useSelector((state) => state.nav.searchInput);
   const { data: recipeData, isLoading } = useQuery(
     ["recpies"],
     async () => {
@@ -30,16 +30,16 @@ const Recipes = ({ setRecipeInfo }) => {
 
   const dispatch = useDispatch();
 
-  //close nav on component mount 
+  //close nav on component mount
   useEffect(() => {
     dispatch(navActions.closeNav());
   }, []);
 
   return (
     <>
-      {isLoading ? (
-        <p>...Loading</p>
-      ) : (
+      {isLoading && <p>...Loading</p>}
+      {!recipeData && <p className={`${isLoading ? 'hidden' : 'block'}`}>Please Search a recipe</p>}
+      {recipeData &&
         recipeData.map((recipe, index) => {
           return (
             <div key={index} className=" grid grid-cols-1">
@@ -71,8 +71,7 @@ const Recipes = ({ setRecipeInfo }) => {
               </div>
             </div>
           );
-        })
-      )}
+        })}
     </>
   );
 };
