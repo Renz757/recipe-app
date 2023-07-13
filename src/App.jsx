@@ -55,7 +55,7 @@ const App = () => {
         },
         {
           path: "/customRecipes/customRecipeList",
-          element: <CustomRecipeList />,
+          element: <CustomRecipeList setRecipeInfo={setRecipeInfo} />,
         },
       ],
     },
