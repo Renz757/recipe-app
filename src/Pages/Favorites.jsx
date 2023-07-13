@@ -10,7 +10,7 @@ const Favorites = ({ setRecipeInfo }) => {
   const dispatch = useDispatch();
   const colRef = collection(db, "favorites");
 
-  //initialize favorites state in redux from firebase on component mount 
+  //initialize favorites state in redux from firebase on component mount
   useEffect(() => {
     onSnapshot(colRef, (snapshot) => {
       let favorites = [];
@@ -30,22 +30,23 @@ const Favorites = ({ setRecipeInfo }) => {
       ) : (
         favorites.map((favorites, index) => {
           return (
-            <div
-              key={index}
-              className="flex flex-col justify-center items-center "
-            >
+            <div key={index} className="grid grid-cols-1">
               <div className="text-center">
-                <h1>{favorites.title}</h1>
                 <img
-                  className="rounded-xl"
+                  className="w-full aspect-video object-cover blur-none"
                   src={favorites.image}
                   alt={favorites.title}
                 />
+              </div>
+              <div className="p-4">
+                <h1 className="text-3xl font-Caveat">{favorites.title}</h1>
                 <Link
                   to={`/recipeInfo/${favorites.id}`}
                   onClick={() => setRecipeInfo(favorites.id)}
                 >
-                  Show Full Recipe
+                  <p className="underline font-Geologica text-zinc-600">
+                    Show Full Recipe
+                  </p>
                 </Link>
               </div>
             </div>
