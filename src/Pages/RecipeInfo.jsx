@@ -5,13 +5,16 @@ import { favActions } from "../store/favorites-slice";
 import { shoppingListActions } from "../store/shoppingList-slice";
 import HeartIcon from "../UI/heartIcon";
 import { useState, useEffect } from "react";
+import DropDownStatus from "../UI/DropDownStatus";
 
 //create redux slice for recipeInfo
 
 const RecipeInfo = ({ recipeInfoId }) => {
   const dispatch = useDispatch();
   const favorites = useSelector((state) => state.favorites.favoriteRecipes);
-
+  const notificationState = useSelector(
+    (state) => state.shoppingList.notificationState
+  );
   const customRecipes = useSelector((state) => state.customRecipe);
 
   const [isNotCustomRecipe, setisNotCustomRecipe] = useState(false);
@@ -32,7 +35,6 @@ const RecipeInfo = ({ recipeInfoId }) => {
       setCustomRecipeInfo(customRecipeByID[0]);
       //store just the object in customRecipeInfo
       setHasData(true);
-      console.log(customRecipeInfo);
     }
   }, []);
 
@@ -80,10 +82,19 @@ const RecipeInfo = ({ recipeInfoId }) => {
     };
 
     dispatch(shoppingListActions.addIngredients(ingredientObject));
+    
+
+    // if (notificationState.alreadyInList === false) {
+    //   dispatch(shoppingListActions.setNotification(true));
+    //   setTimeout(() => {
+    //     dispatch(shoppingListActions.setNotification(false));
+    //   }, 4000);
+    // }
   };
 
   return (
     <>
+      {notificationState.isShowing && <DropDownStatus />}
       {hasData === false || isLoading ? (
         <h1>Loading...</h1>
       ) : (
@@ -97,7 +108,7 @@ const RecipeInfo = ({ recipeInfoId }) => {
               <img
                 className="w-full aspect-video object-cover blur-none"
                 src={
-                  isNotCustomRecipe ? recipeInfo.image : customRecipeInfo.image
+                  isNotCustomRecipe ? recipeInfo.image : ''
                 }
               />
             </div>
@@ -106,7 +117,11 @@ const RecipeInfo = ({ recipeInfoId }) => {
                 {isNotCustomRecipe ? recipeInfo.title : customRecipeInfo.title}
               </h1>
               <div
-                className={`${isNotCustomRecipe ? "bg-zinc-500 h-7 w-7 flex justify-center items-center rounded-full" : "hidden"}`}
+                className={`${
+                  isNotCustomRecipe
+                    ? "bg-zinc-500 h-7 w-7 flex justify-center items-center rounded-full"
+                    : "hidden"
+                }`}
                 onClick={favoriteRecipeHandler.bind(
                   null,
                   recipeInfo.title,

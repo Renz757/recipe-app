@@ -5,7 +5,11 @@ import { addDoc, collection, doc, deleteDoc } from "firebase/firestore";
 const colRef = collection(db, 'shoppingList');
 
 const initialState = {
-    shoppingList: []
+    shoppingList: [],
+    notificationState: {
+        isShowing: false,
+        alreadyInList: false
+    }
 }
 
 export const shoppingListSlice = createSlice({
@@ -14,6 +18,7 @@ export const shoppingListSlice = createSlice({
     reducers: {
         initialize(state, action) {
             state.shoppingList = action.payload
+            console.log(state.shoppingList)
         },
         addIngredients(state, action) {
             const currentState = current(state.shoppingList)
@@ -21,18 +26,28 @@ export const shoppingListSlice = createSlice({
                 (index) => index.id === action.payload.id
             );
 
+
             const existingShoppingList = currentState[existingShoppingListIndex];
+
+            console.log(existingShoppingList) 
 
             if (existingShoppingList) {
                 alert('Ingredients Already in Shopping List')
+                state.notificationState.isShowing = false
+                return
             } else {
                 addDoc(colRef, { ...action.payload });
+                state.notificationState.isShowing = true
             }
         },
         removeIngredients(state, action) {
             const docRef = doc(db, "shoppingList", action.payload)
             deleteDoc(docRef)
         },
+        setNotification(state, action) {
+            state.notificationState.isShowing = action.payload
+        },
+
         clearTodos(state, action) {
 
         },
