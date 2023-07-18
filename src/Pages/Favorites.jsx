@@ -8,19 +8,7 @@ import { useEffect } from "react";
 //todo: style favorites page
 const Favorites = ({ setRecipeInfo }) => {
   const dispatch = useDispatch();
-  const colRef = collection(db, "favorites");
-
-  //initialize favorites state in redux from firebase on component mount
-  useEffect(() => {
-    onSnapshot(colRef, (snapshot) => {
-      let favorites = [];
-      for (const doc of snapshot.docs) {
-        favorites.push({ ...doc.data(), dbID: doc.id });
-      }
-      dispatch(favActions.initialize(favorites));
-    });
-  }, []);
-
+  
   const favorites = useSelector((state) => state.favorites.favoriteRecipes);
 
   return (

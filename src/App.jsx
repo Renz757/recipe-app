@@ -1,6 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ReactQueryDevtools } from "react-query/devtools";
+import { collection } from "firebase/firestore";
+import { db } from "./firebase_setup/firebase";
+import { useDispatch } from "react-redux";
+import useInitialize from "./hooks/use-initialize";
+import { favActions } from "./store/favorites-slice";
 import Home from "./Pages/Home";
 import Recipes from "./Pages/Recipes";
 import RecipeInfo from "./Pages/RecipeInfo";
@@ -14,6 +19,11 @@ import RootLayout from "./Pages/Root";
 const App = () => {
   //make a context with use reducer hook or implement redux for state management
   const [recipeInfo, setRecipeInfo] = useState([]);
+  const dispatch = useDispatch();
+  const favRef = collection(db, "favorites");
+
+  useInitialize(favRef, favActions)
+
 
   const router = createBrowserRouter([
     {
