@@ -1,9 +1,5 @@
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { favActions } from "../store/favorites-slice";
-import { collection, onSnapshot } from "firebase/firestore";
-import { db } from "../firebase_setup/firebase";
-import { useEffect } from "react";
 
 //todo: style favorites page
 const Favorites = ({ setRecipeInfo }) => {

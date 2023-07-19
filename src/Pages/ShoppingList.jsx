@@ -1,23 +1,9 @@
-import { useEffect } from "react";
-import { onSnapshot, collection } from "firebase/firestore";
-import { db } from "../firebase_setup/firebase";
 import { shoppingListActions } from "../store/shoppingList-slice";
 import { useSelector, useDispatch } from "react-redux";
 import CheckIcon from "../UI/checkIcon";
 import RemoveIcon from "../UI/removeIcon";
 
 const ShoppingList = () => {
-  const colRef = collection(db, "shoppingList");
-
-  useEffect(() => {
-    onSnapshot(colRef, (snapshot) => {
-      let shoppingList = [];
-      for (const doc of snapshot.docs) {
-        shoppingList.push({ ...doc.data(), dbID: doc.id });
-      }
-      dispatch(shoppingListActions.initialize(shoppingList));
-    });
-  }, []);
 
   const dispatch = useDispatch();
   const shoppingList = useSelector((state) => state.shoppingList.shoppingList);

@@ -18,7 +18,6 @@ export const shoppingListSlice = createSlice({
     reducers: {
         initialize(state, action) {
             state.shoppingList = action.payload
-            console.log(state.shoppingList)
         },
         addIngredients(state, action) {
             const currentState = current(state.shoppingList)
@@ -26,10 +25,7 @@ export const shoppingListSlice = createSlice({
                 (index) => index.id === action.payload.id
             );
 
-
             const existingShoppingList = currentState[existingShoppingListIndex];
-
-            console.log(existingShoppingList) 
 
             if (existingShoppingList) {
                 alert('Ingredients Already in Shopping List')

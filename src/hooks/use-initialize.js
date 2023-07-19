@@ -9,8 +9,8 @@ const useInitialize = (colRef, action) => {
         onSnapshot(colRef, (snapshot) => {
             //get data from passed in collection ref
             for (const doc of snapshot.docs) {
-                //map through snapshot and data to array
-                //format data in object and copy previous data
+                //map through snapshot and add data to array
+                //copy previous data and format data in object
                 data = [...data, { ...doc.data(), dbID: doc.id }]
             }
             //dispatch data and initialize reducer state
