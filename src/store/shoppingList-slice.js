@@ -28,8 +28,10 @@ export const shoppingListSlice = createSlice({
             const existingShoppingList = currentState[existingShoppingListIndex];
 
             if (existingShoppingList) {
-                alert('Ingredients Already in Shopping List')
+                state.notificationState.alreadyInList = true
                 state.notificationState.isShowing = false
+                console.log(state.notificationState.alreadyInList)
+                alert('Ingredients Already in Shopping List')
                 return
             } else {
                 addDoc(colRef, { ...action.payload });
@@ -40,8 +42,12 @@ export const shoppingListSlice = createSlice({
             const docRef = doc(db, "shoppingList", action.payload)
             deleteDoc(docRef)
         },
+        resetNotification(state, action) {
+            state.notificationState.isShowing = false
+            state.notificationState.alreadyInList = false
+        },
         setNotification(state, action) {
-            state.notificationState.isShowing = action.payload
+            state.notificationState.isShowing = true
         },
 
         clearTodos(state, action) {

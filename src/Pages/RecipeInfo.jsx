@@ -38,6 +38,14 @@ const RecipeInfo = ({ recipeInfoId }) => {
     }
   }, []);
 
+  useEffect(() => {
+    if (notificationState.isShowing) {
+      setTimeout(() => {
+        dispatch(shoppingListActions.resetNotification());
+      }, 4000);
+    }
+  }, [notificationState.isShowing]);
+
   const { data: recipeInfo, isLoading } = useQuery(
     "recipeInfo",
     async () => {
@@ -82,19 +90,13 @@ const RecipeInfo = ({ recipeInfoId }) => {
     };
 
     dispatch(shoppingListActions.addIngredients(ingredientObject));
-    
 
-    // if (notificationState.alreadyInList === false) {
-    //   dispatch(shoppingListActions.setNotification(true));
-    //   setTimeout(() => {
-    //     dispatch(shoppingListActions.setNotification(false));
-    //   }, 4000);
-    // }
+    console.log(notificationState);
   };
 
   return (
     <>
-      {notificationState.isShowing && <DropDownStatus />}
+      <DropDownStatus />
       {hasData === false || isLoading ? (
         <h1>Loading...</h1>
       ) : (
@@ -107,9 +109,7 @@ const RecipeInfo = ({ recipeInfoId }) => {
             <div className="relative">
               <img
                 className="w-full aspect-video object-cover blur-none"
-                src={
-                  isNotCustomRecipe ? recipeInfo.image : ''
-                }
+                src={isNotCustomRecipe ? recipeInfo.image : ""}
               />
             </div>
             <div className="flex items-center">
