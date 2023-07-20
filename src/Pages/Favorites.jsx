@@ -8,7 +8,7 @@ const Favorites = ({ setRecipeInfo }) => {
   const favorites = useSelector((state) => state.favorites.favoriteRecipes);
 
   return (
-    <div className="bg-eggshell h-full">
+    <div className="bg-eggshell h-screen">
       {favorites <= 0 ? (
         <p>No Favorites</p>
       ) : (

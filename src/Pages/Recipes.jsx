@@ -36,7 +36,7 @@ const Recipes = ({ setRecipeInfo }) => {
   }, []);
 
   return (
-    <div className="bg-eggshell h-full">
+    <div className="bg-eggshell h-screen">
       {isLoading && <p>...Loading</p>}
       {!recipeData && (
         <p className={`${isLoading ? "hidden" : "block"}`}>
