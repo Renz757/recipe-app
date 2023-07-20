@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { customRecipeActions } from "../../../store/customRecipes-slice";
 import CustomRecipeInfo from "./CustomRecipeInfo";
 import CustomRecipeInstructions from "./CustomRecipeInstructions";
@@ -7,6 +7,7 @@ import CustomRecipeIngredients from "./CustomRecipeIngredients";
 
 const CustomRecipeForm = () => {
   const dispatch = useDispatch();
+  const recipeInfo = useSelector((state) => state.customRecipe);
 
   const [page, setPage] = useState(0);
   const pageTitles = ["Recipe Information", "Ingredients", "Instructions"];
@@ -22,7 +23,6 @@ const CustomRecipeForm = () => {
     }
   };
 
-  
   const submitHandler = (event) => {
     event.preventDefault();
     dispatch(customRecipeActions.submitForm());
@@ -36,9 +36,33 @@ const CustomRecipeForm = () => {
   };
   //add form validation before going to the next step (no empty inputs)
   const nextPage = () => {
-    if (page == 3) {
-      submitHandler;
+    if (page == 2) {
+      if (recipeInfo.instructions.length <= 0) {
+        alert("please add instructions");
+        return;
+      } else {
+        submitHandler(event)
+      }
     } else {
+      if (recipeInfo.title === "") {
+        alert("title cannot be empty");
+        return;
+      } else if (recipeInfo.estimatedCookTime === "") {
+        alert("estimated cook time cannot be empty");
+        return;
+      } else if (recipeInfo.servingSize === "") {
+        alert("serving size cannot be empty");
+      } else if (recipeInfo.image === "") {
+        alert("please upload an image");
+        return;
+      }
+
+      if (page === 1) {
+        if (recipeInfo.ingredients.length <= 0) {
+          alert("please add ingredients");
+          return;
+        }
+      }
       setPage((curPage) => curPage + 1);
     }
   };
@@ -56,7 +80,9 @@ const CustomRecipeForm = () => {
     <div className="pt-20 bg-eggshell h-full">
       <h1 className="text-3xl text-center">{pageTitles[page]}</h1>
       <div className="mx-auto w-9/12 pt-7">
-        <div className={`h-3 bg-blue-500 rounded-l-xl ${progressBarStyles()}`}></div>
+        <div
+          className={`h-3 bg-blue-500 rounded-l-xl ${progressBarStyles()}`}
+        ></div>
       </div>
       <form
         onSubmit={submitHandler}

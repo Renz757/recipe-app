@@ -8,7 +8,7 @@ const CustomRecipes = ({ setRecipeInfo }) => {
 
   //create component that renders a list of custom recipes
   return (
-    <div className="bg-eggshell h-full">
+    <div className="bg-eggshell h-screen">
       <div className="flex flex-col justify-center gap-y-6 lg:w-8/12 mx-auto">
         <div>
           {customRecipes.customRecipeList.map((recipe, index) => {
