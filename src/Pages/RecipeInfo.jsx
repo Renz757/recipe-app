@@ -38,6 +38,8 @@ const RecipeInfo = ({ recipeInfoId }) => {
     }
   }, []);
 
+  console.log(customRecipeInfo);
+
   useEffect(() => {
     if (notificationState.isShowing) {
       setTimeout(() => {
@@ -83,9 +85,9 @@ const RecipeInfo = ({ recipeInfoId }) => {
     const ingredientObject = {
       id: id,
       title: title,
-      ingredients: recipeInfo.extendedIngredients.map(
-        (items) => items.original
-      ),
+      ingredients: isNotCustomRecipe
+        ? recipeInfo.extendedIngredients.map((items) => items.original)
+        : customRecipeInfo.ingredients.map((items) => items),
       isComplete: false,
     };
 
@@ -109,7 +111,9 @@ const RecipeInfo = ({ recipeInfoId }) => {
             <div className="relative">
               <img
                 className="w-full aspect-video object-cover blur-none"
-                src={isNotCustomRecipe ? recipeInfo.image : ""}
+                src={
+                  isNotCustomRecipe ? recipeInfo.image : customRecipeInfo.image
+                }
               />
             </div>
             <div className="flex items-center">
@@ -122,14 +126,19 @@ const RecipeInfo = ({ recipeInfoId }) => {
                     ? "bg-zinc-500 h-7 w-7 flex justify-center items-center rounded-full"
                     : "hidden"
                 }`}
-                onClick={favoriteRecipeHandler.bind(
-                  null,
-                  recipeInfo.title,
-                  recipeInfo.image,
-                  recipeInfo.id
-                )}
+                onClick={
+                  isNotCustomRecipe ?
+                  favoriteRecipeHandler.bind(
+                    null,
+                    recipeInfo.title,
+                    recipeInfo.image,
+                    recipeInfo.id
+                  ) : null //Will not add custom recipes as favorites 
+                }
               >
-                <HeartIcon currentId={recipeInfo.id} favorites={favorites} />
+                {isNotCustomRecipe && (
+                  <HeartIcon currentId={recipeInfo.id} favorites={favorites} />
+                )}
               </div>
             </div>
             <div className="font-noto w-10/12 mx-auto">
@@ -174,11 +183,19 @@ const RecipeInfo = ({ recipeInfoId }) => {
 
             {/* Todo: show modal onClick */}
             <button
-              onClick={shoppingListHandler.bind(
-                null,
-                recipeInfo.id,
-                recipeInfo.title
-              )}
+              onClick={
+                isNotCustomRecipe
+                  ? shoppingListHandler.bind(
+                      null,
+                      recipeInfo.id,
+                      recipeInfo.title
+                    )
+                  : shoppingListHandler.bind(
+                      null,
+                      customRecipeInfo.dbID,
+                      customRecipeInfo.title
+                    )
+              }
               className="text-left mt-5 bg-green-400 w-7/12 p-2 rounded-xl cursor-pointer"
             >
               Add Ingredients to Shopping List

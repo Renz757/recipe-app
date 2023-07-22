@@ -21,9 +21,8 @@ import RootLayout from "./Pages/Root";
 const App = () => {
   //make a context with use reducer hook or implement redux for state management
   const [recipeInfo, setRecipeInfo] = useState([]);
-  
   const dispatch = useDispatch();
-
+  
   const favRef = collection(db, "favorites");
   const shopRef = collection(db, "shoppingList");
   const customRef = collection(db, "customRecipes");
