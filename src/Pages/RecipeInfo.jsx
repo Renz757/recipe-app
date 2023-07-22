@@ -4,8 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { favActions } from "../store/favorites-slice";
 import { shoppingListActions } from "../store/shoppingList-slice";
 import HeartIcon from "../UI/heartIcon";
+import RemoveIcon from "../UI/removeIcon";
 import { useState, useEffect } from "react";
 import DropDownStatus from "../UI/DropDownStatus";
+import DeleteModal from "../UI/deleteModal";
 
 //create redux slice for recipeInfo
 
@@ -99,6 +101,7 @@ const RecipeInfo = ({ recipeInfoId }) => {
   return (
     <>
       <DropDownStatus />
+      <DeleteModal customRecipeId={customRecipeInfo.dbID}/>
       {hasData === false || isLoading ? (
         <h1>Loading...</h1>
       ) : (
@@ -124,7 +127,7 @@ const RecipeInfo = ({ recipeInfoId }) => {
                 className={`${
                   isNotCustomRecipe
                     ? "bg-zinc-500 h-7 w-7 flex justify-center items-center rounded-full"
-                    : "hidden"
+                    : ""
                 }`}
                 onClick={
                   isNotCustomRecipe ?
@@ -136,9 +139,10 @@ const RecipeInfo = ({ recipeInfoId }) => {
                   ) : null //Will not add custom recipes as favorites 
                 }
               >
-                {isNotCustomRecipe && (
+                {isNotCustomRecipe ? (
                   <HeartIcon currentId={recipeInfo.id} favorites={favorites} />
-                )}
+                ) : <RemoveIcon />}
+               
               </div>
             </div>
             <div className="font-noto w-10/12 mx-auto">
