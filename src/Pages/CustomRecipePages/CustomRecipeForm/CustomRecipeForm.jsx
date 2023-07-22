@@ -4,6 +4,7 @@ import { customRecipeActions } from "../../../store/customRecipes-slice";
 import CustomRecipeInfo from "./CustomRecipeInfo";
 import CustomRecipeInstructions from "./CustomRecipeInstructions";
 import CustomRecipeIngredients from "./CustomRecipeIngredients";
+import { Link } from "react-router-dom";
 
 const CustomRecipeForm = () => {
   const dispatch = useDispatch();
@@ -107,7 +108,7 @@ const CustomRecipeForm = () => {
              bg-zinc-400 rounded"
             type={page > pageTitles.length - 1 ? "submit" : "button"}
           >
-            {page === pageTitles.length - 1 ? "Submit" : "Next"}
+            {page === pageTitles.length - 1 ? <Link to="/customRecipes">Submit</Link> : "Next"}
           </button>
         </div>
       </form>
