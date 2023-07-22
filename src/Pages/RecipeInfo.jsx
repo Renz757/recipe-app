@@ -8,6 +8,7 @@ import RemoveIcon from "../UI/removeIcon";
 import { useState, useEffect } from "react";
 import DropDownStatus from "../UI/DropDownStatus";
 import DeleteModal from "../UI/deleteModal";
+import { customRecipeActions } from "../store/customRecipes-slice";
 
 //create redux slice for recipeInfo
 
@@ -39,8 +40,6 @@ const RecipeInfo = ({ recipeInfoId }) => {
       setHasData(true);
     }
   }, []);
-
-  console.log(customRecipeInfo);
 
   useEffect(() => {
     if (notificationState.isShowing) {
@@ -94,14 +93,19 @@ const RecipeInfo = ({ recipeInfoId }) => {
     };
 
     dispatch(shoppingListActions.addIngredients(ingredientObject));
+  };
 
-    console.log(notificationState);
+  const deleteModalHandler = () => {
+    dispatch(customRecipeActions.modalhandler());
+    console.log(customRecipeInfo.showModal);
   };
 
   return (
     <>
       <DropDownStatus />
-      <DeleteModal customRecipeId={customRecipeInfo.dbID}/>
+      {customRecipes.showModal && (
+        <DeleteModal customRecipeId={customRecipeInfo.dbID} />
+      )}
       {hasData === false || isLoading ? (
         <h1>Loading...</h1>
       ) : (
@@ -130,19 +134,23 @@ const RecipeInfo = ({ recipeInfoId }) => {
                     : ""
                 }`}
                 onClick={
-                  isNotCustomRecipe ?
-                  favoriteRecipeHandler.bind(
-                    null,
-                    recipeInfo.title,
-                    recipeInfo.image,
-                    recipeInfo.id
-                  ) : null //Will not add custom recipes as favorites 
+                  isNotCustomRecipe
+                    ? favoriteRecipeHandler.bind(
+                        null,
+                        recipeInfo.title,
+                        recipeInfo.image,
+                        recipeInfo.id
+                      )
+                    : null //Will not add custom recipes as favorites
                 }
               >
                 {isNotCustomRecipe ? (
                   <HeartIcon currentId={recipeInfo.id} favorites={favorites} />
-                ) : <RemoveIcon />}
-               
+                ) : (
+                  <div onClick={deleteModalHandler}>
+                    <RemoveIcon />
+                  </div>
+                )}
               </div>
             </div>
             <div className="font-noto w-10/12 mx-auto">

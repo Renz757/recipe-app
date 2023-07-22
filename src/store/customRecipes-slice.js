@@ -20,7 +20,8 @@ const initialState = {
     instructions: JSON.parse(
         localStorage.getItem("instructionsArray") || "[]"
     ),
-    step: ''
+    step: '',
+    showModal: false
 }
 
 export const customRecipeSlice = createSlice({
@@ -114,6 +115,14 @@ export const customRecipeSlice = createSlice({
             )
             state.step = ''
             state.customRecipe = {}
+        },
+        deleteCustomRecipe(state, action) {
+            const docRef = doc(db, "customRecipes", action.payload)
+            deleteDoc(docRef)
+            state.showModal = false
+        },
+        modalhandler (state) {
+            state.showModal = !state.showModal
         }
 
     }
