@@ -13,7 +13,11 @@ const store = configureStore({
         favorites: favoriteSlice.reducer,
         shoppingList: shoppingListSlice.reducer,
         customRecipe: customRecipeSlice.reducer,
-    }
+    },
+    middleware: getDefaultMiddleware =>
+        getDefaultMiddleware({
+            serializableCheck: false,
+        }),
 });
 
 export default store;

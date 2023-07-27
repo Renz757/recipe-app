@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { imageDB } from "../../../firebase_setup/firebase";
 import { customRecipeActions } from "../../../store/customRecipes-slice";
 import CustomRecipeInfo from "./CustomRecipeInfo";
 import CustomRecipeInstructions from "./CustomRecipeInstructions";
@@ -26,10 +28,21 @@ const CustomRecipeForm = () => {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    dispatch(customRecipeActions.submitForm());
-    localStorage.clear("ingredientArray", "instructionsArray");
-    dispatch(customRecipeActions.resetForm());
-    setPage(0);
+    const imageRef = ref(imageDB, `images/${recipeInfo.image.name}`);
+    uploadBytes(imageRef, recipeInfo.image).then((value) => {
+      console.log(value);
+      getDownloadURL(value.ref).then((url) => {
+        dispatch(customRecipeActions.addImage(url));
+        console.log(url);
+      });
+    });
+
+    setTimeout(() => {
+      dispatch(customRecipeActions.submitForm());
+      localStorage.clear("ingredientArray", "instructionsArray");
+      dispatch(customRecipeActions.resetForm());
+      setPage(0);
+    }, 3000);
   };
 
   const prevPage = () => {
@@ -42,7 +55,7 @@ const CustomRecipeForm = () => {
         alert("please add instructions");
         return;
       } else {
-        submitHandler(event)
+        submitHandler(event);
       }
     } else {
       if (recipeInfo.title === "") {
@@ -108,7 +121,11 @@ const CustomRecipeForm = () => {
              bg-zinc-400 rounded"
             type={page > pageTitles.length - 1 ? "submit" : "button"}
           >
-            {page === pageTitles.length - 1 ? <Link to="/customRecipes">Submit</Link> : "Next"}
+            {page === pageTitles.length - 1 ? (
+              <Link to="/customRecipes">Submit</Link>
+            ) : (
+              "Next"
+            )}
           </button>
         </div>
       </form>
