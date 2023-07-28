@@ -23,9 +23,8 @@ const CustomRecipeInfo = () => {
   const imageHandler = (event) => {
     if (event.target.files[0]) {
       dispatch(customRecipeActions.addImage(event.target.files[0]));
+      dispatch(customRecipeActions.setImageName(event.target.files[0].name));
     }
-
-    console.log(recipeInfo.image)
   };
 
   return (

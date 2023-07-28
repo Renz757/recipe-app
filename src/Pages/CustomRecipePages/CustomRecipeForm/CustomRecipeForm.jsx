@@ -15,7 +15,6 @@ const CustomRecipeForm = () => {
   const [page, setPage] = useState(0);
   const pageTitles = ["Recipe Information", "Ingredients", "Instructions"];
 
-  console.log(page);
   const showPage = () => {
     if (page == 0) {
       return <CustomRecipeInfo />;

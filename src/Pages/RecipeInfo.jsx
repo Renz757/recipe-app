@@ -97,14 +97,13 @@ const RecipeInfo = ({ recipeInfoId }) => {
 
   const deleteModalHandler = () => {
     dispatch(customRecipeActions.modalhandler());
-    console.log(customRecipeInfo.showModal);
   };
 
   return (
     <>
       <DropDownStatus />
       {customRecipes.showModal && (
-        <DeleteModal customRecipeId={customRecipeInfo.dbID} />
+        <DeleteModal customRecipeId={customRecipeInfo.dbID} imageName={customRecipeInfo.imageName}/>
       )}
       {hasData === false || isLoading ? (
         <h1>Loading...</h1>

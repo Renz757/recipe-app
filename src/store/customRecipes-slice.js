@@ -1,5 +1,7 @@
-import { createSlice, current } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import { collection, addDoc, deleteDoc, doc } from "firebase/firestore";
+import { imageDB } from "../firebase_setup/firebase";
+import { ref, deleteObject } from "firebase/storage";
 import { db } from "../firebase_setup/firebase";
 
 const colRef = collection(db, 'customRecipes')
@@ -13,6 +15,7 @@ const initialState = {
     estimatedCookTime: '',
     servingSize: '',
     image: '',
+    imageName: '',
     ingredients: JSON.parse(
         localStorage.getItem("ingredientArray") || "[]"
     ),
@@ -35,6 +38,7 @@ export const customRecipeSlice = createSlice({
                 estimatedCookTime: state.estimatedCookTime,
                 servingSize: state.servingSize,
                 image: state.image,
+                imageName: state.imageName,
                 ingredients: state.ingredients,
                 instructions: state.instructions
             }
@@ -52,6 +56,9 @@ export const customRecipeSlice = createSlice({
         },
         addImage(state, action) {
             state.image = action.payload
+        },
+        setImageName(state, action) {
+            state.imageName = action.payload
         },
         setItem(state, action) {
             state.item = action.payload
@@ -121,7 +128,7 @@ export const customRecipeSlice = createSlice({
             deleteDoc(docRef)
             state.showModal = false
         },
-        modalhandler (state) {
+        modalhandler(state) {
             state.showModal = !state.showModal
         }
 
