@@ -12,6 +12,7 @@ import { shoppingListActions } from "./store/shoppingList-slice";
 import { customRecipeActions } from "./store/customRecipes-slice";
 import Login from "./Pages/Login";
 import Home from "./Pages/Home";
+import Profile from "./Pages/Profile";
 import Recipes from "./Pages/Recipes";
 import RecipeInfo from "./Pages/RecipeInfo";
 import Favorites from "./Pages/Favorites";
@@ -54,6 +55,10 @@ const App = () => {
         {
           path: "/",
           element: <Home setRecipeInfo={setRecipeInfo} />,
+        },
+        {
+          path: "/profile",
+          element: <Profile user={user}/>,
         },
         {
           path: "/recipes",
