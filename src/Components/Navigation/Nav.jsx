@@ -6,6 +6,7 @@ import SearchRecipe from "../SearchRecipe";
 import SideMenu from "./SideMenu";
 import MenuIcon from "../../UI/menuIcon";
 import ShoppingBagIcon from "../../UI/shoppingBagIcon";
+import ProfileIcon from "../../UI/profileIcon";
 import Backdrop from "../../UI/Overlay";
 
 const Nav = () => {
@@ -25,7 +26,7 @@ const Nav = () => {
       )}
       <div className="bg-darkgold grid grid-cols-12 grid-rows-2 items-center p-7">
         <Link className="col-span-6 md:col-span-2" to="/">
-          <h1 className="text-2xl font-Geologica">Recipe App</h1>
+          <h1 className="text-2xl font-Geologica text-vandyke">Recipe App</h1>
         </Link>
 
         <ul className="hidden md:col-span-10 items-center md:flex md:justify-end text-eggshell font-Geologica text-xl">
@@ -35,6 +36,9 @@ const Nav = () => {
         <div className="col-span-6 md:hidden flex items-center justify-end gap-3">
           <Link to="/shoppingList">
             <ShoppingBagIcon />
+          </Link>
+          <Link to="profile">
+            <ProfileIcon />
           </Link>
           <div onClick={sideBarHandler} className="cursor-pointer">
             <MenuIcon />

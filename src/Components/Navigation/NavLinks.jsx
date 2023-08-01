@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { navActions } from "../../store/nav-slice";
+import ProfileIcon from "../../UI/profileIcon";
 
 const NavLinks = () => {
   const dispatch = useDispatch();
@@ -21,6 +22,9 @@ const NavLinks = () => {
       </Link>
       <Link to="/customRecipes" className="hover:bg-vandyke w-full p-4 md:w-auto">
         <li onClick={sideBarHandler}>Custom Recipe</li>
+      </Link>
+      <Link className="hidden md:inline-block">
+        <ProfileIcon className=""/>
       </Link>
     </>
   );
