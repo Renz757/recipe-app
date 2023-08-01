@@ -8,6 +8,7 @@ import useInitialize from "./hooks/use-initialize";
 import { favActions } from "./store/favorites-slice";
 import { shoppingListActions } from "./store/shoppingList-slice";
 import { customRecipeActions } from "./store/customRecipes-slice";
+import Login from "./Pages/Login";
 import Home from "./Pages/Home";
 import Recipes from "./Pages/Recipes";
 import RecipeInfo from "./Pages/RecipeInfo";
@@ -21,6 +22,7 @@ import RootLayout from "./Pages/Root";
 const App = () => {
   //make a context with use reducer hook or implement redux for state management
   const [recipeInfo, setRecipeInfo] = useState([]);
+  const [isAuth, setIsAuth] = useState(false)
   const dispatch = useDispatch();
   
   const favRef = collection(db, "favorites");
@@ -35,7 +37,7 @@ const App = () => {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <RootLayout />,
+      element: isAuth ? <RootLayout />: <Login />,
       children: [
         {
           path: "/",
