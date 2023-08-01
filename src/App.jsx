@@ -3,6 +3,8 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { collection } from "firebase/firestore";
 import { db } from "./firebase_setup/firebase";
+import { auth } from "./firebase_setup/firebase";
+import { onAuthStateChanged } from "firebase/auth";
 import { useDispatch } from "react-redux";
 import useInitialize from "./hooks/use-initialize";
 import { favActions } from "./store/favorites-slice";
@@ -22,22 +24,32 @@ import RootLayout from "./Pages/Root";
 const App = () => {
   //make a context with use reducer hook or implement redux for state management
   const [recipeInfo, setRecipeInfo] = useState([]);
-  const [isAuth, setIsAuth] = useState(false)
+  const [isAuth, setIsAuth] = useState(false);
+  const [user, setUser] = useState(null);
   const dispatch = useDispatch();
-  
+
   const favRef = collection(db, "favorites");
   const shopRef = collection(db, "shoppingList");
   const customRef = collection(db, "customRecipes");
 
-  useInitialize(favRef, favActions)
-  useInitialize(shopRef, shoppingListActions)
-  useInitialize(customRef, customRecipeActions)
+  useInitialize(favRef, favActions);
+  useInitialize(shopRef, shoppingListActions);
+  useInitialize(customRef, customRecipeActions);
 
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      setUser(user);
+    })
+
+    return unsubscribe
+  }, []);
+
+  console.log(user)
 
   const router = createBrowserRouter([
     {
       path: "/",
-      element: isAuth ? <RootLayout />: <Login />,
+      element: user ? <RootLayout /> : <Login />,
       children: [
         {
           path: "/",

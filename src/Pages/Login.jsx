@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { auth } from "../firebase_setup/firebase";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -6,6 +8,8 @@ const Login = () => {
   const [reenterPassword, setReenterPassword] = useState("");
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
+  const [signInError, setSignInError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const emailHandler = (event) => {
     setEmail(event.target.value);
@@ -19,26 +23,39 @@ const Login = () => {
     setReenterPassword(event.target.value);
   };
 
-  const submitHandler = (event) => {
+  const submitHandler = async (event) => {
     event.preventDefault();
 
     if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
-        setEmailError(false)
+      setEmailError(false);
       alert("please enter valid email");
       setEmailError(true);
-      return 
+      return;
     } else if (password.length < 8) {
-        setPasswordError(false)
-        alert("password must be longer than 8 characters");
-        setPasswordError(true)
-        return
-    } else if (password !== reenterPassword ) {
-        setPasswordError(false)
-        alert("passwords do not match")
-        setPasswordError(true)
-        return
+      setPasswordError(false);
+      alert("password must be longer than 8 characters");
+      setPasswordError(true);
+      return;
+    } else if (password !== reenterPassword) {
+      setPasswordError(false);
+      alert("passwords do not match");
+      setPasswordError(true);
+      return;
     }
 
+    try {
+      setLoading(true);
+      setSignInError("");
+      await createUserWithEmailAndPassword(auth, email, password);
+    } catch {
+      setSignInError("Failed to create an account");
+      console.log(signInError);
+    }
+    setLoading(false);
+
+    setEmail("");
+    setPassword("");
+    setReenterPassword("");
     console.log(email.trim(), password.trim());
   };
 
@@ -51,7 +68,12 @@ const Login = () => {
         >
           <div className="flex flex-col">
             <label>Email</label>
-            <input className="border" type="text" onChange={emailHandler} />
+            <input
+              className="border"
+              type="text"
+              onChange={emailHandler}
+              value={email}
+            />
           </div>
           <div className="flex flex-col">
             <label>Password</label>
@@ -59,6 +81,7 @@ const Login = () => {
               className="border"
               type="password"
               onChange={passwordHandler}
+              value={password}
             />
           </div>
           <div className="flex flex-col">
@@ -67,9 +90,14 @@ const Login = () => {
               className="border"
               type="password"
               onChange={reenterPasswordHandler}
+              value={reenterPassword}
             />
           </div>
-          <button type="submit" className="bg-blue-500 rounded">
+          <button
+            type="submit"
+            className="bg-blue-500 rounded"
+            disabled={loading}
+          >
             Sign In
           </button>
           <p>Already have an account? Sign In</p>
