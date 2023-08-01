@@ -10,7 +10,7 @@ import useInitialize from "./hooks/use-initialize";
 import { favActions } from "./store/favorites-slice";
 import { shoppingListActions } from "./store/shoppingList-slice";
 import { customRecipeActions } from "./store/customRecipes-slice";
-import Login from "./Pages/Login";
+import SignUp from "./Pages/SignUp";
 import Home from "./Pages/Home";
 import Profile from "./Pages/Profile";
 import Recipes from "./Pages/Recipes";
@@ -50,7 +50,7 @@ const App = () => {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: user ? <RootLayout /> : <Login />,
+      element: user ? <RootLayout /> : <SignUp />,
       children: [
         {
           path: "/",
