@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, RouterProvider, redirect } from "react-router-dom";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { collection } from "firebase/firestore";
 import { db } from "./firebase_setup/firebase";
@@ -11,6 +11,7 @@ import { favActions } from "./store/favorites-slice";
 import { shoppingListActions } from "./store/shoppingList-slice";
 import { customRecipeActions } from "./store/customRecipes-slice";
 import SignUp from "./Pages/SignUp";
+import Login from "./Pages/Login";
 import Home from "./Pages/Home";
 import Profile from "./Pages/Profile";
 import Recipes from "./Pages/Recipes";
@@ -42,6 +43,10 @@ const App = () => {
       setUser(user);
     })
 
+    if (user) {
+      redirect("/")
+    }
+
     return unsubscribe
   }, []);
 
@@ -49,8 +54,12 @@ const App = () => {
 
   const router = createBrowserRouter([
     {
+      path: "/signup",
+      element: <SignUp />
+    },
+    {
       path: "/",
-      element: user ? <RootLayout /> : <SignUp />,
+      element: user ? <RootLayout /> : <Login />,
       children: [
         {
           path: "/",
@@ -93,8 +102,8 @@ const App = () => {
           path: "/customRecipes/customRecipeList",
           element: <CustomRecipeList setRecipeInfo={setRecipeInfo} />,
         },
-      ],
-    },
+      ]
+    }
   ]);
 
   return (
