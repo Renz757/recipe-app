@@ -12,11 +12,12 @@ import { collection } from "firebase/firestore";
 import { db } from "./firebase_setup/firebase";
 import { auth } from "./firebase_setup/firebase";
 import { onAuthStateChanged } from "firebase/auth";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import useInitialize from "./hooks/use-initialize";
 import { favActions } from "./store/favorites-slice";
 import { shoppingListActions } from "./store/shoppingList-slice";
 import { customRecipeActions } from "./store/customRecipes-slice";
+import { authActions } from "./store/authSlice";
 import SignUp from "./Pages/SignUp";
 import Login from "./Pages/Login";
 import Nav from "./Components/Navigation/Nav";
@@ -32,10 +33,7 @@ import CustomRecipeForm from "./pages/CustomRecipePages/CustomRecipeForm/CustomR
 import RootLayout from "./Pages/Root";
 
 const App = () => {
-  //make a context with use reducer hook or implement redux for state management
   const [recipeInfo, setRecipeInfo] = useState([]);
-  const [isAuth, setIsAuth] = useState(false);
-  const [user, setUser] = useState(null);
   const dispatch = useDispatch();
 
   const favRef = collection(db, "favorites");
@@ -46,9 +44,11 @@ const App = () => {
   useInitialize(shopRef, shoppingListActions);
   useInitialize(customRef, customRecipeActions);
 
+  const user = useSelector((state) => state.auth.user);
+
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
-      setUser(user);
+      dispatch(authActions.setUser(user));
     });
 
     if (user) {
@@ -57,6 +57,8 @@ const App = () => {
 
     return unsubscribe;
   }, []);
+
+  
 
   console.log(user);
 
