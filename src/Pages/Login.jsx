@@ -48,7 +48,7 @@ const Login = () => {
   };
 
   return (
-    <div className="flex justify-center items-center w-screen h-screen pb-28 bg-eggshell flex-col gap-y-5">
+    <div className="flex items-center w-screen h-screen bg-eggshell pt-28 flex-col gap-y-5">
       <h1 className="text-3xl">Login</h1>
       <form
         onSubmit={submitHandler}
@@ -77,7 +77,7 @@ const Login = () => {
         </button>
         <div className="flex gap-2 items-center">
           <p>Don't have an account?</p>
-          <Link to="signup" className="text-blue-500">Sign Up</Link>
+          <Link to="/signup" className="text-blue-500">Sign Up</Link>
         </div>
       </form>
     </div>
