@@ -12,6 +12,7 @@ import Backdrop from "../../UI/Overlay";
 const Nav = () => {
   const dispatch = useDispatch();
   const isOpen = useSelector((state) => state.nav.isOpen);
+  const user = useSelector((state) => state.auth.user);
 
   const sideBarHandler = () => {
     dispatch(navActions.toggleNav());
@@ -24,7 +25,7 @@ const Nav = () => {
           <Backdrop />
         </div>
       )}
-      <div className="bg-darkgold grid grid-cols-12 grid-rows-2 items-center p-7">
+      <div className={`bg-darkgold ${!user ? "text-center p-7" : "grid grid-cols-12 grid-rows-2 items-center p-7"}`}>
         <Link className="col-span-6 md:col-span-2" to="/">
           <h1 className="text-2xl font-Geologica text-vandyke">Recipe App</h1>
         </Link>
@@ -35,19 +36,19 @@ const Nav = () => {
 
         <div className="col-span-6 md:hidden flex items-center justify-end gap-3">
           <Link to="/shoppingList">
-            <ShoppingBagIcon />
+            {user && <ShoppingBagIcon />}
           </Link>
           <Link to="profile">
-            <ProfileIcon />
+            {user && <ProfileIcon />}
           </Link>
           <div onClick={sideBarHandler} className="cursor-pointer">
-            <MenuIcon />
+            {user && <MenuIcon />}
           </div>
         </div>
 
         {/* todo: add validation */}
         <div className="col-span-12 p-2 md:p-4">
-          <SearchRecipe />
+          {user && <SearchRecipe />}
         </div>
 
         <div className="md:hidden">
