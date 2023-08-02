@@ -31,7 +31,7 @@ const Nav = () => {
         </Link>
 
         <ul className="hidden md:col-span-10 items-center md:flex md:justify-end text-eggshell font-Geologica text-xl">
-          <NavLinks />
+          {user && <NavLinks />}
         </ul>
 
         <div className="col-span-6 md:hidden flex items-center justify-end gap-3">
@@ -52,7 +52,7 @@ const Nav = () => {
         </div>
 
         <div className="md:hidden">
-          <SideMenu />
+          {user && <SideMenu />}
         </div>
       </div>
     </>
