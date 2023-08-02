@@ -1,5 +1,12 @@
 import { useState, useEffect } from "react";
-import { createBrowserRouter, RouterProvider, redirect } from "react-router-dom";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  redirect,
+  Routes,
+  Route,
+  BrowserRouter,
+} from "react-router-dom";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { collection } from "firebase/firestore";
 import { db } from "./firebase_setup/firebase";
@@ -12,6 +19,7 @@ import { shoppingListActions } from "./store/shoppingList-slice";
 import { customRecipeActions } from "./store/customRecipes-slice";
 import SignUp from "./Pages/SignUp";
 import Login from "./Pages/Login";
+import Nav from "./Components/Navigation/Nav";
 import Home from "./Pages/Home";
 import Profile from "./Pages/Profile";
 import Recipes from "./Pages/Recipes";
@@ -41,74 +49,60 @@ const App = () => {
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setUser(user);
-    })
+    });
 
     if (user) {
-      redirect("/")
+      redirect("/home");
     }
 
-    return unsubscribe
+    return unsubscribe;
   }, []);
 
-  console.log(user)
-
-  const router = createBrowserRouter([
-    {
-      path: "/signup",
-      element: <SignUp />
-    },
-    {
-      path: "/",
-      element: user ? <RootLayout /> : <Login />,
-      children: [
-        {
-          path: "/",
-          element: <Home setRecipeInfo={setRecipeInfo} />,
-        },
-        {
-          path: "/profile",
-          element: <Profile user={user}/>,
-        },
-        {
-          path: "/recipes",
-          element: <Recipes setRecipeInfo={setRecipeInfo} />,
-        },
-        {
-          path: "/recipeInfo/:recipeId",
-          element: (
-            <RecipeInfo
-              recipeInfoId={recipeInfo}
-              setRecipeInfo={setRecipeInfo}
-            />
-          ),
-        },
-        {
-          path: "/favorites",
-          element: <Favorites setRecipeInfo={setRecipeInfo} />,
-        },
-        {
-          path: "/shoppingList",
-          element: <ShoppingList />,
-        },
-        {
-          path: "/customRecipes",
-          element: <CustomRecipes setRecipeInfo={setRecipeInfo} />,
-        },
-        {
-          path: "/customRecipes/createCustomRecipe",
-          element: <CustomRecipeForm />,
-        },
-        {
-          path: "/customRecipes/customRecipeList",
-          element: <CustomRecipeList setRecipeInfo={setRecipeInfo} />,
-        },
-      ]
-    }
-  ]);
+  console.log(user);
 
   return (
     <>
-      <RouterProvider router={router} />
+      {/* <RouterProvider router={router} /> */}
+      <BrowserRouter>
+        <Nav />
+        <Routes>
+          <Route path="login" element={<Login />} />
+          <Route path="signup" element={SignUp} />
+          <Route path="/" element={<Home setRecipeInfo={setRecipeInfo} />} />
+          <Route
+            path="recipes"
+            element={<Recipes setRecipeInfo={setRecipeInfo} />}
+          />
+          <Route
+            path="/recipeInfo/:recipeId"
+            element={
+              <RecipeInfo
+                recipeInfoId={recipeInfo}
+                setRecipeInfo={setRecipeInfo}
+              />
+            }
+          />
+          <Route
+            path="favorites"
+            element={<Favorites setRecipeInfo={setRecipeInfo} />}
+          />
+          <Route path="shoppingList" element={<ShoppingList />}></Route>
+          <Route
+            path="customRecipes"
+            element={<CustomRecipes setRecipeInfo={setRecipeInfo} />}
+          />
+          <Route
+            path="/customRecipes/createCustomRecipe"
+            element={<CustomRecipeForm />}
+          />
+          <Route
+            path="/customRecipes/customRecipeList"
+            elemen={<CustomRecipeList setRecipeInfo={setRecipeInfo} />}
+          />
+          <Route path="/profile" element={<Profile user={user} />} />
+        </Routes>
+      </BrowserRouter>
+
       <ReactQueryDevtools initialIsOpen={false} />
     </>
   );

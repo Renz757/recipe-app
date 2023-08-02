@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { auth } from "../firebase_setup/firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { Link, redirect } from "react-router-dom";
+import { Link, redirect, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -10,6 +10,8 @@ const Login = () => {
   const [passwordError, setPasswordError] = useState(false);
   const [signInError, setSignInError] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const navigate = useNavigate()
 
   const emailHandler = (event) => {
     setEmail(event.target.value);
@@ -37,7 +39,7 @@ const Login = () => {
 
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      return redirect("/")
+      navigate("/")
     } catch (error) {
       setSignInError("There was an issue signing in");
       console.log(signInError, error);
@@ -74,7 +76,7 @@ const Login = () => {
           Sign In
         </button>
         <div className="flex gap-2 items-center">
-          <p>Already have an account?</p>
+          <p>Don't have an account?</p>
           <Link to="signup" className="text-blue-500">Sign Up</Link>
         </div>
       </form>

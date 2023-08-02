@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { auth } from "../firebase_setup/firebase";
+import { Link, redirect, useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 
 const SignUp = () => {
@@ -10,6 +11,8 @@ const SignUp = () => {
   const [passwordError, setPasswordError] = useState(false);
   const [signInError, setSignInError] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const navigate = useNavigate();
 
   const emailHandler = (event) => {
     setEmail(event.target.value);
@@ -47,6 +50,7 @@ const SignUp = () => {
       setLoading(true);
       setSignInError("");
       await createUserWithEmailAndPassword(auth, email, password);
+      navigate("/");
     } catch {
       setSignInError("Failed to create an account");
       console.log(signInError);
@@ -61,7 +65,8 @@ const SignUp = () => {
 
   return (
     <>
-      <div className="flex justify-center items-center w-screen h-screen pb-28 bg-eggshell">
+      <div className="flex justify-center items-center w-screen h-screen pb-28 bg-eggshell flex-col gap-y-5">
+        <h1 className="text-3xl">Sign Up</h1>
         <form
           onSubmit={submitHandler}
           className="max-w-lg border-2 h-96 border-vandyke rounded-xl grid grid-cols-1 grid-rows-4 p-20 text-xl justify-center items-center"
@@ -100,7 +105,12 @@ const SignUp = () => {
           >
             Sign In
           </button>
-          <p>Already have an account? Sign In</p>
+          <div className="flex gap-2 items-center">
+            <p>Already have an account?</p>
+            <Link to="/" className="text-blue-500">
+              Sign In
+            </Link>
+          </div>
         </form>
       </div>
     </>

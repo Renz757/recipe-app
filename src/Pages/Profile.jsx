@@ -1,14 +1,18 @@
 import React, { useState } from "react";
 import LogoutIcon from "../UI/logoutIcon";
 import { auth } from "../firebase_setup/firebase";
+import { useNavigate } from "react-router-dom";
 
 const Profile = ({ user }) => {
   const [error, setError] = useState("");
+
+  const navigate = useNavigate()
 
   const logoutHandler = async () => {
     try {
       setError("");
       await auth.signOut();
+      navigate("/")
     } catch (error) {
       setError("There was an issue  singing out");
     }
