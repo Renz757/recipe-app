@@ -7,6 +7,7 @@ import {
   Route,
   BrowserRouter,
 } from "react-router-dom";
+import PrivateRoute from "./Components/PrivateRoute";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { collection } from "firebase/firestore";
 import { db } from "./firebase_setup/firebase";
@@ -30,7 +31,6 @@ import ShoppingList from "./Pages/shoppingList";
 import CustomRecipes from "./Pages/CustomRecipePages/CustomRecipes";
 import CustomRecipeList from "./Pages/CustomRecipePages/CustomRecipeList";
 import CustomRecipeForm from "./pages/CustomRecipePages/CustomRecipeForm/CustomRecipeForm";
-import RootLayout from "./Pages/Root";
 
 const App = () => {
   const [recipeInfo, setRecipeInfo] = useState([]);
@@ -58,8 +58,6 @@ const App = () => {
     return unsubscribe;
   }, []);
 
-  
-
   console.log(user);
 
   return (
@@ -70,7 +68,14 @@ const App = () => {
         <Routes>
           <Route path="login" element={<Login />} />
           <Route path="signup" element={SignUp} />
-          <Route path="/" element={<Home setRecipeInfo={setRecipeInfo} />} />
+          <Route
+            path="/"
+            element={
+              <PrivateRoute>
+                <Home setRecipeInfo={setRecipeInfo} />
+              </PrivateRoute>
+            }
+          />
           <Route
             path="recipes"
             element={<Recipes setRecipeInfo={setRecipeInfo} />}
@@ -101,7 +106,14 @@ const App = () => {
             path="/customRecipes/customRecipeList"
             elemen={<CustomRecipeList setRecipeInfo={setRecipeInfo} />}
           />
-          <Route path="/profile" element={<Profile user={user} />} />
+          <Route
+            path="/profile"
+            element={
+              <PrivateRoute>
+                <Profile />
+              </PrivateRoute>
+            }
+          ></Route>
         </Routes>
       </BrowserRouter>
 

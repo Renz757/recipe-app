@@ -2,9 +2,12 @@ import React, { useState } from "react";
 import LogoutIcon from "../UI/logoutIcon";
 import { auth } from "../firebase_setup/firebase";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-const Profile = ({ user }) => {
+const Profile = () => {
   const [error, setError] = useState("");
+
+  const user = useSelector((state) => state.auth.user);
 
   const navigate = useNavigate()
 
@@ -12,7 +15,7 @@ const Profile = ({ user }) => {
     try {
       setError("");
       await auth.signOut();
-      navigate("/")
+      navigate("/login")
     } catch (error) {
       setError("There was an issue  singing out");
     }
@@ -21,6 +24,7 @@ const Profile = ({ user }) => {
 
   return (
     <>
+      {!user && <p>Please Log in</p>}
       <div className="w-screen h-screen bg-eggshell text-center text-xl flex flex-col p-32">
         <div className="flex items-center gap-x-3">
           <h2 className="">User Name:</h2>
