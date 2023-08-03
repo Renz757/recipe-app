@@ -15,6 +15,7 @@ import { customRecipeActions } from "../store/customRecipes-slice";
 const RecipeInfo = ({ recipeInfoId }) => {
   const dispatch = useDispatch();
   const favorites = useSelector((state) => state.favorites.favoriteRecipes);
+  const user = useSelector((state) => state.auth.user);
   const notificationState = useSelector(
     (state) => state.shoppingList.notificationState
   );
@@ -77,6 +78,7 @@ const RecipeInfo = ({ recipeInfoId }) => {
       title: title,
       image: image,
       isFavorite: true,
+      uid: user.uid
     };
 
     dispatch(favActions.updateFavorite(favObject));

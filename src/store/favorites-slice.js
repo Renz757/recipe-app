@@ -1,8 +1,9 @@
 import { createSlice, current } from "@reduxjs/toolkit";
 import { collection, addDoc, deleteDoc, doc } from "firebase/firestore";
 import { db } from "../firebase_setup/firebase";
+import { useSelector } from "react-redux";
 
-const colRef = collection(db, "favorites");
+
 
 const initialState = {
     favoriteRecipes: []
@@ -24,12 +25,18 @@ export const favoriteSlice = createSlice({
             );
 
             const existingFavorite = currentState[existingFavoriteIndex];
+            const colRef = collection(db, "users", `${action.payload.uid}`, "favorites");
 
             if (existingFavorite) {
-                const docRef = doc(db, 'favorites', existingFavorite.dbID)
+                const docRef = doc(db, "users", `${action.payload.uid}`, "favorites", existingFavorite.dbID)
                 deleteDoc(docRef)
             } else {
-                addDoc(colRef, { ...action.payload })
+                addDoc(colRef, {
+                    id: action.payload.id,
+                    title: action.payload.title,
+                    image: action.payload.image,
+                    isFavorite: action.payload.isFavorite
+                })
             }
         }
     }

@@ -48,9 +48,9 @@ const App = () => {
   const shopRef = collection(db, "shoppingList");
   const customRef = collection(db, "customRecipes");
 
-  useInitialize(favRef, favActions);
-  useInitialize(shopRef, shoppingListActions);
-  useInitialize(customRef, customRecipeActions);
+  // db, "users", `${action.payload.uid}`, "favorites"
+  // useInitialize(shopRef, shoppingListActions);
+  // useInitialize(customRef, customRecipeActions);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -58,17 +58,20 @@ const App = () => {
     });
 
     if (user) {
-    
       const userRef = doc(db, "users", `${user.uid}`);
       setDoc(userRef, {
-        uid: user.uid
+        uid: user.uid,
       });
     }
-
     console.log(user);
 
     return unsubscribe;
   }, [user]);
+
+  if (user) {
+    const favRef = collection(db, "users", `${user.uid}`, "favorites");
+    useInitialize(favRef, favActions);
+  }
 
   return (
     <>
