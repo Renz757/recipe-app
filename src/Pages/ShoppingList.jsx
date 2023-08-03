@@ -15,7 +15,6 @@ const ShoppingList = () => {
   return (
     <div className="bg-eggshell h-screen">
       <h1 className="text-3xl text-center p-3 font-Geologica">Shopping List</h1>
-      {}
       {!shoppingList && (
         <div className="text-center mt-20 text-3xl">
           Browse Recipes to Add Ingredients to Shopping List!
@@ -36,8 +35,8 @@ const ShoppingList = () => {
                 </div>
               </div>
               <ul>
-                {recipeIngredients.ingredients.map((items) => (
-                  <li className="font-noto text-lg p-1 flex gap-2 items-center">
+                {recipeIngredients.ingredients.map((items, index) => (
+                  <li key={index} className="font-noto text-lg p-1 flex gap-2 items-center">
                     <input
                       className="h-5 w-5 accent-green-400"
                       type="checkbox"
