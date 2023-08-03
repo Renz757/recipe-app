@@ -3,23 +3,26 @@ import { Link } from "react-router-dom";
 
 const CustomRecipes = ({ setRecipeInfo }) => {
   const customRecipes = useSelector((state) => state.customRecipe);
-  
 
   //create component that renders a list of custom recipes
   return (
     <div className="bg-eggshell h-screen">
-      <div className="flex flex-col justify-center gap-y-6 lg:w-8/12 mx-auto">
-        <Link
-          className="p-4 mt-4 bg-green-400 rounded-xl w-8/12 mx-auto text-center"
-          to="/customRecipes/createCustomRecipe"
-        >
-          Add Custom Recipe
-        </Link>
+      <div className="flex flex-col justify-center lg:w-8/12 mx-auto">
+      
+          <Link
+            className="p-4 mt-5 bg-green-400 rounded-xl w-8/12 mx-auto text-center"
+            to="/customRecipes/createCustomRecipe"
+          >
+            Add Custom Recipe
+          </Link>
+    
         <div className="bg-eggshell mt-5">
-          {customRecipes.customRecipeList.length == [] && <h2 className="text-2xl text-center">No Custom Recipes</h2>}
+          {customRecipes.customRecipeList.length == [] && (
+            <h2 className="text-2xl text-center">No Custom Recipes</h2>
+          )}
           {customRecipes.customRecipeList.map((recipe, index) => {
             return (
-              <div key={index} className=" grid grid-cols-1">
+              <div key={index} className="grid grid-cols-1">
                 <div className="">
                   <div className="">
                     <img
