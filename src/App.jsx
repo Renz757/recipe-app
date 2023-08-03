@@ -44,8 +44,6 @@ const App = () => {
 
   const user = useSelector((state) => state.auth.user);
 
-  const favRef = collection(db, "favorites");
-  const shopRef = collection(db, "shoppingList");
   const customRef = collection(db, "customRecipes");
 
   // db, "users", `${action.payload.uid}`, "favorites"
@@ -63,15 +61,20 @@ const App = () => {
         uid: user.uid,
       });
     }
-    console.log(user);
 
     return unsubscribe;
   }, [user]);
 
-  if (user) {
-    const favRef = collection(db, "users", `${user.uid}`, "favorites");
-    useInitialize(favRef, favActions);
-  }
+  const favRef = collection(db, "users", `${user && user.uid}`, "favorites");
+  const shopRef = collection(
+    db,
+    "users",
+    `${user && user.uid}`,
+    "shoppingList"
+  );
+
+  useInitialize(favRef, favActions);
+  useInitialize(shopRef, shoppingListActions);
 
   return (
     <>

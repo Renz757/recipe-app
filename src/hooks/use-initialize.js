@@ -4,7 +4,6 @@ import { onSnapshot } from "firebase/firestore";
 
 const useInitialize = (colRef, action) => {
     const dispatch = useDispatch();
-    useEffect(() => {
         let data = [];
         onSnapshot(colRef, (snapshot) => {
             //get data from passed in collection ref
@@ -18,7 +17,6 @@ const useInitialize = (colRef, action) => {
             //reset to empty array
             data = []
         });
-    }, []);
 }
 
 export default useInitialize;
