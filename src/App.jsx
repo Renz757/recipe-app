@@ -1,21 +1,8 @@
 import { useState, useEffect } from "react";
-import {
-  createBrowserRouter,
-  RouterProvider,
-  redirect,
-  Routes,
-  Route,
-  BrowserRouter,
-} from "react-router-dom";
+import { Navigate, Routes, Route, BrowserRouter } from "react-router-dom";
 import PrivateRoute from "./Components/PrivateRoute";
 import { ReactQueryDevtools } from "react-query/devtools";
-import {
-  addDoc,
-  collection,
-  onSnapshot,
-  setDoc,
-  doc,
-} from "firebase/firestore";
+import { collection, setDoc, doc } from "firebase/firestore";
 import { db } from "./firebase_setup/firebase";
 import { auth } from "./firebase_setup/firebase";
 import { onAuthStateChanged } from "firebase/auth";
@@ -44,10 +31,6 @@ const App = () => {
 
   const user = useSelector((state) => state.auth.user);
 
-  // db, "users", `${action.payload.uid}`, "favorites"
-  // useInitialize(shopRef, shoppingListActions);
-  // useInitialize(customRef, customRecipeActions);
-
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       dispatch(authActions.setUser(user));
@@ -62,6 +45,8 @@ const App = () => {
 
     return unsubscribe;
   }, [user]);
+
+  const redirect = () => {};
 
   const favRef = collection(db, "users", `${user && user.uid}`, "favorites");
   const shopRef = collection(
@@ -87,10 +72,14 @@ const App = () => {
       <BrowserRouter>
         <Nav />
         <Routes>
-          <Route path="login" element={<Login />} />
+          <Route
+            path="login"
+            element={user ? <Navigate to="/" /> : <Login />}
+          />
           <Route path="signup" element={<SignUp />} />
           <Route
             path="/"
+            index
             element={
               <PrivateRoute>
                 <Home setRecipeInfo={setRecipeInfo} />
