@@ -6,9 +6,9 @@ import axios from "axios";
 import SearchIcon from "../UI/SearchIcon";
 
 const SearchRecipe = (props) => {
-  const searchInput = useSelector(state => state.nav.searchInput)
+  const searchInput = useSelector((state) => state.nav.searchInput);
   const dispatch = useDispatch();
-  const { refetch } = useQuery(
+  const { data, refetch } = useQuery(
     ["recpies"],
     async () => {
       const { data } = await axios.get(
@@ -32,7 +32,13 @@ const SearchRecipe = (props) => {
 
   const searchHandler = (event) => {
     event.preventDefault();
-    dispatch(navActions.updateSearchInput(event.target.value))
+    dispatch(navActions.updateSearchInput(event.target.value));
+  };
+
+  const resetSearch = (data) => {
+    setTimeout(() => {
+      dispatch(navActions.updateSearchInput(""));
+    }, 1050);
   };
 
   return (
@@ -44,6 +50,8 @@ const SearchRecipe = (props) => {
           placeholder="Search a Recipe"
           className="p-2 w-10/12 outline-none bg-white"
           onChange={searchHandler}
+          value={searchInput}
+          onBlur={resetSearch}
         />
 
         <Link to="recipes">
