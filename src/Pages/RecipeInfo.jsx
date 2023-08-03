@@ -92,6 +92,7 @@ const RecipeInfo = ({ recipeInfoId }) => {
         ? recipeInfo.extendedIngredients.map((items) => items.original)
         : customRecipeInfo.ingredients.map((items) => items),
       isComplete: false,
+      uid: user.uid
     };
 
     dispatch(shoppingListActions.addIngredients(ingredientObject));

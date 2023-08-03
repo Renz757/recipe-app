@@ -4,13 +4,13 @@ import CheckIcon from "../UI/checkIcon";
 import RemoveIcon from "../UI/removeIcon";
 
 const ShoppingList = () => {
-
   const dispatch = useDispatch();
   const shoppingList = useSelector((state) => state.shoppingList.shoppingList);
+  const user = useSelector((state) => state.auth.user);
 
   const removeHandler = (id) => {
-    dispatch(shoppingListActions.removeIngredients(id));
-  }
+    dispatch(shoppingListActions.removeIngredients({ id: id, uid: user.uid }));
+  };
 
   return (
     <div className="bg-eggshell h-screen">
@@ -31,9 +31,7 @@ const ShoppingList = () => {
                   {recipeIngredients.title}
                 </h1>
                 <CheckIcon />
-                <div
-                  onClick={removeHandler.bind(null, recipeIngredients.dbID)}
-                >
+                <div onClick={removeHandler.bind(null, recipeIngredients.dbID)}>
                   <RemoveIcon />
                 </div>
               </div>
