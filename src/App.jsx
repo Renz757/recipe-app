@@ -9,7 +9,13 @@ import {
 } from "react-router-dom";
 import PrivateRoute from "./Components/PrivateRoute";
 import { ReactQueryDevtools } from "react-query/devtools";
-import { collection } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  onSnapshot,
+  setDoc,
+  doc,
+} from "firebase/firestore";
 import { db } from "./firebase_setup/firebase";
 import { auth } from "./firebase_setup/firebase";
 import { onAuthStateChanged } from "firebase/auth";
@@ -36,6 +42,8 @@ const App = () => {
   const [recipeInfo, setRecipeInfo] = useState([]);
   const dispatch = useDispatch();
 
+  const user = useSelector((state) => state.auth.user);
+
   const favRef = collection(db, "favorites");
   const shopRef = collection(db, "shoppingList");
   const customRef = collection(db, "customRecipes");
@@ -44,21 +52,23 @@ const App = () => {
   useInitialize(shopRef, shoppingListActions);
   useInitialize(customRef, customRecipeActions);
 
-  const user = useSelector((state) => state.auth.user);
-
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       dispatch(authActions.setUser(user));
     });
 
     if (user) {
-      redirect("/home");
+    
+      const userRef = doc(db, "users", `${user.uid}`);
+      setDoc(userRef, {
+        uid: user.uid
+      });
     }
 
-    return unsubscribe;
-  }, []);
+    console.log(user);
 
-  console.log(user);
+    return unsubscribe;
+  }, [user]);
 
   return (
     <>
@@ -78,33 +88,62 @@ const App = () => {
           />
           <Route
             path="recipes"
-            element={<Recipes setRecipeInfo={setRecipeInfo} />}
+            element={
+              <PrivateRoute>
+                <Recipes setRecipeInfo={setRecipeInfo} />
+              </PrivateRoute>
+            }
           />
           <Route
             path="/recipeInfo/:recipeId"
             element={
-              <RecipeInfo
-                recipeInfoId={recipeInfo}
-                setRecipeInfo={setRecipeInfo}
-              />
+              <PrivateRoute>
+                <RecipeInfo
+                  recipeInfoId={recipeInfo}
+                  setRecipeInfo={setRecipeInfo}
+                />
+              </PrivateRoute>
             }
           />
           <Route
             path="favorites"
-            element={<Favorites setRecipeInfo={setRecipeInfo} />}
+            element={
+              <PrivateRoute>
+                <Favorites setRecipeInfo={setRecipeInfo} />
+              </PrivateRoute>
+            }
           />
-          <Route path="shoppingList" element={<ShoppingList />}></Route>
+          <Route
+            path="shoppingList"
+            element={
+              <PrivateRoute>
+                <ShoppingList />
+              </PrivateRoute>
+            }
+          ></Route>
           <Route
             path="customRecipes"
-            element={<CustomRecipes setRecipeInfo={setRecipeInfo} />}
+            element={
+              <PrivateRoute>
+                <CustomRecipes setRecipeInfo={setRecipeInfo} />
+              </PrivateRoute>
+            }
           />
           <Route
             path="/customRecipes/createCustomRecipe"
-            element={<CustomRecipeForm />}
+            element={
+              <PrivateRoute>
+                <CustomRecipeForm />
+              </PrivateRoute>
+            }
           />
           <Route
             path="/customRecipes/customRecipeList"
-            elemen={<CustomRecipeList setRecipeInfo={setRecipeInfo} />}
+            element={
+              <PrivateRoute>
+                <CustomRecipeList setRecipeInfo={setRecipeInfo} />
+              </PrivateRoute>
+            }
           />
           <Route
             path="/profile"
