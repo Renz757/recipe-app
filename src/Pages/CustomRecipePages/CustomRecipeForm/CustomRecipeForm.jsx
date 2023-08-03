@@ -8,9 +8,12 @@ import CustomRecipeInstructions from "./CustomRecipeInstructions";
 import CustomRecipeIngredients from "./CustomRecipeIngredients";
 import { Link } from "react-router-dom";
 
+// TODO: Change from multistep form to normal form   
+
 const CustomRecipeForm = () => {
   const dispatch = useDispatch();
   const recipeInfo = useSelector((state) => state.customRecipe);
+  const user = useSelector((state) => state.auth.user);
 
   const [page, setPage] = useState(0);
   const pageTitles = ["Recipe Information", "Ingredients", "Instructions"];
@@ -37,7 +40,7 @@ const CustomRecipeForm = () => {
     });
 
     setTimeout(() => {
-      dispatch(customRecipeActions.submitForm());
+      dispatch(customRecipeActions.submitForm(user.uid));
       localStorage.clear("ingredientArray", "instructionsArray");
       dispatch(customRecipeActions.resetForm());
       setPage(0);

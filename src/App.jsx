@@ -44,8 +44,6 @@ const App = () => {
 
   const user = useSelector((state) => state.auth.user);
 
-  const customRef = collection(db, "customRecipes");
-
   // db, "users", `${action.payload.uid}`, "favorites"
   // useInitialize(shopRef, shoppingListActions);
   // useInitialize(customRef, customRecipeActions);
@@ -72,9 +70,16 @@ const App = () => {
     `${user && user.uid}`,
     "shoppingList"
   );
+  const customRef = collection(
+    db,
+    "users",
+    `${user && user.uid}`,
+    "customRecipes"
+  );
 
   useInitialize(favRef, favActions);
   useInitialize(shopRef, shoppingListActions);
+  useInitialize(customRef, customRecipeActions);
 
   return (
     <>

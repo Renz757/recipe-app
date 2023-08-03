@@ -4,10 +4,6 @@ import { imageDB } from "../firebase_setup/firebase";
 import { ref, deleteObject } from "firebase/storage";
 import { db } from "../firebase_setup/firebase";
 
-const colRef = collection(db, 'customRecipes')
-
-//add initialize reducer to ste custom recpies to array 
-
 const initialState = {
     customRecipeList: [],
     customRecipe: {},
@@ -32,7 +28,8 @@ export const customRecipeSlice = createSlice({
     initialState,
     reducers: {
         initialize(state, action) { state.customRecipeList = action.payload },
-        submitForm(state) {
+        submitForm(state, action) {
+            const colRef = collection(db, "users", `${action.payload}`, 'customRecipes')
             state.customRecipe = {
                 title: state.title,
                 estimatedCookTime: state.estimatedCookTime,
@@ -124,7 +121,7 @@ export const customRecipeSlice = createSlice({
             state.customRecipe = {}
         },
         deleteCustomRecipe(state, action) {
-            const docRef = doc(db, "customRecipes", action.payload)
+            const docRef = doc(db, "users", `${action.payload.uid}`, "customRecipes", action.payload)
             deleteDoc(docRef)
             state.showModal = false
         },
