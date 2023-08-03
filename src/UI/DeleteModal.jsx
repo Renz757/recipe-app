@@ -7,18 +7,26 @@ import { Link } from "react-router-dom";
 
 const DeleteModal = ({ customRecipeId, imageName }) => {
   const dispatch = useDispatch();
-  const customRecipe = useSelector((state) => state.customRecipe);
+  const user = useSelector((state) => state.auth.user);
+
   const removeRecipeHandler = () => {
     //remove custom recipe
-    dispatch(customRecipeActions.deleteCustomRecipe(customRecipeId));
+    dispatch(
+      customRecipeActions.deleteCustomRecipe({
+        id: customRecipeId,
+        uid: user.uid,
+      })
+    );
 
     //remove
     const imageRef = ref(imageDB, `images/${imageName}`);
-    deleteObject(imageRef).then(() => {
-      console.log('file was deleted')
-    }).catch((error) => {
-      console.log(error)
-    })
+    deleteObject(imageRef)
+      .then(() => {
+        console.log("file was deleted");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
   const cancelHandler = () => {
     dispatch(customRecipeActions.modalhandler());

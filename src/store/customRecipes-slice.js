@@ -121,7 +121,7 @@ export const customRecipeSlice = createSlice({
             state.customRecipe = {}
         },
         deleteCustomRecipe(state, action) {
-            const docRef = doc(db, "users", `${action.payload.uid}`, "customRecipes", action.payload)
+            const docRef = doc(db, "users", `${action.payload.uid}`, "customRecipes", action.payload.id)
             deleteDoc(docRef)
             state.showModal = false
         },
