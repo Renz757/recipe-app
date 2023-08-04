@@ -26,18 +26,23 @@ const Home = ({ setRecipeInfo }) => {
         {!recipeInfo ? (
           <h1>Loading...</h1>
         ) : (
-          <div>
-            <img
-              className="mt-4 w-full aspect-video object-cover"
-              src={`${recipeInfo.image}`}
-            />
-            <h1 className="text-4xl font-Caveat p-3">{recipeInfo.title}</h1>
-            <Link
-              onClick={() => setRecipeInfo(recipeInfo.id)}
-              to={`/recipeInfo/${recipeInfo.id}`}
-            >
-              Give it a Try!
-            </Link>
+          <div className="grid grid-cols-1 md:max-w-5xl md:mx-auto md:pt-4">
+            <div className=" text-left">
+              <img
+                className="w-full mt-4 aspect-video object-cover blur-none lg:rounded"
+                src={`${recipeInfo.image}`}
+              />
+              <h1 className="text-4xl text-left font-Caveat pt-3">
+                {recipeInfo.title}
+              </h1>
+              <Link
+                onClick={() => setRecipeInfo(recipeInfo.id)}
+                to={`/recipeInfo/${recipeInfo.id}`}
+                className="text-vandyke underline font-Geologica"
+              >
+                Give it a Try!
+              </Link>
+            </div>
           </div>
         )}
       </div>

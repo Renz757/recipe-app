@@ -4,24 +4,23 @@ import { useSelector, useDispatch } from "react-redux";
 //todo: style favorites page
 const Favorites = ({ setRecipeInfo }) => {
   const dispatch = useDispatch();
-  
+
   const favorites = useSelector((state) => state.favorites.favoriteRecipes);
 
   return (
     <div className="bg-eggshell h-screen">
-      {favorites <= 0 ? (
-        <p>No Favorites</p>
-      ) : (
-        favorites.map((favorites, index) => {
+      {favorites <= 0 && <p>No Favorites</p>}
+
+      <div className="grid grid-cols1 md:max-w-5xl md:mx-auto lg:grid-cols-2 md:pt-7 lg:gap-4">
+        {favorites.map((favorites, index) => {
           return (
-            <div key={index} className="grid grid-cols-1 lg:w-8/12 mx-auto">
-              <div className="text-center">
-                <img
-                  className="w-full aspect-video object-cover blur-none lg:rounded"
-                  src={favorites.image}
-                  alt={favorites.title}
-                />
-              </div>
+            <div className="text-left lg:text-center">
+              <img
+                className="w-full aspect-video object-cover blur-none lg:rounded"
+                src={favorites.image}
+                alt={favorites.title}
+              />
+
               <div className="p-4">
                 <h1 className="text-3xl font-Caveat">{favorites.title}</h1>
                 <Link
@@ -35,8 +34,8 @@ const Favorites = ({ setRecipeInfo }) => {
               </div>
             </div>
           );
-        })
-      )}
+        })}
+      </div>
     </div>
   );
 };
