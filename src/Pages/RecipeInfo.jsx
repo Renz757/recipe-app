@@ -78,7 +78,7 @@ const RecipeInfo = ({ recipeInfoId }) => {
       title: title,
       image: image,
       isFavorite: true,
-      uid: user.uid
+      uid: user.uid,
     };
 
     dispatch(favActions.updateFavorite(favObject));
@@ -92,7 +92,7 @@ const RecipeInfo = ({ recipeInfoId }) => {
         ? recipeInfo.extendedIngredients.map((items) => items.original)
         : customRecipeInfo.ingredients.map((items) => items),
       isComplete: false,
-      uid: user.uid
+      uid: user.uid,
     };
 
     dispatch(shoppingListActions.addIngredients(ingredientObject));
@@ -106,139 +106,155 @@ const RecipeInfo = ({ recipeInfoId }) => {
     <>
       <DropDownStatus />
       {customRecipes.showModal && (
-        <DeleteModal customRecipeId={customRecipeInfo.dbID} imageName={customRecipeInfo.imageName}/>
+        <DeleteModal
+          customRecipeId={customRecipeInfo.dbID}
+          imageName={customRecipeInfo.imageName}
+        />
       )}
       {hasData === false || isLoading ? (
         <h1>Loading...</h1>
       ) : (
-        <div
-          key={isNotCustomRecipe ? recipeInfo.id : customRecipeInfo.dbID}
-          className="bg-saffron"
-        >
-          {/* Recipe Info */}
-          <div className="flex flex-col ">
-            <div className="relative">
-              <img
-                className="w-full aspect-video object-cover blur-none"
-                src={
-                  isNotCustomRecipe ? recipeInfo.image : customRecipeInfo.image
-                }
-              />
-            </div>
-            <div className="flex items-center">
-              <h1 className="text-4xl font-Caveat p-3">
-                {isNotCustomRecipe ? recipeInfo.title : customRecipeInfo.title}
-              </h1>
-              <div
-                className={`${
+        <div className="bg-saffron h-full">
+          <div
+            key={isNotCustomRecipe ? recipeInfo.id : customRecipeInfo.dbID}
+            className="md:max-w-2xl md:mx-auto md:pt-5"
+          >
+            {/* Recipe Info */}
+            <div className="flex flex-col ">
+              <div className="relative">
+                <img
+                  className="w-full aspect-video object-cover blur-none"
+                  src={
+                    isNotCustomRecipe
+                      ? recipeInfo.image
+                      : customRecipeInfo.image
+                  }
+                />
+              </div>
+              <div className="flex items-center">
+                <h1 className="text-4xl font-Caveat p-3">
+                  {isNotCustomRecipe
+                    ? recipeInfo.title
+                    : customRecipeInfo.title}
+                </h1>
+                <div
+                  className={`${
+                    isNotCustomRecipe
+                      ? "bg-zinc-500 h-7 w-7 flex justify-center items-center rounded-full"
+                      : ""
+                  }`}
+                  onClick={
+                    isNotCustomRecipe
+                      ? favoriteRecipeHandler.bind(
+                          null,
+                          recipeInfo.title,
+                          recipeInfo.image,
+                          recipeInfo.id
+                        )
+                      : null //Will not add custom recipes as favorites
+                  }
+                >
+                  {isNotCustomRecipe ? (
+                    <HeartIcon
+                      currentId={recipeInfo.id}
+                      favorites={favorites}
+                    />
+                  ) : (
+                    <div onClick={deleteModalHandler}>
+                      <RemoveIcon />
+                    </div>
+                  )}
+                </div>
+              </div>
+              <div className="font-noto w-10/12 mx-auto">
+                <p className="mt-2 p-2 border-b-2 border-zinc-500">{`Ready In: ${
                   isNotCustomRecipe
-                    ? "bg-zinc-500 h-7 w-7 flex justify-center items-center rounded-full"
-                    : ""
-                }`}
-                onClick={
+                    ? recipeInfo.readyInMinutes
+                    : customRecipeInfo.estimatedCookTime
+                } minutes`}</p>
+                <p className="mt-2 p-2 border-b-2 border-zinc-500">{`Servings: ${
                   isNotCustomRecipe
-                    ? favoriteRecipeHandler.bind(
-                        null,
-                        recipeInfo.title,
-                        recipeInfo.image,
-                        recipeInfo.id
-                      )
-                    : null //Will not add custom recipes as favorites
-                }
-              >
-                {isNotCustomRecipe ? (
-                  <HeartIcon currentId={recipeInfo.id} favorites={favorites} />
-                ) : (
-                  <div onClick={deleteModalHandler}>
-                    <RemoveIcon />
-                  </div>
-                )}
+                    ? recipeInfo.servings
+                    : customRecipeInfo.servingSize
+                }`}</p>
+                <p className="mt-2 p-2 border-b-2 border-zinc-500">{`Ingredients: ${
+                  isNotCustomRecipe
+                    ? recipeInfo.extendedIngredients.length
+                    : customRecipeInfo.ingredients.length
+                }`}</p>
               </div>
             </div>
-            <div className="font-noto w-10/12 mx-auto">
-              <p className="mt-2 p-2 border-b-2 border-zinc-500">{`Ready In: ${
-                isNotCustomRecipe
-                  ? recipeInfo.readyInMinutes
-                  : customRecipeInfo.estimatedCookTime
-              } minutes`}</p>
-              <p className="mt-2 p-2 border-b-2 border-zinc-500">{`Servings: ${
-                isNotCustomRecipe
-                  ? recipeInfo.servings
-                  : customRecipeInfo.servingSize
-              }`}</p>
-              <p className="mt-2 p-2 border-b-2 border-zinc-500">{`Ingredients: ${
-                isNotCustomRecipe
-                  ? recipeInfo.extendedIngredients.length
-                  : customRecipeInfo.ingredients.length
-              }`}</p>
+
+            {/* Ingredients */}
+            <div className="flex flex-col mt-16 px-5 py-7 border-t-2 border-zinc-500">
+              <h2 className="text-2xl text-zinc-600 font-Geologica">
+                Ingredients
+              </h2>
+              {isNotCustomRecipe
+                ? recipeInfo.extendedIngredients.map((ingredients, index) => {
+                    return (
+                      <p key={index} className="font-noto pt-2">
+                        {ingredients.original}
+                      </p>
+                    );
+                  })
+                : customRecipeInfo.ingredients.map((ingredients, index) => {
+                    return (
+                      <p key={index} className="font-noto pt-2">
+                        {ingredients}
+                      </p>
+                    );
+                  })}
+
+              {/* Todo: show modal onClick */}
+              <button
+                onClick={
+                  isNotCustomRecipe
+                    ? shoppingListHandler.bind(
+                        null,
+                        recipeInfo.id,
+                        recipeInfo.title
+                      )
+                    : shoppingListHandler.bind(
+                        null,
+                        customRecipeInfo.dbID,
+                        customRecipeInfo.title
+                      )
+                }
+                className="text-center mt-5 bg-green-400 w-7/12 md:w-6/12 p-2 rounded-xl cursor-pointer"
+              >
+                Add Ingredients to Shopping List
+              </button>
             </div>
-          </div>
 
-          {/* Ingredients */}
-          <div className="flex flex-col mt-16 px-5 py-7 border-t-2 border-zinc-500">
-            <h2 className="text-2xl text-zinc-600 font-Geologica">
-              Ingredients
-            </h2>
-            {isNotCustomRecipe
-              ? recipeInfo.extendedIngredients.map((ingredients, index) => {
-                  return (
-                    <p key={index} className="font-noto pt-2">
-                      {ingredients.original}
-                    </p>
-                  );
-                })
-              : customRecipeInfo.ingredients.map((ingredients, index) => {
-                  return (
-                    <p key={index} className="font-noto pt-2">
-                      {ingredients}
-                    </p>
-                  );
-                })}
-
-            {/* Todo: show modal onClick */}
-            <button
-              onClick={
-                isNotCustomRecipe
-                  ? shoppingListHandler.bind(
-                      null,
-                      recipeInfo.id,
-                      recipeInfo.title
-                    )
-                  : shoppingListHandler.bind(
-                      null,
-                      customRecipeInfo.dbID,
-                      customRecipeInfo.title
-                    )
-              }
-              className="text-left mt-5 bg-green-400 w-7/12 p-2 rounded-xl cursor-pointer"
-            >
-              Add Ingredients to Shopping List
-            </button>
-          </div>
-
-          <div className="flex flex-col mt-16 px-5 py-7 border-t-2 border-zinc-500 pb-10">
-            <h1 className="text-2xl text-zinc-600 font-Geologica">
-              Instructions
-            </h1>
-            {isNotCustomRecipe
-              ? recipeInfo.analyzedInstructions.map((instructions, index) => {
-                  return instructions.steps.map((steps, index) => {
+            <div className="flex flex-col mt-16 px-5 py-7 border-t-2 border-zinc-500 pb-10">
+              <h1 className="text-2xl text-zinc-600 font-Geologica">
+                Instructions
+              </h1>
+              {isNotCustomRecipe
+                ? recipeInfo.analyzedInstructions.map((instructions, index) => {
+                    return instructions.steps.map((steps, index) => {
+                      return (
+                        <div key={index} className="flex m-3 gap-2">
+                          <p className="ml-2 font-noto">{`${steps.number}: `}</p>
+                          <p className="font-noto tracking-wide">
+                            {steps.step}
+                          </p>
+                        </div>
+                      );
+                    });
+                  })
+                : customRecipeInfo.instructions.map((instructions, index) => {
                     return (
                       <div key={index} className="flex m-3 gap-2">
-                        <p className="ml-2 font-noto">{`${steps.number}: `}</p>
-                        <p className="font-noto tracking-wide">{steps.step}</p>
+                        <p className="ml-2 font-noto">{`${index + 1}: `}</p>
+                        <p className="font-noto tracking-wide">
+                          {instructions}
+                        </p>
                       </div>
                     );
-                  });
-                })
-              : customRecipeInfo.instructions.map((instructions, index) => {
-                  return (
-                    <div key={index} className="flex m-3 gap-2">
-                      <p className="ml-2 font-noto">{`${index + 1}: `}</p>
-                      <p className="font-noto tracking-wide">{instructions}</p>
-                    </div>
-                  );
-                })}
+                  })}
+            </div>
           </div>
         </div>
       )}
