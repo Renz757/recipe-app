@@ -23,7 +23,7 @@ const NavLinks = () => {
       <Link to="/customRecipes" className="hover:bg-vandyke w-full p-4 md:w-auto">
         <li onClick={sideBarHandler}>Custom Recipe</li>
       </Link>
-      <Link className="hidden md:inline-block">
+      <Link to="/profile" className="hidden md:inline-block">
         <ProfileIcon className=""/>
       </Link>
     </>
