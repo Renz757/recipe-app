@@ -93,16 +93,16 @@ const Login = () => {
               </a>
             </div>
 
-            <div className="flex justify-between items-center">
+            <div className="flex flex-col md:flex-row gap-y-3 md:justify-between md:items-center">
               <button
                 type="submit"
-                className="bg-vandyke text-white px-4 py-2 rounded"
+                className="bg-vandyke text-white md:px-4 py-2 rounded"
               >
                 Login
               </button>
               <button
                 type="button"
-                className="bg-eggshell text-vandyke border-2 border-vandyke px-4 py-2 rounded "
+                className="bg-eggshell text-vandyke border-2 border-vandyke md:px-4 py-2 rounded "
               >
                 <Link to="/signup">Sign Up</Link>
               </button>
