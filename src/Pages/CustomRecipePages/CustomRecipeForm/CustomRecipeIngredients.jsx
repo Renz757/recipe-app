@@ -1,66 +1,42 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { customRecipeActions } from "../../../store/customRecipes-slice";
-import RemoveIcon from "../../../UI/removeIcon";
 
-const CustomRecipeIngredients = () => {
-  const dispatch = useDispatch();
-  const ingredientList = useSelector((state) => state.customRecipe);
+const IngredientsList = ({ingredients, setIngredients}) => {
 
   const addIngredient = () => {
-    dispatch(customRecipeActions.addIngredients());
+    setIngredients([...ingredients, ""]);
+  };
+
+  const updateIngredient = (index, value) => {
+    const newIngredients = [...ingredients];
+    newIngredients[index] = value;
+    setIngredients(newIngredients);
   };
 
   const removeIngredient = (index) => {
-    dispatch(customRecipeActions.removeIngredients(index));
-  };
-
-  const inputHandler = (event) => {
-    dispatch(customRecipeActions.setItem(event.target.value));
+    const newIngredients = [...ingredients];
+    newIngredients.splice(index, 1);
+    setIngredients(newIngredients);
   };
 
   return (
-    <>
-      <div className="flex gap-3 justify-between font-noto mt-7">
-        <input
-          type="text"
-          className="border p-2 rounded"
-          id="ingredientInput"
-          onChange={inputHandler}
-          // add ingredient using Enter key, without submitting form
-          onKeyUp={(event) => {
-            if (event.key === "Enter") {
-              dispatch(customRecipeActions.addIngredients());
-            }
-          }}
-          value={ingredientList.item}
-        />
-        <button
-          onClick={addIngredient}
-          type="button"
-          className="px-7 bg-green-300"
-        >
-          Add
-        </button>
+    <div>
+      <div>
+        {ingredients.map((ingredient, index) => (
+          <div key={index} className="mb-2 flex gap-2 items-center">
+            <input
+              type="text"
+              value={ingredient}
+              onChange={(e) => updateIngredient(index, e.target.value)}
+              placeholder="2 cups of flour, etc..."
+              className="mt-1 p-2 w-full border rounded-md"
+            />
+            <button type="button" className="bg-red-500 rounded-md p-2" onClick={() => removeIngredient(index)}>Remove</button>
+          </div>
+        ))}
+        <button className="bg-green-500 p-2 rounded-md" type="button" onClick={addIngredient}>Add Ingredient</button>
       </div>
-
-      <ul className="overflow-x-scroll no-scrollbar h-full border-none p-0">
-        {ingredientList.ingredients.map((item, index) => {
-          return (
-            <div
-              key={index}
-              className="flex items-center justify-between pt-6 pb-2 border-b-2 border-zinc-200"
-            >
-              <li className="p-0 border-none">{item}</li>
-              <div onClick={removeIngredient.bind(null, index)}>
-                <RemoveIcon />
-              </div>
-            </div>
-          );
-        })}
-      </ul>
-    </>
+    </div>
   );
-};
+}
 
-export default CustomRecipeIngredients;
+export default IngredientsList;

@@ -4,29 +4,19 @@ import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { imageDB } from "../../../firebase_setup/firebase";
 import { customRecipeActions } from "../../../store/customRecipes-slice";
 import CustomRecipeInfo from "./CustomRecipeInfo";
-import CustomRecipeInstructions from "./CustomRecipeInstructions";
-import CustomRecipeIngredients from "./CustomRecipeIngredients";
+import InstructionList from "./CustomRecipeInstructions";
+import IngredientsList from "./CustomRecipeIngredients";
 import { Link } from "react-router-dom";
 
-// TODO: Change from multistep form to normal form   
+// TODO: Change from multistep form to normal form
 
 const CustomRecipeForm = () => {
+  const [ingredients, setIngredients] = useState([""]);
+  const [instructions, setInstructions] = useState([""]);
+
   const dispatch = useDispatch();
   const recipeInfo = useSelector((state) => state.customRecipe);
   const user = useSelector((state) => state.auth.user);
-
-  const [page, setPage] = useState(0);
-  const pageTitles = ["Recipe Information", "Ingredients", "Instructions"];
-
-  const showPage = () => {
-    if (page == 0) {
-      return <CustomRecipeInfo />;
-    } else if (page == 1) {
-      return <CustomRecipeIngredients />;
-    } else {
-      return <CustomRecipeInstructions />;
-    }
-  };
 
   const submitHandler = (event) => {
     event.preventDefault();
@@ -47,91 +37,119 @@ const CustomRecipeForm = () => {
     }, 3000);
   };
 
-  const prevPage = () => {
-    setPage((curPage) => curPage - 1);
-  };
-  //add form validation before going to the next step (no empty inputs)
-  const nextPage = () => {
-    if (page == 2) {
-      if (recipeInfo.instructions.length <= 0) {
-        alert("please add instructions");
-        return;
-      } else {
-        submitHandler(event);
-      }
-    } else {
-      if (recipeInfo.title === "") {
-        alert("title cannot be empty");
-        return;
-      } else if (recipeInfo.estimatedCookTime === "") {
-        alert("estimated cook time cannot be empty");
-        return;
-      } else if (recipeInfo.servingSize === "") {
-        alert("serving size cannot be empty");
-      } else if (recipeInfo.image === "") {
-        alert("please upload an image");
-        return;
-      }
-
-      if (page === 1) {
-        if (recipeInfo.ingredients.length <= 0) {
-          alert("please add ingredients");
-          return;
-        }
-      }
-      setPage((curPage) => curPage + 1);
-    }
-  };
-
-  const progressBarStyles = () => {
-    if (page === 1) {
-      return "w-8/12";
-    } else if (page === 2) {
-      return "w-12/12 rounded-r-xl";
-    }
-    return "w-4/12";
-  };
-
+  
   return (
-    <div className="pt-20 bg-eggshell h-full">
-      <h1 className="text-3xl text-center">{pageTitles[page]}</h1>
-      <div className="mx-auto w-9/12 pt-7">
-        <div
-          className={`h-3 bg-blue-500 rounded-l-xl ${progressBarStyles()}`}
-        ></div>
+    <>
+      <div className="w-full h-screen overflow-auto bg-eggshell">
+        <form className="max-w-sm md:max-w-md lg:max-w-xl mx-auto font-noto pt-10 pb-20">
+          <div className="mb-4">
+            <label
+              htmlFor="name"
+              className="block text-lg font-medium text-vandyke"
+            >
+              Recipe Name
+            </label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              required
+              className="mt-1 p-2 w-full border rounded-md"
+            />
+          </div>
+          {/* container */}
+          <div className="mb-12 w-full flex justify-between gap-x-4">
+            <div className="">
+              <label
+                htmlFor="servings"
+                className="block text-lg font-medium text-vandyke"
+              >
+                Servings
+              </label>
+              <input
+                type="number"
+                id="servings"
+                name="servings"
+                required
+                className="mt-1 p-2  border rounded-md"
+              />
+            </div>
+            <div className="">
+              <label
+                htmlFor="cooktime"
+                className="block text-lg font-medium text-vandyke"
+              >
+                Estimated Cook Time:
+              </label>
+              <input
+                type="number"
+                id="cooktime"
+                name="cooktime"
+                required
+                className="mt-1 p-2 border rounded-md"
+              />
+            </div>
+          </div>
+
+          <div className="mb-12">
+            <h1 className="text-center text-xl font-bold">Upload an image</h1>
+            {/* if image has data, make imageUrl disabled */}
+            <div className="mb-4">
+              <label
+                htmlFor="image"
+                className="block text-lg font-medium text-vandyke"
+              >
+                Image File
+              </label>
+              <input
+                type="file"
+                id="image"
+                name="image"
+                required
+                className="mt-1 p-2 w-full border border-eggshell rounded-md"
+              />
+            </div>
+
+            <h1 className="text-center">or</h1>
+
+            {/* if imageUrl has data, make image disabled */}
+            <div className="mb-4">
+              <label
+                htmlFor="imageUrl"
+                className="block text-lg font-medium text-vandyke"
+              >
+                Image Url
+              </label>
+              <input
+                type="text"
+                id="imageUrl"
+                name="imageUrl"
+                required
+                className="mt-1 p-2 w-full border rounded-md"
+              />
+            </div>
+          </div>
+          <div className="mb-12">
+            <h1 className="text-center text-xl font-bold mb-4">
+              Add Ingredients
+            </h1>
+            <IngredientsList setIngredients={setIngredients} ingredients={ingredients}  />
+          </div>
+          <div>
+            <h1 className="text-center text-xl font-bold mb-4">
+              Add Instructions
+            </h1>
+            <InstructionList setInstructions={setInstructions} instructions={instructions}/>
+          </div>
+
+          <div className="flex pt-10">
+            <button type="submit" className="bg-vandyke text-eggshell px-3 py-2 rounded-md m-2 w-8/12 mx-auto text-xl">
+              Create Custom Recipe
+            </button>
+          </div>
+        </form>
       </div>
-      <form
-        onSubmit={submitHandler}
-        className="h-screen flex flex-col items-center relative"
-      >
-        {/* Form Components */}
-        <div>{showPage()}</div>
-        {/* Controls */}
-        <div className="flex gap-3 mt-12 absolute top-[625px]">
-          <button
-            disabled={page <= 0}
-            onClick={prevPage}
-            className="px-7 py-2
-             bg-zinc-400 rounded"
-            type="button"
-          >
-            Prev
-          </button>
-          <button
-            onClick={nextPage}
-            className="px-7 py-2
-             bg-zinc-400 rounded"
-            type={page > pageTitles.length - 1 ? "submit" : "button"}
-          >
-            {page === pageTitles.length - 1 ? (
-              <Link to="/customRecipes">Submit</Link>
-            ) : (
-              "Next"
-            )}
-          </button>
-        </div>
-      </form>
-    </div>
+    </>
   );
 };
 
