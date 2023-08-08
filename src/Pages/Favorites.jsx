@@ -9,12 +9,12 @@ const Favorites = ({ setRecipeInfo }) => {
 
   return (
     <div className="bg-eggshell h-screen">
-      {favorites <= 0 && <p>No Favorites</p>}
+      {favorites <= 0 && <p className="bg-eggshell h-screen text-center w-screen pt-10 text-3xl">No Favorites</p>}
 
       <div className="grid grid-cols1 md:max-w-5xl md:mx-auto lg:grid-cols-2 md:pt-7 lg:gap-4">
         {favorites.map((favorites, index) => {
           return (
-            <div className="text-left lg:text-center">
+            <div key={index} className="text-left lg:text-center">
               <img
                 className="w-full aspect-video object-cover blur-none lg:rounded"
                 src={favorites.image}
