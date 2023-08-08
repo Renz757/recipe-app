@@ -11,7 +11,7 @@ const Login = () => {
   const [signInError, setSignInError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const emailHandler = (event) => {
     setEmail(event.target.value);
@@ -39,7 +39,7 @@ const Login = () => {
 
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      navigate("/")
+      navigate("/");
     } catch (error) {
       setSignInError("There was an issue signing in");
       console.log(signInError, error);
@@ -48,39 +48,69 @@ const Login = () => {
   };
 
   return (
-    <div className="flex items-center w-screen h-screen bg-eggshell pt-28 flex-col gap-y-5">
-      <h1 className="text-3xl">Login</h1>
-      <form
-        onSubmit={submitHandler}
-        className="max-w-lg border-2 h-96 border-vandyke rounded-xl grid grid-cols-1 grid-rows-4 p-20 text-xl justify-center items-center"
-      >
-        <div className="flex flex-col">
-          <label>Email</label>
-          <input
-            onChange={emailHandler}
-            value={email}
-            className="border"
-            type="text"
-          />
+    <>
+      <div className="p-32 rounded-lg shadow-md bg-eggshell bg-no-repeat w-screen h-screen">
+        <div className="w-10/12 mx-auto">
+          <form onSubmit={submitHandler} className="max-w-sm mx-auto">
+            <h1 className="text-2xl font-bold font-Geologica text-vandyke mb-4 text-center">Login</h1>
+            <div className="mb-4">
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium text-vandyke"
+              >
+                Email
+              </label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                required
+                className="mt-1 p-2 w-full border rounded-md"
+                onChange={emailHandler}
+              />
+            </div>
+
+            <div className="mb-4">
+              <label
+                htmlFor="password"
+                className="block text-sm font-medium text-vandyke"
+              >
+                Password
+              </label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                required
+                className="mt-1 p-2 w-full border rounded-md"
+                onChange={passwordHandler}
+              />
+            </div>
+
+            <div className="mb-6">
+              <a href="#" className="text-sm text-vandyke hover:underline">
+                Forgot password?
+              </a>
+            </div>
+
+            <div className="flex justify-between items-center">
+              <button
+                type="submit"
+                className="bg-vandyke text-white px-4 py-2 rounded"
+              >
+                Login
+              </button>
+              <button
+                type="button"
+                className="bg-eggshell text-vandyke border-2 border-vandyke px-4 py-2 rounded "
+              >
+                <Link to="/signup">Sign Up</Link>
+              </button>
+            </div>
+          </form>
         </div>
-        <div className="flex flex-col">
-          <label>Password</label>
-          <input
-            onChange={passwordHandler}
-            value={password}
-            className="border"
-            type="password"
-          />
-        </div>
-        <button type="submit" className="bg-blue-500 rounded">
-          Sign In
-        </button>
-        <div className="flex gap-2 items-center">
-          <p>Don't have an account?</p>
-          <Link to="/signup" className="text-blue-500">Sign Up</Link>
-        </div>
-      </form>
-    </div>
+      </div>
+    </>
   );
 };
 
