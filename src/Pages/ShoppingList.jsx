@@ -13,19 +13,19 @@ const ShoppingList = () => {
   };
 
   return (
-    <div className="bg-eggshell h-screen">
+    <div className="bg-eggshell h-auto">
       <h1 className="text-3xl text-center p-3 font-Geologica">Shopping List</h1>
-      {!shoppingList && (
-        <div className="text-center mt-20 text-3xl">
+      {shoppingList == 0 && (
+        <div className="bg-eggshell h-screen text-center w-screen pt-10 text-3xl">
           Browse Recipes to Add Ingredients to Shopping List!
         </div>
       )}
 
-      <div className="text-start p-4">
+      <div className="grid grid-cols-1 md:max-w-5xl md:mx-auto lg:grid-cols-none lg:block lg:columns-2 lg:gap-8 lg:h-auto">
         {shoppingList.map((recipeIngredients, index) => {
           return (
-            <div key={index} className="flex flex-col gap-3 justify-center">
-              <div className="pt-5 flex items-center gap-3">
+            <div key={index} className="pt-4 lg:h-full">
+              <div className="pt-5 md:pt-0 flex items-center gap-3">
                 <h1 className="text-3xl font-Caveat">
                   {recipeIngredients.title}
                 </h1>

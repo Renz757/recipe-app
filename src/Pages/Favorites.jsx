@@ -11,7 +11,7 @@ const Favorites = ({ setRecipeInfo }) => {
     <div className="bg-eggshell h-screen">
       {favorites <= 0 && <p className="bg-eggshell h-screen text-center w-screen pt-10 text-3xl">No Favorites</p>}
 
-      <div className="grid grid-cols1 md:max-w-5xl md:mx-auto lg:grid-cols-2 md:pt-7 lg:gap-4">
+      <div className="grid grid-cols-1 md:max-w-5xl md:mx-auto lg:grid-cols-2 md:pt-7 lg:gap-4">
         {favorites.map((favorites, index) => {
           return (
             <div key={index} className="text-left lg:text-center">
