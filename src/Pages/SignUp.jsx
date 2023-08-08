@@ -6,7 +6,7 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [reenterPassword, setReenterPassword] = useState("");
+  const [validatePassword, setValidatePasswordHandler] = useState("");
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [signInError, setSignInError] = useState("");
@@ -22,8 +22,8 @@ const SignUp = () => {
     setPassword(event.target.value);
   };
 
-  const reenterPasswordHandler = (event) => {
-    setReenterPassword(event.target.value);
+  const validatePasswordHandler = (event) => {
+    setValidatePasswordHandler(event.target.value);
   };
 
   const submitHandler = async (event) => {
@@ -39,7 +39,7 @@ const SignUp = () => {
       alert("password must be longer than 8 characters");
       setPasswordError(true);
       return;
-    } else if (password !== reenterPassword) {
+    } else if (password !== validatePassword) {
       setPasswordError(false);
       alert("passwords do not match");
       setPasswordError(true);
@@ -65,53 +65,84 @@ const SignUp = () => {
 
   return (
     <>
-      <div className="flex items-center w-screen h-screen pt-28 bg-eggshell flex-col gap-y-5">
-        <h1 className="text-3xl">Sign Up</h1>
-        <form
-          onSubmit={submitHandler}
-          className="max-w-lg border-2 h-96 border-vandyke rounded-xl grid grid-cols-1 grid-rows-4 p-20 text-xl justify-center items-center"
-        >
-          <div className="flex flex-col">
-            <label>Email</label>
-            <input
-              className="border"
-              type="text"
-              onChange={emailHandler}
-              value={email}
-            />
-          </div>
-          <div className="flex flex-col">
-            <label>Password</label>
-            <input
-              className="border"
-              type="password"
-              onChange={passwordHandler}
-              value={password}
-            />
-          </div>
-          <div className="flex flex-col">
-            <label>Renter password</label>
-            <input
-              className="border"
-              type="password"
-              onChange={reenterPasswordHandler}
-              value={reenterPassword}
-            />
-          </div>
-          <button
-            type="submit"
-            className="bg-blue-500 rounded"
-            disabled={loading}
-          >
-            Sign In
-          </button>
-          <div className="flex gap-2 items-center">
-            <p>Already have an account?</p>
-            <Link to="/" className="text-blue-500">
-              Sign In
-            </Link>
-          </div>
-        </form>
+      <div className="p-20 rounded-lg shadow-md bg-eggshell bg-no-repeat w-screen h-screen">
+        <div className="w-10/12 mx-auto">
+          <form onSubmit={submitHandler} className="max-w-sm mx-auto">
+            <h1 className="text-2xl font-bold font-Geologica text-vandyke mb-4 text-center">
+              Sign Up
+            </h1>
+            <div className="mb-4">
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium text-vandyke"
+              >
+                Email
+              </label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                required
+                className="mt-1 p-2 w-full border rounded-md"
+                onChange={emailHandler}
+              />
+            </div>
+
+            <div className="mb-4">
+              <label
+                htmlFor="password"
+                className="block text-sm font-medium text-vandyke"
+              >
+                Password
+              </label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                required
+                className="mt-1 p-2 w-full border rounded-md"
+                onChange={passwordHandler}
+              />
+            </div>
+            <div className="mb-4">
+              <label
+                htmlFor="validatePassword"
+                className="block text-sm font-medium text-vandyke"
+              >
+              Re-enter Password
+              </label>
+              <input
+                type="password"
+                id="validatePassword"
+                name="validatePassword"
+                required
+                className="mt-1 p-2 w-full border rounded-md"
+                onChange={validatePasswordHandler}
+              />
+            </div>
+
+            <div className="mb-6">
+              <a href="#" className="text-sm text-vandyke hover:underline">
+                Forgot Username
+              </a>
+            </div>
+
+            <div className="flex flex-col md:flex-row gap-y-3 md:justify-between md:items-center">
+              <button
+                type="submit"
+                className="bg-vandyke text-white md:px-4 py-2 rounded"
+              >
+                Sign Up
+              </button>
+              <button
+                type="button"
+                className="bg-eggshell text-vandyke border-2 border-vandyke md:px-4 py-2 rounded "
+              >
+                <Link to="/login">Log In</Link>
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </>
   );
