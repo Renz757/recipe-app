@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { imageDB } from "../../../firebase_setup/firebase";
 import { customRecipeActions } from "../../../store/customRecipes-slice";
-import CustomRecipeInfo from "./CustomRecipeInfo";
 import InstructionList from "./CustomRecipeInstructions";
 import IngredientsList from "./CustomRecipeIngredients";
 import { Link } from "react-router-dom";
@@ -11,8 +10,15 @@ import { Link } from "react-router-dom";
 // TODO: Change from multistep form to normal form
 
 const CustomRecipeForm = () => {
+  const [name, setName] = useState("");
+  const [serving, setServing] = useState("");
+  const [cookTime, setCookTime] = useState("");
+  const [image, setImage] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
   const [ingredients, setIngredients] = useState([""]);
   const [instructions, setInstructions] = useState([""]);
+
+  const [isImageTouched, setIsImageTouched] = useState(false);
 
   const dispatch = useDispatch();
   const recipeInfo = useSelector((state) => state.customRecipe);
@@ -37,7 +43,26 @@ const CustomRecipeForm = () => {
     }, 3000);
   };
 
-  
+  const nameHandler = (e) => {
+    setName(e.target.value);
+  };
+
+  const servingHandler = (e) => {
+    setServing(e.target.value);
+  };
+
+  const cookTimeHandler = (e) => {
+    setCookTime(e.target.value);
+  };
+
+  const imageHandler = (e) => {
+    setImage(e.target.file[0])
+  };
+
+  const imageUrlHandler = (e) => {
+    setImageurl(e.target.value)
+  }
+
   return (
     <>
       <div className="w-full h-screen overflow-auto bg-eggshell">
@@ -55,6 +80,7 @@ const CustomRecipeForm = () => {
               name="name"
               required
               className="mt-1 p-2 w-full border rounded-md"
+              onChange={nameHandler}
             />
           </div>
           {/* container */}
@@ -107,6 +133,7 @@ const CustomRecipeForm = () => {
                 name="image"
                 required
                 className="mt-1 p-2 w-full border border-eggshell rounded-md"
+                onBlur
               />
             </div>
 
@@ -126,6 +153,7 @@ const CustomRecipeForm = () => {
                 name="imageUrl"
                 required
                 className="mt-1 p-2 w-full border rounded-md"
+              
               />
             </div>
           </div>
@@ -133,17 +161,26 @@ const CustomRecipeForm = () => {
             <h1 className="text-center text-xl font-bold mb-4">
               Add Ingredients
             </h1>
-            <IngredientsList setIngredients={setIngredients} ingredients={ingredients}  />
+            <IngredientsList
+              setIngredients={setIngredients}
+              ingredients={ingredients}
+            />
           </div>
           <div>
             <h1 className="text-center text-xl font-bold mb-4">
               Add Instructions
             </h1>
-            <InstructionList setInstructions={setInstructions} instructions={instructions}/>
+            <InstructionList
+              setInstructions={setInstructions}
+              instructions={instructions}
+            />
           </div>
 
           <div className="flex pt-10">
-            <button type="submit" className="bg-vandyke text-eggshell px-3 py-2 rounded-md m-2 w-8/12 mx-auto text-xl">
+            <button
+              type="submit"
+              className="bg-vandyke text-eggshell px-3 py-2 rounded-md m-2 w-8/12 mx-auto text-xl"
+            >
               Create Custom Recipe
             </button>
           </div>
