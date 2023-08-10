@@ -26,21 +26,32 @@ const CustomRecipeForm = () => {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    const imageRef = ref(imageDB, `images/${recipeInfo.image.name}`);
-    uploadBytes(imageRef, recipeInfo.image).then((value) => {
-      console.log(value);
-      getDownloadURL(value.ref).then((url) => {
-        dispatch(customRecipeActions.addImage(url));
-        console.log(url);
-      });
-    });
+    const recipeData = {
+      name,
+      serving,
+      cookTime,
+      image,
+      imageUrl,
+      ingredients,
+      instructions,
+    };
 
-    setTimeout(() => {
-      dispatch(customRecipeActions.submitForm(user.uid));
-      localStorage.clear("ingredientArray", "instructionsArray");
-      dispatch(customRecipeActions.resetForm());
-      setPage(0);
-    }, 3000);
+    console.log(recipeData);
+    // const imageRef = ref(imageDB, `images/${recipeInfo.image.name}`);
+    // uploadBytes(imageRef, recipeInfo.image).then((value) => {
+    //   console.log(value);
+    //   getDownloadURL(value.ref).then((url) => {
+    //     dispatch(customRecipeActions.addImage(url));
+    //     console.log(url);
+    //   });
+    // });
+
+    // setTimeout(() => {
+    //   dispatch(customRecipeActions.submitForm(user.uid));
+    //   localStorage.clear("ingredientArray", "instructionsArray");
+    //   dispatch(customRecipeActions.resetForm());
+    //   setPage(0);
+    // }, 3000);
   };
 
   const nameHandler = (e) => {
@@ -56,17 +67,20 @@ const CustomRecipeForm = () => {
   };
 
   const imageHandler = (e) => {
-    setImage(e.target.file[0])
+    setImage(e.target.files[0]);
   };
 
   const imageUrlHandler = (e) => {
-    setImageurl(e.target.value)
-  }
+    setImageUrl(e.target.value);
+  };
 
   return (
     <>
       <div className="w-full h-screen overflow-auto bg-eggshell">
-        <form className="max-w-sm md:max-w-md lg:max-w-xl mx-auto font-noto pt-10 pb-20">
+        <form
+          onSubmit={submitHandler}
+          className="max-w-sm md:max-w-md lg:max-w-xl mx-auto font-noto pt-10 pb-20"
+        >
           <div className="mb-4">
             <label
               htmlFor="name"
@@ -98,6 +112,7 @@ const CustomRecipeForm = () => {
                 name="servings"
                 required
                 className="mt-1 p-2  border rounded-md"
+                onChange={servingHandler}
               />
             </div>
             <div className="">
@@ -113,6 +128,7 @@ const CustomRecipeForm = () => {
                 name="cooktime"
                 required
                 className="mt-1 p-2 border rounded-md"
+                onChange={cookTimeHandler}
               />
             </div>
           </div>
@@ -131,9 +147,9 @@ const CustomRecipeForm = () => {
                 type="file"
                 id="image"
                 name="image"
-                required
                 className="mt-1 p-2 w-full border border-eggshell rounded-md"
-                onBlur
+                onChange={imageHandler}
+                disabled={imageUrl == "" ? false : true}
               />
             </div>
 
@@ -153,7 +169,8 @@ const CustomRecipeForm = () => {
                 name="imageUrl"
                 required
                 className="mt-1 p-2 w-full border rounded-md"
-              
+                onChange={imageUrlHandler}
+                disabled={image == "" ? false : true}
               />
             </div>
           </div>
