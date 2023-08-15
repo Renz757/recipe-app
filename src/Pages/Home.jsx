@@ -1,12 +1,16 @@
 import { useQuery } from "react-query";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { getRandomRecipe } from "../http-functions/https-functions";
 import { useSelector, useDispatch } from "react-redux";
+import { navActions } from "../store/nav-slice";
 import axios from "axios";
 
 const Home = ({ setRecipeInfo }) => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const searchInput = useSelector((state) => state.nav.searchInput);
   const cuisineInput = useSelector((state) => state.nav.cuisine);
+
   const {
     data: recipeInfo,
     isError,
@@ -37,6 +41,13 @@ const Home = ({ setRecipeInfo }) => {
       enabled: false,
     }
   );
+
+  const cuisineHandler = (e) => {
+    dispatch(navActions.updateCuisineInput(e.target.innerHTML));
+    console.log(cuisineInput)
+    // refetch()
+    // navigate("/recipes");
+  };
 
   return (
     <>
@@ -75,11 +86,16 @@ const Home = ({ setRecipeInfo }) => {
 
           <div className="flex gap-x-5 mt-10 flex-wrap justify-center">
             <div
-              
-             
+              onClick={cuisineHandler}
               className="h-36 w-36 rounded-full bg-vandyke flex justify-center items-center text-eggshell font-noto text-2xl cursor-pointer"
             >
               African
+            </div>
+            <div
+              onClick={cuisineHandler}
+              className="h-36 w-36 rounded-full bg-vandyke flex justify-center items-center text-eggshell font-noto text-2xl cursor-pointer"
+            >
+              Greek
             </div>
           </div>
         </div>
