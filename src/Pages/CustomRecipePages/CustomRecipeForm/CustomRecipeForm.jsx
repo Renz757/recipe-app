@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { imageDB } from "../../../firebase_setup/firebase";
@@ -23,35 +24,49 @@ const CustomRecipeForm = () => {
   const dispatch = useDispatch();
   const recipeInfo = useSelector((state) => state.customRecipe);
   const user = useSelector((state) => state.auth.user);
+  const navigate = useNavigate();
 
   const submitHandler = (event) => {
     event.preventDefault();
+
+    if (image != "") {
+      //get ref to image storage
+      const imageRef = ref(imageDB, `images/${recipeInfo.image.name}`);
+
+      //upload image to image storage
+      uploadBytes(imageRef, recipeInfo.image).then((value) => {
+        getDownloadURL(value.ref).then((url) => {
+          setImage(url);
+        });
+      });
+    }
+
+    //remove last element from array, empty string
+    ingredients.slice(-1);
+    
+    instructions.slice(-1);
+
     const recipeData = {
-      name,
-      serving,
+      title: name,
+      servingSize: serving,
       cookTime,
-      image,
-      imageUrl,
+      image: image == "" ? imageUrl : image,
       ingredients,
       instructions,
     };
 
     console.log(recipeData);
-    // const imageRef = ref(imageDB, `images/${recipeInfo.image.name}`);
-    // uploadBytes(imageRef, recipeInfo.image).then((value) => {
-    //   console.log(value);
-    //   getDownloadURL(value.ref).then((url) => {
-    //     dispatch(customRecipeActions.addImage(url));
-    //     console.log(url);
-    //   });
-    // });
 
-    // setTimeout(() => {
-    //   dispatch(customRecipeActions.submitForm(user.uid));
-    //   localStorage.clear("ingredientArray", "instructionsArray");
-    //   dispatch(customRecipeActions.resetForm());
-    //   setPage(0);
-    // }, 3000);
+    setTimeout(() => {
+      dispatch(
+        customRecipeActions.submitForm({
+          uid: user.uid,
+          recipeData: recipeData,
+        })
+      );
+    }, 3000);
+
+    navigate("/customRecipes");
   };
 
   const nameHandler = (e) => {

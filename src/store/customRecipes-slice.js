@@ -29,18 +29,9 @@ export const customRecipeSlice = createSlice({
     reducers: {
         initialize(state, action) { state.customRecipeList = action.payload },
         submitForm(state, action) {
-            const colRef = collection(db, "users", `${action.payload}`, 'customRecipes')
-            state.customRecipe = {
-                title: state.title,
-                estimatedCookTime: state.estimatedCookTime,
-                servingSize: state.servingSize,
-                image: state.image,
-                imageName: state.imageName,
-                ingredients: state.ingredients,
-                instructions: state.instructions
-            }
-            addDoc(colRef, { ...state.customRecipe })
-            console.log(state.customRecipe)
+            const colRef = collection(db, "users", `${action.payload.uid}`, 'customRecipes')
+            addDoc(colRef, { ...action.payload.recipeData })
+            console.log(action.payload.recipeData)
         },
         addRecipeTitle(state, action) {
             state.title = action.payload

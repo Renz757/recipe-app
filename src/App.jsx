@@ -87,7 +87,7 @@ const App = () => {
             }
           />
           <Route
-            path="recipes"
+            path="/recipes"
             element={
               <PrivateRoute>
                 <Recipes setRecipeInfo={setRecipeInfo} />
@@ -106,7 +106,7 @@ const App = () => {
             }
           />
           <Route
-            path="favorites"
+            path="/favorites"
             element={
               <PrivateRoute>
                 <Favorites setRecipeInfo={setRecipeInfo} />
@@ -114,7 +114,7 @@ const App = () => {
             }
           />
           <Route
-            path="shoppingList"
+            path="/shoppingList"
             element={
               <PrivateRoute>
                 <ShoppingList />
@@ -122,7 +122,7 @@ const App = () => {
             }
           ></Route>
           <Route
-            path="customRecipes"
+            path="/customRecipes"
             element={
               <PrivateRoute>
                 <CustomRecipes setRecipeInfo={setRecipeInfo} />
