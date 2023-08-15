@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-const CustomRecipeList = () => {
+const CustomRecipeList = ({ setRecipeInfo }) => {
   const customRecipes = useSelector((state) => state.customRecipe);
   return (
     <>
@@ -21,7 +21,7 @@ const CustomRecipeList = () => {
               <div className="p-4">
                 <h1 className="text-3xl font-Caveat">{recipe.title}</h1>
                 <div className="flex gap-2 font-noto">
-                  <p>{`Prep Time: ${recipe.estimatedCookTime} Minutes - `}</p>
+                  <p>{`Prep Time: ${recipe.cookTime} Minutes - `}</p>
                   <p>{`Servings: ${recipe.servingSize}`}</p>
                 </div>
 

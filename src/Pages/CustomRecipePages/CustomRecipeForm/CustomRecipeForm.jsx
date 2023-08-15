@@ -43,7 +43,6 @@ const CustomRecipeForm = () => {
 
     //remove last element from array, empty string
     ingredients.slice(-1);
-    
     instructions.slice(-1);
 
     const recipeData = {

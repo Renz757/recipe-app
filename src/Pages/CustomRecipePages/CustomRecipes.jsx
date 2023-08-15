@@ -1,5 +1,6 @@
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import CustomRecipeList from "./CustomRecipeList";
 
 const CustomRecipes = ({ setRecipeInfo }) => {
   const customRecipes = useSelector((state) => state.customRecipe);
@@ -20,7 +21,8 @@ const CustomRecipes = ({ setRecipeInfo }) => {
           {customRecipes.customRecipeList.length == [] && (
             <h2 className="text-2xl text-center">No Custom Recipes</h2>
           )}
-          {customRecipes.customRecipeList.map((recipe, index) => {
+          <CustomRecipeList setRecipeInfo={setRecipeInfo}/>
+          {/* {customRecipes.customRecipeList.map((recipe, index) => {
             return (
               <div key={index} className="grid grid-cols-1">
                 <div className="">
@@ -35,7 +37,7 @@ const CustomRecipes = ({ setRecipeInfo }) => {
                   <div className="p-4">
                     <h1 className="text-3xl font-Caveat">{recipe.title}</h1>
                     <div className="flex gap-2 font-noto">
-                      <p>{`Prep Time: ${recipe.estimatedCookTime} Minutes - `}</p>
+                      <p>{`Prep Time: ${recipe.cookTime} Minutes - `}</p>
                       <p>{`Servings: ${recipe.servingSize}`}</p>
                     </div>
 
@@ -51,7 +53,7 @@ const CustomRecipes = ({ setRecipeInfo }) => {
                 </div>
               </div>
             );
-          })}
+          })} */}
         </div>
       </div>
 

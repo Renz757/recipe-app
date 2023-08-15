@@ -138,14 +138,6 @@ const App = () => {
             }
           />
           <Route
-            path="/customRecipes/customRecipeList"
-            element={
-              <PrivateRoute>
-                <CustomRecipeList setRecipeInfo={setRecipeInfo} />
-              </PrivateRoute>
-            }
-          />
-          <Route
             path="/profile"
             element={
               <PrivateRoute>
