@@ -2,7 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     isOpen: false,
-    searchInput: ""
+    searchInput: "",
+    cuisine: ""
 }
 
 export const navSlice = createSlice({
@@ -17,6 +18,9 @@ export const navSlice = createSlice({
         },
         updateSearchInput (state, action) {
             state.searchInput = action.payload
+        },
+        updateCuisineInput (state, action) {
+            state.cuisine = action.payload
         }
     }
 

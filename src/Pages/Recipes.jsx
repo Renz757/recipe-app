@@ -6,13 +6,14 @@ import { navActions } from "../store/nav-slice";
 
 const Recipes = ({ setRecipeInfo }) => {
   const searchInput = useSelector((state) => state.nav.searchInput);
+  const cuisineInput = useSelector((state) => state.nav.cuisine);
   const { data: recipeData, isLoading } = useQuery(
     ["recpies"],
     async () => {
       const { data } = await axios.get(
         `https://api.spoonacular.com/recipes/complexSearch?apiKey=${
           import.meta.env.VITE_API_KEY
-        }&query=${searchInput}&addRecipeInformation=true&fillIngredients=true&instructionsRequired=true`
+        }&query=${searchInput}&cuisine=${cuisineInput}&addRecipeInformation=true&fillIngredients=true&instructionsRequired=true`
       );
 
       return data.results;

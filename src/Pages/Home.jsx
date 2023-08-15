@@ -1,8 +1,12 @@
 import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
 import { getRandomRecipe } from "../http-functions/https-functions";
+import { useSelector, useDispatch } from "react-redux";
+import axios from "axios";
 
 const Home = ({ setRecipeInfo }) => {
+  const searchInput = useSelector((state) => state.nav.searchInput);
+  const cuisineInput = useSelector((state) => state.nav.cuisine);
   const {
     data: recipeInfo,
     isError,
@@ -15,6 +19,24 @@ const Home = ({ setRecipeInfo }) => {
   if (isError) {
     return <h1>{`An Error Has Occured ${error}`}</h1>;
   }
+
+  const { data, refetch } = useQuery(
+    ["recpies"],
+    async () => {
+      const { data } = await axios.get(
+        `https://api.spoonacular.com/recipes/complexSearch?apiKey=${
+          import.meta.env.VITE_API_KEY
+        }&query=${searchInput}&cuisine=${cuisineInput}&addRecipeInformation=true&fillIngredients=true&instructionsRequired=true`
+      );
+
+      return data.results;
+    },
+    {
+      refetchOnWindowFocus: false,
+      staleTime: Infinity,
+      enabled: false,
+    }
+  );
 
   return (
     <>
@@ -45,6 +67,22 @@ const Home = ({ setRecipeInfo }) => {
             </div>
           </div>
         )}
+
+        <div className="grid grid-cols-1 md:max-w-5xl md:mx-auto md:pt-4">
+          <h1 className="text-2xl mt-10 text-center">
+            Search Recipes By Cusines
+          </h1>
+
+          <div className="flex gap-x-5 mt-10 flex-wrap justify-center">
+            <div
+              
+             
+              className="h-36 w-36 rounded-full bg-vandyke flex justify-center items-center text-eggshell font-noto text-2xl cursor-pointer"
+            >
+              African
+            </div>
+          </div>
+        </div>
       </div>
     </>
   );
