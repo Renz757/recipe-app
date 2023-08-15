@@ -114,10 +114,10 @@ const RecipeInfo = ({ recipeInfoId }) => {
       {hasData === false || isLoading ? (
         <h1>Loading...</h1>
       ) : (
-        <div className="bg-saffron h-full">
+        <div className="bg-saffron h-screen">
           <div
             key={isNotCustomRecipe ? recipeInfo.id : customRecipeInfo.dbID}
-            className="md:max-w-2xl md:mx-auto md:pt-5"
+            className="md:max-w-2xl md:mx-auto md:pt-5 bg-saffron"
           >
             {/* Recipe Info */}
             <div className="flex flex-col ">
@@ -170,7 +170,7 @@ const RecipeInfo = ({ recipeInfoId }) => {
                 <p className="mt-2 p-2 border-b-2 border-zinc-500">{`Ready In: ${
                   isNotCustomRecipe
                     ? recipeInfo.readyInMinutes
-                    : customRecipeInfo.estimatedCookTime
+                    : customRecipeInfo.cookTime
                 } minutes`}</p>
                 <p className="mt-2 p-2 border-b-2 border-zinc-500">{`Servings: ${
                   isNotCustomRecipe
