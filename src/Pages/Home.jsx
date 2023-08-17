@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { getRandomRecipe } from "../http-functions/https-functions";
 import { useSelector, useDispatch } from "react-redux";
 import { navActions } from "../store/nav-slice";
+import CuisineList from "../Components/CuisineList";
 import axios from "axios";
 
 const Home = ({ setRecipeInfo }) => {
@@ -90,26 +91,8 @@ const Home = ({ setRecipeInfo }) => {
           </div>
         )}
 
-        <div className="grid grid-cols-1 md:max-w-5xl md:mx-auto md:pt-4">
-          <h1 className="text-2xl mt-10 text-center">
-            Search Recipes By Cusines
-          </h1>
-
-          <div className="flex gap-x-5 mt-10 flex-wrap justify-center">
-            <div
-              onClick={cuisineHandler}
-              className="h-36 w-36 rounded-full bg-vandyke flex justify-center items-center text-eggshell font-noto text-2xl cursor-pointer"
-            >
-              African
-            </div>
-            <div
-              onClick={cuisineHandler}
-              className="h-36 w-36 rounded-full bg-vandyke flex justify-center items-center text-eggshell font-noto text-2xl cursor-pointer"
-            >
-              Greek
-            </div>
-          </div>
-        </div>
+        <CuisineList cuisineHandler={cuisineHandler} />
+        
       </div>
     </>
   );
