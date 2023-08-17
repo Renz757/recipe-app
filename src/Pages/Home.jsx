@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useQuery } from "react-query";
 import { Link, useNavigate } from "react-router-dom";
 import { getRandomRecipe } from "../http-functions/https-functions";
@@ -42,11 +43,21 @@ const Home = ({ setRecipeInfo }) => {
     }
   );
 
+  useEffect(() => {
+    dispatch(navActions.updateCuisineInput(""));
+  }, [cuisineInput]);
+
+  useEffect(() => {
+    if (cuisineInput === "") {
+      return;
+    } else {
+      refetch();
+      navigate("/recipes");
+    }
+  }, [cuisineInput]);
+
   const cuisineHandler = (e) => {
     dispatch(navActions.updateCuisineInput(e.target.innerHTML));
-    console.log(cuisineInput)
-    // refetch()
-    // navigate("/recipes");
   };
 
   return (
