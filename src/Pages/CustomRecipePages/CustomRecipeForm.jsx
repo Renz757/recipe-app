@@ -90,10 +90,10 @@ const CustomRecipeForm = () => {
 
   return (
     <>
-      <div className="w-full h-screen overflow-auto bg-eggshell">
+      <div className="w-full h-screen bg-eggshell p-7">
         <form
           onSubmit={submitHandler}
-          className="max-w-sm md:max-w-md lg:max-w-xl mx-auto font-noto pt-10 pb-20"
+          className=" md:max-w-md lg:max-w-xl mx-auto font-noto pt-10 pb-20"
         >
           <div className="mb-4">
             <label
@@ -112,7 +112,7 @@ const CustomRecipeForm = () => {
             />
           </div>
           {/* container */}
-          <div className="mb-12 w-full flex justify-between gap-x-4">
+          <div className="mb-12 w-full flex flex-col md:flex-row md:justify-between gap-x-4">
             <div className="">
               <label
                 htmlFor="servings"
@@ -125,7 +125,7 @@ const CustomRecipeForm = () => {
                 id="servings"
                 name="servings"
                 required
-                className="mt-1 p-2  border rounded-md"
+                className="mt-1 p-2  border rounded-md w-full mb-4 md:mb-0"
                 onChange={servingHandler}
               />
             </div>
@@ -141,7 +141,7 @@ const CustomRecipeForm = () => {
                 id="cooktime"
                 name="cooktime"
                 required
-                className="mt-1 p-2 border rounded-md"
+                className="mt-1 p-2 border rounded-md w-full mb-4 md:mb-0"
                 onChange={cookTimeHandler}
               />
             </div>
