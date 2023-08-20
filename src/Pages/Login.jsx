@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { auth } from "../firebase_setup/firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { Link, redirect, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -38,13 +38,14 @@ const Login = () => {
     }
 
     try {
+      setSignInError("")
       await signInWithEmailAndPassword(auth, email, password);
       navigate("/");
     } catch (error) {
-      setSignInError("There was an issue signing in");
+      setSignInError(`There was an issue signing in: ${error}`);
       console.log(signInError, error);
     }
-    console.log("logged in");
+    
   };
 
   return (
@@ -53,6 +54,9 @@ const Login = () => {
         <div className="w-10/12 mx-auto">
           <form onSubmit={submitHandler} className="max-w-sm mx-auto">
             <h1 className="text-2xl font-bold font-Geologica text-vandyke mb-4 text-center">Login</h1>
+            {signInError && <div className="bg-red-300 p-3 rounded border-2 border-red-800 mb-2">
+              {signInError}
+            </div>}
             <div className="mb-4">
               <label
                 htmlFor="email"
