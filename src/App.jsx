@@ -22,8 +22,7 @@ import RecipeInfo from "./Pages/RecipeInfo";
 import Favorites from "./Pages/Favorites";
 import ShoppingList from "./Pages/shoppingList";
 import CustomRecipes from "./Pages/CustomRecipePages/CustomRecipes";
-import CustomRecipeList from "./Pages/CustomRecipePages/CustomRecipeList";
-import CustomRecipeForm from "./pages/CustomRecipePages/CustomRecipeForm/CustomRecipeForm";
+import CustomRecipeForm from "./Pages/CustomRecipePages/CustomRecipeForm";
 
 const App = () => {
   const [recipeInfo, setRecipeInfo] = useState([]);
