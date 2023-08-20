@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useQuery } from "react-query";
 import { Link, useNavigate } from "react-router-dom";
 import { getRandomRecipe } from "../http-functions/https-functions";
@@ -12,6 +12,8 @@ const Home = ({ setRecipeInfo }) => {
   const dispatch = useDispatch();
   const searchInput = useSelector((state) => state.nav.searchInput);
   const cuisineInput = useSelector((state) => state.nav.cuisine);
+
+  const [isDragging, setIsDragging] = useState(false);
 
   const {
     data: recipeInfo,
@@ -58,7 +60,11 @@ const Home = ({ setRecipeInfo }) => {
   }, [cuisineInput]);
 
   const cuisineHandler = (e) => {
-    dispatch(navActions.updateCuisineInput(e.target.innerHTML));
+    if (isDragging) {
+      return;
+    } else {
+      dispatch(navActions.updateCuisineInput(e.target.innerHTML));
+    }
   };
 
   return (
@@ -91,8 +97,11 @@ const Home = ({ setRecipeInfo }) => {
           </div>
         )}
 
-        <CuisineList cuisineHandler={cuisineHandler} />
-        
+        <CuisineList
+          cuisineHandler={cuisineHandler}
+          isDragging={isDragging}
+          setIsDragging={setIsDragging}
+        />
       </div>
     </>
   );
