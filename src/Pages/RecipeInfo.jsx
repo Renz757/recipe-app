@@ -114,10 +114,10 @@ const RecipeInfo = ({ recipeInfoId }) => {
       {hasData === false || isLoading ? (
         <h1>Loading...</h1>
       ) : (
-        <div className="bg-saffron h-screen">
+        <div className="bg-eggshell h-screen">
           <div
             key={isNotCustomRecipe ? recipeInfo.id : customRecipeInfo.dbID}
-            className="md:max-w-2xl md:mx-auto md:pt-5 bg-saffron"
+            className="md:max-w-2xl md:mx-auto md:pt-5 bg-eggshell"
           >
             {/* Recipe Info */}
             <div className="flex flex-col ">
