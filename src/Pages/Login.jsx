@@ -49,7 +49,7 @@ const Login = () => {
 
   return (
     <>
-      <div className="p-32 rounded-lg shadow-md bg-eggshell bg-no-repeat w-screen h-screen">
+      <div className="p-12  rounded-lg shadow-md bg-eggshell bg-no-repeat w-screen h-screen">
         <div className="w-10/12 mx-auto">
           <form onSubmit={submitHandler} className="max-w-sm mx-auto">
             <h1 className="text-2xl font-bold font-Geologica text-vandyke mb-4 text-center">Login</h1>
