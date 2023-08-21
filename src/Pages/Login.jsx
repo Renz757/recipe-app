@@ -38,14 +38,13 @@ const Login = () => {
     }
 
     try {
-      setSignInError("")
+      setSignInError("");
       await signInWithEmailAndPassword(auth, email, password);
       navigate("/");
     } catch (error) {
       setSignInError(`There was an issue signing in: ${error}`);
       console.log(signInError, error);
     }
-    
   };
 
   return (
@@ -53,10 +52,14 @@ const Login = () => {
       <div className="p-12  rounded-lg shadow-md bg-eggshell bg-no-repeat w-screen h-screen">
         <div className="w-10/12 mx-auto">
           <form onSubmit={submitHandler} className="max-w-sm mx-auto">
-            <h1 className="text-2xl font-bold font-Geologica text-vandyke mb-4 text-center">Login</h1>
-            {signInError && <div className="bg-red-300 p-3 rounded border-2 border-red-800 mb-2">
-              {signInError}
-            </div>}
+            <h1 className="text-2xl font-bold font-Geologica text-vandyke mb-4 text-center">
+              Login
+            </h1>
+            {signInError && (
+              <div className="bg-red-300 p-3 rounded border-2 border-red-800 mb-2">
+                {signInError}
+              </div>
+            )}
             <div className="mb-4">
               <label
                 htmlFor="email"
@@ -104,12 +107,13 @@ const Login = () => {
               >
                 Login
               </button>
-              <button
-                type="button"
-                className="bg-eggshell text-vandyke border-2 border-vandyke md:px-4 py-2 rounded "
-              >
-                <Link to="/signup">Sign Up</Link>
-              </button>
+              <Link className="bg-eggshell text-vandyke border-2 border-vandyke md:px-4 py-2 rounded text-center" to="/signup">
+                <button
+                  type="button"
+                >
+                  Sign Up
+                </button>
+              </Link>
             </div>
           </form>
         </div>
