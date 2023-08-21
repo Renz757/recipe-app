@@ -65,7 +65,7 @@ const SignUp = () => {
 
   return (
     <>
-      <div className="p-20 rounded-lg shadow-md bg-eggshell bg-no-repeat w-screen h-screen">
+      <div className="p-12 rounded-lg shadow-md bg-eggshell bg-no-repeat w-screen h-screen">
         <div className="w-10/12 mx-auto">
           <form onSubmit={submitHandler} className="max-w-sm mx-auto">
             <h1 className="text-2xl font-bold font-Geologica text-vandyke mb-4 text-center">
@@ -109,7 +109,7 @@ const SignUp = () => {
                 htmlFor="validatePassword"
                 className="block text-sm font-medium text-vandyke"
               >
-              Re-enter Password
+                Re-enter Password
               </label>
               <input
                 type="password"
@@ -134,12 +134,13 @@ const SignUp = () => {
               >
                 Sign Up
               </button>
-              <button
-                type="button"
-                className="bg-eggshell text-vandyke border-2 border-vandyke md:px-4 py-2 rounded "
-              >
-                <Link to="/login">Log In</Link>
-              </button>
+              <Link className="bg-eggshell text-vandyke border-2 border-vandyke md:px-4 py-2 rounded text-center" to="/login">
+                <button
+                  type="button"
+                >
+                  Log In
+                </button>
+              </Link>
             </div>
           </form>
         </div>
