@@ -1,7 +1,12 @@
 import React, { useState } from "react";
-import { auth } from "../firebase_setup/firebase";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth, googleProvider } from "../firebase_setup/firebase";
+import {
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  GoogleAuthProvider,
+} from "firebase/auth";
 import { Link, useNavigate } from "react-router-dom";
+import GoogleButton from 'react-google-button'
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -44,6 +49,20 @@ const Login = () => {
     } catch (error) {
       setSignInError(`There was an issue signing in: ${error}`);
       console.log(signInError, error);
+    }
+  };
+
+  const handleGoogleSignin = async () => {
+    try {
+      setSignInError("");
+
+      const result = await signInWithPopup(auth, googleProvider);
+      const credential = await GoogleAuthProvider.credentialFromResult(result);
+      const token = credential.accessToken;
+      const user = result.user;
+    } catch (error) {
+      const errorMessage = error.errorMessage;
+      setSignInError(errorMessage);
     }
   };
 
@@ -107,15 +126,19 @@ const Login = () => {
               >
                 Login
               </button>
-              <Link className="bg-eggshell text-vandyke border-2 border-vandyke md:px-4 py-2 rounded text-center" to="/signup">
-                <button
-                  type="button"
-                >
-                  Sign Up
-                </button>
+              <Link
+                className="bg-eggshell text-vandyke border-2 border-vandyke md:px-4 py-2 rounded text-center"
+                to="/signup"
+              >
+                <button type="button">Sign Up</button>
               </Link>
             </div>
           </form>
+
+          <div className="flex justify-center mt-10">
+          <GoogleButton onClick={handleGoogleSignin} />
+          </div>
+          
         </div>
       </div>
     </>
