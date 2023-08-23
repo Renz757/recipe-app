@@ -18,6 +18,8 @@ const SearchRecipe = (props) => {
         }&query=${searchInput}&cuisine=${cuisineInput}&addRecipeInformation=true&fillIngredients=true&instructionsRequired=true`
       );
 
+      //set seatch Input back to empty string
+      dispatch(navActions.updateSearchInput(""));
       return data.results;
     },
     {
@@ -27,19 +29,9 @@ const SearchRecipe = (props) => {
     }
   );
 
-  //   if (data) {
-  //     props.setRecipeData(data);
-  //   }
-
   const searchHandler = (event) => {
     event.preventDefault();
     dispatch(navActions.updateSearchInput(event.target.value));
-  };
-
-  const resetSearch = (data) => {
-    setTimeout(() => {
-      dispatch(navActions.updateSearchInput(""));
-    }, 1050);
   };
 
   return (
@@ -52,7 +44,6 @@ const SearchRecipe = (props) => {
           className="p-2 w-10/12 outline-none bg-white"
           onChange={searchHandler}
           value={searchInput}
-          onBlur={resetSearch}
         />
 
         <Link to="recipes">
