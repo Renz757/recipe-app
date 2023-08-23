@@ -25,7 +25,7 @@ const Profile = () => {
   return (
     <>
       {!user && <p>Please Log in</p>}
-      <div className="w-screen h-screen font-noto bg-eggshell flex flex-col text-center p-32 text-2xl">
+      <div className="w-full h-screen font-noto bg-eggshell flex flex-col text-center p-32 text-2xl">
         <h2 className="mb-5">User Name: {user.email}</h2>
 
         <div onClick={logoutHandler} className="flex justify-center">
