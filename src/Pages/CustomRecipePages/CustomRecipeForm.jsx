@@ -7,7 +7,7 @@ import { customRecipeActions } from "../../store/customRecipes-slice";
 import InstructionList from "./CustomRecipeInstructions";
 import IngredientsList from "./CustomRecipeIngredients";
 import { Link } from "react-router-dom";
-import { onlineManager } from "react-query";
+
 
 // TODO: Change from multistep form to normal form
 
@@ -48,7 +48,7 @@ const CustomRecipeForm = () => {
     } catch (error) {
       console.log(error);
     }
-    if (imageUploaded) {
+    if (imageUploaded || imageUrl != "") {
       //remove last element from array, empty string
       ingredients.slice(-1);
       instructions.slice(-1);
