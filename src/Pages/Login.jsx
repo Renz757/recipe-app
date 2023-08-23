@@ -4,6 +4,7 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
   GoogleAuthProvider,
+  signInAnonymously,
 } from "firebase/auth";
 import { Link, useNavigate } from "react-router-dom";
 import GoogleButton from "react-google-button";
@@ -66,6 +67,16 @@ const Login = () => {
     }
   };
 
+  const handleAnonymousUser = async () => {
+    setSignInError("");
+    try {
+      await signInAnonymously(auth);
+      navigate("/");
+    } catch (error) {
+      setSignInError(error.message);
+    }
+  };
+
   return (
     <>
       <div className="p-12  rounded-lg shadow-md bg-eggshell bg-no-repeat w-screen h-screen">
@@ -114,7 +125,10 @@ const Login = () => {
             </div>
 
             <div className="mb-6">
-              <Link to="/resetPassword" className="text-sm text-vandyke hover:underline">
+              <Link
+                to="/resetPassword"
+                className="text-sm text-vandyke hover:underline"
+              >
                 Forgot password?
               </Link>
             </div>
@@ -132,6 +146,14 @@ const Login = () => {
               >
                 <button type="button">Sign Up</button>
               </Link>
+
+              <button
+                type="button"
+                className="bg-eggshell text-vandyke border-2 border-vandyke md:px-4 py-2 rounded text-center"
+                onClick={handleAnonymousUser}
+              >
+                Continue As Guest
+              </button>
             </div>
 
             <div className="flex justify-center mt-10">
