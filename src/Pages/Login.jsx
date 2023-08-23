@@ -6,7 +6,7 @@ import {
   GoogleAuthProvider,
 } from "firebase/auth";
 import { Link, useNavigate } from "react-router-dom";
-import GoogleButton from 'react-google-button'
+import GoogleButton from "react-google-button";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -119,7 +119,7 @@ const Login = () => {
               </a>
             </div>
 
-            <div className="flex flex-col md:flex-row gap-y-3 md:justify-between md:items-center">
+            <div className="flex flex-col gap-y-3">
               <button
                 type="submit"
                 className="bg-vandyke text-white md:px-4 py-2 rounded"
@@ -133,12 +133,11 @@ const Login = () => {
                 <button type="button">Sign Up</button>
               </Link>
             </div>
-          </form>
 
-          <div className="flex justify-center mt-10">
-          <GoogleButton onClick={handleGoogleSignin} />
-          </div>
-          
+            <div className="flex justify-center mt-10">
+              <GoogleButton onClick={handleGoogleSignin} />
+            </div>
+          </form>
         </div>
       </div>
     </>

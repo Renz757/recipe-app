@@ -127,7 +127,7 @@ const SignUp = () => {
               </a>
             </div>
 
-            <div className="flex flex-col md:flex-row gap-y-3 md:justify-between md:items-center">
+            <div className="flex flex-col gap-y-3 ">
               <button
                 type="submit"
                 className="bg-vandyke text-white md:px-4 py-2 rounded"
