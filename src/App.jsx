@@ -14,6 +14,7 @@ import { customRecipeActions } from "./store/customRecipes-slice";
 import { authActions } from "./store/authSlice";
 import SignUp from "./Pages/SignUp";
 import Login from "./Pages/Login";
+import ResetPassword from "./Pages/ResetPassword";
 import Nav from "./Components/Navigation/Nav";
 import Home from "./Pages/Home";
 import Profile from "./Pages/Profile";
@@ -45,8 +46,6 @@ const App = () => {
     return unsubscribe;
   }, [user]);
 
-  const redirect = () => {};
-
   const favRef = collection(db, "users", `${user && user.uid}`, "favorites");
   const shopRef = collection(
     db,
@@ -76,6 +75,7 @@ const App = () => {
             element={user ? <Navigate to="/" /> : <Login />}
           />
           <Route path="signup" element={<SignUp />} />
+          <Route path="resetPassword" element={<ResetPassword />} />
           <Route
             path="/"
             index

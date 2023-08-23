@@ -114,9 +114,9 @@ const Login = () => {
             </div>
 
             <div className="mb-6">
-              <a href="#" className="text-sm text-vandyke hover:underline">
+              <Link to="/resetPassword" className="text-sm text-vandyke hover:underline">
                 Forgot password?
-              </a>
+              </Link>
             </div>
 
             <div className="flex flex-col gap-y-3">
