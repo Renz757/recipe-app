@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
@@ -7,6 +7,7 @@ import { customRecipeActions } from "../../store/customRecipes-slice";
 import InstructionList from "./CustomRecipeInstructions";
 import IngredientsList from "./CustomRecipeIngredients";
 import { Link } from "react-router-dom";
+import { onlineManager } from "react-query";
 
 // TODO: Change from multistep form to normal form
 
@@ -15,9 +16,11 @@ const CustomRecipeForm = () => {
   const [serving, setServing] = useState("");
   const [cookTime, setCookTime] = useState("");
   const [image, setImage] = useState("");
+  const [imageName, setImageName] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const [ingredients, setIngredients] = useState([""]);
   const [instructions, setInstructions] = useState([""]);
+  const [imageUploaded, setImageUploaded] = useState(false);
 
   const [isImageTouched, setIsImageTouched] = useState(false);
 
@@ -26,47 +29,54 @@ const CustomRecipeForm = () => {
   const user = useSelector((state) => state.auth.user);
   const navigate = useNavigate();
 
-  const submitHandler = (event) => {
+  const submitHandler = async (event) => {
     event.preventDefault();
 
-    if (image != "") {
-      //get ref to image storage
-      const imageRef = ref(imageDB, `images/${recipeInfo.image.name}`);
+    let imageUrlLink = null;
 
-      //upload image to image storage
-      uploadBytes(imageRef, recipeInfo.image).then((value) => {
-        getDownloadURL(value.ref).then((url) => {
-          setImage(url);
-        });
-      });
+    try {
+      if (image != "") {
+        setImageName(image.name);
+        //get ref to image storage
+        const imageRef = ref(imageDB, `images/${image.name}`);
+
+        //upload image to storage
+        await uploadBytes(imageRef, image);
+        imageUrlLink = await getDownloadURL(imageRef);
+        setImageUploaded(true);
+      }
+    } catch (error) {
+      console.log(error);
     }
+    if (imageUploaded) {
+      //remove last element from array, empty string
+      ingredients.slice(-1);
+      instructions.slice(-1);
 
-    //remove last element from array, empty string
-    ingredients.slice(-1);
-    instructions.slice(-1);
+      const recipeData = {
+        title: name,
+        servingSize: serving,
+        cookTime,
+        image: image == "" ? imageUrl : imageUrlLink,
+        imageName,
+        ingredients,
+        instructions,
+      };
 
-    const recipeData = {
-      title: name,
-      servingSize: serving,
-      cookTime,
-      image: image == "" ? imageUrl : image,
-      ingredients,
-      instructions,
-    };
+      console.log(recipeData);
 
-    console.log(recipeData);
-
-    setTimeout(() => {
       dispatch(
         customRecipeActions.submitForm({
           uid: user.uid,
           recipeData: recipeData,
         })
       );
-    }, 3000);
 
-    navigate("/customRecipes");
+      navigate("/customRecipes");
+      setImageUploaded(false);
+    }
   };
+
 
   const nameHandler = (e) => {
     setName(e.target.value);
@@ -161,6 +171,7 @@ const CustomRecipeForm = () => {
                 type="file"
                 id="image"
                 name="image"
+                accept="image/*"
                 className="mt-1 p-2 w-full border border-eggshell rounded-md"
                 onChange={imageHandler}
                 disabled={imageUrl == "" ? false : true}
