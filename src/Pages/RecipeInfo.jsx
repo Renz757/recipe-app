@@ -215,7 +215,7 @@ const RecipeInfo = ({ recipeInfoId }) => {
                         customRecipeInfo.title
                       )
                 }
-                className="text-center mt-5 bg-green-400 w-7/12 md:w-6/12 p-2 rounded-xl cursor-pointer"
+                className="text-center mt-5 bg-green-400 w-full md:w-6/12 p-2 rounded-xl cursor-pointer"
               >
                 Add Ingredients to Shopping List
               </button>
