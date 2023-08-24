@@ -70,20 +70,20 @@ const Home = ({ setRecipeInfo }) => {
   return (
     <>
       <div className="flex flex-col bg-eggshell h-screen">
-        <h1 className="text-3xl text-center mt-4 font-Geologica">
-          Random Recipe of The Day!
+        <h1 className="text-3xl text-center mt-4 font-Geologica text-vandyke">
+          Recipe of The Day!
         </h1>
         {isError && <p>{error}</p>}
         {!recipeInfo ? (
           <h1>Loading...</h1>
         ) : (
           <div className="grid grid-cols-1 md:max-w-5xl md:mx-auto md:pt-4">
-            <div className=" text-left">
+            <div className=" text-center">
               <img
                 className="w-full mt-4 aspect-video object-cover blur-none lg:rounded"
                 src={`${recipeInfo.image}`}
               />
-              <h1 className="text-4xl text-left font-Caveat pt-3">
+              <h1 className="text-4xl font-Caveat pt-3">
                 {recipeInfo.title}
               </h1>
               <Link

@@ -60,7 +60,7 @@ const CuisineList = ({ cuisineHandler, isDragging, setIsDragging }) => {
 
   return (
     <div className="grid grid-cols-1 md:max-w-5xl md:mx-auto md:pt-4">
-      <h1 className="text-2xl mt-10 text-center">Search Recipes By Cusines</h1>
+      <h1 className="text-2xl mt-10 text-center font-Geologica text-vandyke">Search Recipes By Cusines</h1>
 
       <div
         className="flex mt-10 gap-x-10 px-4 bg-eggshell overflow-x-auto p-10"
@@ -75,7 +75,7 @@ const CuisineList = ({ cuisineHandler, isDragging, setIsDragging }) => {
             <div
               key={index}
               onClick={isDragging ? null : cuisineHandler}
-              className="h-40 w-40 p-16 rounded-full bg-vandyke gri flex justify-center items-center text-eggshell font-noto text-2xl cursor-pointer"
+              className="h-40 w-40 p-16 rounded-full bg-vandyke flex justify-center items-center text-eggshell font-noto text-2xl cursor-pointer"
             >
               {cuisine}
             </div>
