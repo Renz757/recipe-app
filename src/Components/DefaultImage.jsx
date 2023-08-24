@@ -4,7 +4,7 @@ const DefaultImage = ({ src, alt }) => {
   const [imgSrc, setImgSrc] = useState(src);
 
   
-  const handleImageError = (index) => {
+  const handleImageError = () => {
     //replace images that didn't load with a default image  
     setImgSrc('/src/assets/recipe-icon-png-25.jpg')
   };

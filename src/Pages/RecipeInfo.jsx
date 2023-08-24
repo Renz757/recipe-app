@@ -5,6 +5,7 @@ import { favActions } from "../store/favorites-slice";
 import { shoppingListActions } from "../store/shoppingList-slice";
 import HeartIcon from "../UI/heartIcon";
 import RemoveIcon from "../UI/removeIcon";
+import DefaultImage from "../Components/DefaultImage";
 import { useState, useEffect } from "react";
 import DropDownStatus from "../UI/DropDownStatus";
 import DeleteModal from "../UI/deleteModal";
@@ -122,13 +123,9 @@ const RecipeInfo = ({ recipeInfoId }) => {
             {/* Recipe Info */}
             <div className="flex flex-col ">
               <div className="relative">
-                <img
-                  className="w-full aspect-video object-cover blur-none"
-                  src={
-                    isNotCustomRecipe
-                      ? recipeInfo.image
-                      : customRecipeInfo.image
-                  }
+                <DefaultImage
+                      src={isNotCustomRecipe ? recipeInfo.image : customRecipeInfo.image} 
+                      alt={isNotCustomRecipe ? recipeInfo.title : customRecipeInfo.title}       
                 />
               </div>
               <div className="flex items-centerb justify-between p-3">
