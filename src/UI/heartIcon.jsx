@@ -18,7 +18,7 @@ const HeartIcon = ({ currentId }) => {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="currentColor"
-      className={`w-6 h-6 stroke-red-500 ${
+      className={`w-9 h-9 stroke-red-500 ${
         isFavorite ? "fill-red-500" : "stroke-red-500  hover:fill-red-500"
       } `}
     >

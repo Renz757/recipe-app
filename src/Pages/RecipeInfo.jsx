@@ -131,18 +131,14 @@ const RecipeInfo = ({ recipeInfoId }) => {
                   }
                 />
               </div>
-              <div className="flex items-center">
-                <h1 className="text-4xl font-Caveat p-3">
+              <div className="flex items-centerb justify-between p-3">
+                <h1 className="text-4xl font-Caveat">
                   {isNotCustomRecipe
                     ? recipeInfo.title
                     : customRecipeInfo.title}
                 </h1>
                 <div
-                  className={`${
-                    isNotCustomRecipe
-                      ? "bg-zinc-500 h-7 w-7 flex justify-center items-center rounded-full"
-                      : ""
-                  }`}
+                 
                   onClick={
                     isNotCustomRecipe
                       ? favoriteRecipeHandler.bind(
@@ -156,6 +152,7 @@ const RecipeInfo = ({ recipeInfoId }) => {
                 >
                   {isNotCustomRecipe ? (
                     <HeartIcon
+                      className=""
                       currentId={recipeInfo.id}
                       favorites={favorites}
                     />
