@@ -1,9 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { useState } from "react";
+import DefaultImage from "../../Components/DefaultImage";
 
 const CustomRecipeList = ({ setRecipeInfo }) => {
   const customRecipes = useSelector((state) => state.customRecipe);
+  const [imageNotLoaded, setImageNotLoaded] = useState(false);
+
   return (
     <>
       <div className="grid grid-cols-1 md:max-w-5xl md:mx-auto lg:grid-cols-2 md:pt-7 lg:gap-4 bg-eggshell">
@@ -12,11 +16,10 @@ const CustomRecipeList = ({ setRecipeInfo }) => {
             <div key={index} className="">
               <div className="">
                 <div className="">
-                  <img
+                  <DefaultImage
                     src={recipe.image}
                     alt={recipe.title}
                     key={index}
-                    className="w-full aspect-video object-cover blur-none"
                   />
                 </div>
                 <div className="p-4">
