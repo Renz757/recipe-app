@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useQuery } from "react-query";
 import { useSelector, useDispatch } from "react-redux";
 import { navActions } from "../store/nav-slice";
@@ -8,6 +9,9 @@ import SearchIcon from "../UI/SearchIcon";
 const SearchRecipe = (props) => {
   const searchInput = useSelector((state) => state.nav.searchInput);
   const cuisineInput = useSelector((state) => state.nav.cuisine);
+
+  const [placeHolder, setPlaceHolder] = useState("Search a Recipe");
+
   const dispatch = useDispatch();
   const { data, refetch } = useQuery(
     ["recpies"],
@@ -20,6 +24,7 @@ const SearchRecipe = (props) => {
 
       //set seatch Input back to empty string
       dispatch(navActions.updateSearchInput(""));
+      setPlaceHolder("Search a Recipe");
       return data.results;
     },
     {
@@ -40,14 +45,24 @@ const SearchRecipe = (props) => {
         <input
           type="text"
           id="searchRecipe"
-          placeholder="Search a Recipe"
+          placeholder={placeHolder}
           className="p-2 w-10/12 outline-none bg-white"
           onChange={searchHandler}
           value={searchInput}
         />
 
         <Link to="recipes">
-          <button onClick={refetch} className="py-2 bg-white" type="submit">
+          <button
+            onClick={
+              searchInput != ""
+                ? refetch
+                : () => {
+                    setPlaceHolder("Recipe Cannot Be Empty");
+                  }
+            }
+            className="py-2 bg-white"
+            type="submit"
+          >
             <SearchIcon />
           </button>
         </Link>
