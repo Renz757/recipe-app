@@ -124,18 +124,26 @@ const RecipeInfo = ({ recipeInfoId }) => {
             <div className="flex flex-col ">
               <div className="relative">
                 <DefaultImage
-                      src={isNotCustomRecipe ? recipeInfo.image : customRecipeInfo.image} 
-                      alt={isNotCustomRecipe ? recipeInfo.title : customRecipeInfo.title}       
+                  src={
+                    isNotCustomRecipe
+                      ? recipeInfo.image
+                      : customRecipeInfo.image
+                  }
+                  alt={
+                    isNotCustomRecipe
+                      ? recipeInfo.title
+                      : customRecipeInfo.title
+                  }
                 />
               </div>
-              <div className="flex items-centerb justify-between p-3">
+              <div className="flex items-center justify-between p-3">
                 <h1 className="text-4xl font-Caveat">
                   {isNotCustomRecipe
                     ? recipeInfo.title
                     : customRecipeInfo.title}
                 </h1>
                 <div
-                 
+                  className=""
                   onClick={
                     isNotCustomRecipe
                       ? favoriteRecipeHandler.bind(
@@ -148,11 +156,12 @@ const RecipeInfo = ({ recipeInfoId }) => {
                   }
                 >
                   {isNotCustomRecipe ? (
-                    <HeartIcon
-                      className=""
-                      currentId={recipeInfo.id}
-                      favorites={favorites}
-                    />
+                    <div>
+                      <HeartIcon
+                        currentId={recipeInfo.id}
+                        favorites={favorites}
+                      />
+                    </div>
                   ) : (
                     <div onClick={deleteModalHandler}>
                       <RemoveIcon />
