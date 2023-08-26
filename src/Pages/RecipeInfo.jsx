@@ -8,7 +8,7 @@ import RemoveIcon from "../UI/removeIcon";
 import DefaultImage from "../Components/DefaultImage";
 import { useState, useEffect } from "react";
 import DropDownStatus from "../UI/DropDownStatus";
-import DeleteModal from "../UI/deleteModal";
+import DeleteModal from "../UI/DeleteModal";
 import { customRecipeActions } from "../store/customRecipes-slice";
 
 //create redux slice for recipeInfo
@@ -107,10 +107,12 @@ const RecipeInfo = ({ recipeInfoId }) => {
     <>
       <DropDownStatus />
       {customRecipes.showModal && (
-        <DeleteModal
-          customRecipeId={customRecipeInfo.dbID}
-          imageName={customRecipeInfo.imageName}
-        />
+        <div className="absolute">
+          <DeleteModal
+            customRecipeId={customRecipeInfo.dbID}
+            imageName={customRecipeInfo.imageName}
+          />
+        </div>
       )}
       {hasData === false || isLoading ? (
         <h1>Loading...</h1>

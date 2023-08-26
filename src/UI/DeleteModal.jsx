@@ -30,26 +30,26 @@ const DeleteModal = ({ customRecipeId, imageName }) => {
   };
   const cancelHandler = () => {
     dispatch(customRecipeActions.modalhandler());
-  };
+  }; 
 
   return (
     <>
       {ReactDOM.createPortal(
-        <div className="w-7/12 h-64 py-16 bg-eggshell absolute z-20 top-1/4 left-1/4 rounded-xl flex flex-col text-center">
-          <h1 className="text-red-400 text-2xl bottom-32">
+        <div className=" mx-auto h-64 p-16 bg-vandyke border-vandyke border-2 absolute z-20 top-1/4 left-8 right-8 rounded flex flex-col text-center">
+          <h1 className="text-eggshell text-2xl bottom-32">
             Are you sure you would like to delete this recipe?
           </h1>
           <div className="w-4/12 mx-auto flex justify-center mt-5 gap-3">
             <button
               onClick={cancelHandler}
-              className="px-6 py-2 bg-slate-500 rounded-xl cursor-pointer"
+              className="px-6 py-2 bg-eggshell rounded cursor-pointer"
             >
               Cancel
             </button>
             <Link to="/customRecipes">
               <button
                 onClick={removeRecipeHandler}
-                className="px-6 py-2 bg-red-400 rounded-xl cursor-pointer"
+                className="px-6 py-2 bg-red-400 rounded cursor-pointer"
               >
                 Delete
               </button>
