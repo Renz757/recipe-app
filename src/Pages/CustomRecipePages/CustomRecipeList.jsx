@@ -23,7 +23,7 @@ const CustomRecipeList = ({ setRecipeInfo }) => {
                   />
                 </div>
                 <div className="p-4">
-                  <h1 className="text-3xl font-Caveat">{recipe.title}</h1>
+                  <h1 className="text-3xl font-Caveat text-vandyke">{recipe.title}</h1>
                   <div className="flex gap-2 font-noto">
                     <p>{`Prep Time: ${recipe.cookTime} Minutes - `}</p>
                     <p>{`Servings: ${recipe.servingSize}`}</p>
@@ -33,7 +33,7 @@ const CustomRecipeList = ({ setRecipeInfo }) => {
                     to={`/recipeInfo/${recipe.dbID}`}
                     onClick={() => setRecipeInfo(recipe.dbID)}
                   >
-                    <p className="underline font-Geologica text-zinc-600">
+                    <p className="underline font-noto text-darkgold">
                       Show Recipe
                     </p>
                   </Link>

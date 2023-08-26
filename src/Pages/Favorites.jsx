@@ -22,12 +22,12 @@ const Favorites = ({ setRecipeInfo }) => {
               />
 
               <div className="p-4">
-                <h1 className="text-3xl font-Caveat">{favorites.title}</h1>
+                <h1 className="text-3xl font-Caveat text-vandyke">{favorites.title}</h1>
                 <Link
                   to={`/recipeInfo/${favorites.id}`}
                   onClick={() => setRecipeInfo(favorites.id)}
                 >
-                  <p className="underline font-Geologica text-zinc-600">
+                  <p className="underline font-noto text-darkgold">
                     Show Full Recipe
                   </p>
                 </Link>

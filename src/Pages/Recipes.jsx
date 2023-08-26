@@ -58,7 +58,7 @@ const Recipes = ({ setRecipeInfo }) => {
                   />
                 </div>
                 <div className="p-4">
-                  <h1 className="text-3xl font-Caveat">{recipe.title}</h1>
+                  <h1 className="text-3xl font-Caveat text-vandyke">{recipe.title}</h1>
                   <div className="flex gap-2 font-noto">
                     <p>{`Prep Time: ${recipe.readyInMinutes} Minutes - `}</p>
                     <p>{`Servings: ${recipe.servings}`}</p>
@@ -68,7 +68,7 @@ const Recipes = ({ setRecipeInfo }) => {
                     to={`/recipeInfo/${recipe.id}`}
                     onClick={() => setRecipeInfo(recipe.id)}
                   >
-                    <p className="underline font-Geologica text-zinc-600">
+                    <p className="underline font-noto text-darkgold">
                       Show Recipe
                     </p>
                   </Link>
