@@ -35,6 +35,8 @@ export const favoriteSlice = createSlice({
                     id: action.payload.id,
                     title: action.payload.title,
                     image: action.payload.image,
+                    readyInMinutes: action.payload.readyInMinutes,
+                    servings: action.payload.servings,
                     isFavorite: action.payload.isFavorite
                 })
             }

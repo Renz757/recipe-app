@@ -73,14 +73,24 @@ const RecipeInfo = ({ recipeInfoId }) => {
     }
   );
 
-  const favoriteRecipeHandler = (title, image, id) => {
+  const favoriteRecipeHandler = (
+    id,
+    title,
+    image,
+    readyInMinutes,
+    servings
+  ) => {
     const favObject = {
-      id: id,
-      title: title,
-      image: image,
+      id,
+      title,
+      image,
+      readyInMinutes,
+      servings,
       isFavorite: true,
       uid: user.uid,
     };
+
+    console.log(favObject);
 
     dispatch(favActions.updateFavorite(favObject));
   };
@@ -148,12 +158,15 @@ const RecipeInfo = ({ recipeInfoId }) => {
                   className=""
                   onClick={
                     isNotCustomRecipe
-                      ? favoriteRecipeHandler.bind(
-                          null,
-                          recipeInfo.title,
-                          recipeInfo.image,
-                          recipeInfo.id
-                        )
+                      ? () => {
+                          favoriteRecipeHandler(
+                            recipeInfo.id,
+                            recipeInfo.title,
+                            recipeInfo.image,
+                            recipeInfo.readyInMinutes,
+                            recipeInfo.servings
+                          );
+                        }
                       : null //Will not add custom recipes as favorites
                   }
                 >
