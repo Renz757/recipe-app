@@ -41,7 +41,7 @@ const SearchRecipe = (props) => {
 
   return (
     <>
-      <form className="flex w-10/12 justify-center bg-white rounded-xl mx-auto">
+      <form className="flex w-10/12 justify-center bg-white rounded-lg border-vandyke border-2 mx-auto">
         <input
           type="text"
           id="searchRecipe"

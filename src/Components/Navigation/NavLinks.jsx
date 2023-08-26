@@ -11,16 +11,16 @@ const NavLinks = () => {
 
   return (
     <>
-      <Link to="recipes" className="hover:bg-vandyke w-full p-4 md:w-auto">
+      <Link to="recipes" className="hover:bg-vandyke w-full p-4 md:w-auto transition-all ease-in-out duration-300">
         <li onClick={sideBarHandler}>Recipes</li>
       </Link>
-      <Link to="favorites" className="hover:bg-vandyke w-full p-4 md:w-auto">
+      <Link to="favorites" className="hover:bg-vandyke w-full p-4 md:w-auto transition-all ease-in-out duration-300">
         <li onClick={sideBarHandler}>Favorite</li>
       </Link>
-      <Link to="/shoppingList" className="hover:bg-vandyke w-full p-4 md:w-auto">
+      <Link to="/shoppingList" className="hover:bg-vandyke w-full p-4 md:w-auto transition-all ease-in-out duration-300">
         <li onClick={sideBarHandler}>Shopping List</li>
       </Link>
-      <Link to="/customRecipes" className="hover:bg-vandyke w-full p-4 md:w-auto">
+      <Link to="/customRecipes" className="hover:bg-vandyke w-full p-4 md:w-auto transition-all ease-in-out duration-300">
         <li onClick={sideBarHandler}>Custom Recipe</li>
       </Link>
       <Link to="/profile" className="hidden md:inline-block">
