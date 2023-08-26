@@ -3,6 +3,8 @@ import { useEffect } from "react";
 import { useQuery } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
 import { navActions } from "../store/nav-slice";
+import RecipeDetails from "../Components/RecipeDetails";
+import DefaultImage from "../Components/DefaultImage";
 
 const Recipes = ({ setRecipeInfo }) => {
   const searchInput = useSelector((state) => state.nav.searchInput);
@@ -40,7 +42,11 @@ const Recipes = ({ setRecipeInfo }) => {
     <div className="bg-eggshell">
       {isLoading && <p>...Loading</p>}
       {!recipeData && (
-        <p className={`bg-eggshell h-screen text-center w-screen pt-10 text-3xl ${isLoading ? "hidden" : "block"}`}>
+        <p
+          className={`bg-eggshell h-screen text-center w-screen pt-10 text-3xl ${
+            isLoading ? "hidden" : "block"
+          }`}
+        >
           Please Search a recipe
         </p>
       )}
@@ -49,30 +55,21 @@ const Recipes = ({ setRecipeInfo }) => {
           recipeData.map((recipe, index) => {
             return (
               <div key={index} className="">
-                <div className="">
-                  <img
+                <div>
+                  <DefaultImage
                     src={recipe.image}
                     alt={recipe.title}
                     key={recipe.id}
                     className="w-full aspect-video object-cover blur-none lg:rounded"
                   />
                 </div>
-                <div className="p-4">
-                  <h1 className="text-3xl font-Caveat text-vandyke">{recipe.title}</h1>
-                  <div className="flex gap-2 font-noto">
-                    <p>{`Prep Time: ${recipe.readyInMinutes} Minutes - `}</p>
-                    <p>{`Servings: ${recipe.servings}`}</p>
-                  </div>
-
-                  <Link
-                    to={`/recipeInfo/${recipe.id}`}
-                    onClick={() => setRecipeInfo(recipe.id)}
-                  >
-                    <p className="underline font-noto text-darkgold">
-                      Show Recipe
-                    </p>
-                  </Link>
-                </div>
+                <RecipeDetails
+                  title={recipe.title}
+                  id={recipe.id}
+                  readyInMinutes={recipe.readyInMinutes}
+                  servings={recipe.servings}
+                  setRecipeInfo={setRecipeInfo}
+                />
               </div>
             );
           })}

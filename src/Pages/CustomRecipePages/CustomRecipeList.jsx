@@ -1,12 +1,10 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { useState } from "react";
 import DefaultImage from "../../Components/DefaultImage";
+import RecipeDetails from "../../Components/RecipeDetails";
 
 const CustomRecipeList = ({ setRecipeInfo }) => {
   const customRecipes = useSelector((state) => state.customRecipe);
-  const [imageNotLoaded, setImageNotLoaded] = useState(false);
 
   return (
     <>
@@ -22,22 +20,13 @@ const CustomRecipeList = ({ setRecipeInfo }) => {
                     key={index}
                   />
                 </div>
-                <div className="p-4">
-                  <h1 className="text-3xl font-Caveat text-vandyke">{recipe.title}</h1>
-                  <div className="flex gap-2 font-noto">
-                    <p>{`Prep Time: ${recipe.cookTime} Minutes - `}</p>
-                    <p>{`Servings: ${recipe.servingSize}`}</p>
-                  </div>
-
-                  <Link
-                    to={`/recipeInfo/${recipe.dbID}`}
-                    onClick={() => setRecipeInfo(recipe.dbID)}
-                  >
-                    <p className="underline font-noto text-darkgold">
-                      Show Recipe
-                    </p>
-                  </Link>
-                </div>
+                <RecipeDetails
+                  title={recipe.title}
+                  id={recipe.dbID}
+                  readyInMinutes={recipe.cookTime}
+                  servings={recipe.servingSize}
+                  setRecipeInfo={setRecipeInfo}
+                />
               </div>
             </div>
           );
