@@ -19,14 +19,11 @@ const Home = ({ setRecipeInfo }) => {
     data: recipeInfo,
     isError,
     error,
+    isLoading,
   } = useQuery(["randomRecipe"], getRandomRecipe, {
     refetchOnWindowFocus: false,
     staleTime: Infinity,
   });
-
-  if (isError) {
-    return <h1>{`An Error Has Occured ${error}`}</h1>;
-  }
 
   const { data, refetch } = useQuery(
     ["recpies"],
@@ -67,25 +64,28 @@ const Home = ({ setRecipeInfo }) => {
     }
   };
 
+  if (isError) {
+    return <h1>{`An Error Has Occured ${error}`}</h1>;
+  }
+
+  console.log(isLoading);
+
   return (
     <>
-      <div className="flex flex-col bg-eggshell h-screen">
-        <h1 className="text-3xl text-center mt-4 font-Geologica text-vandyke">
-          Recipe of The Day!
-        </h1>
-        {isError && <p>{error}</p>}
-        {!recipeInfo ? (
-          <h1>Loading...</h1>
-        ) : (
+      {isLoading && <h1 className="text-center mt-12 text-2xl font-noto">Loading...</h1>}
+
+      {recipeInfo && (
+        <div className="flex flex-col bg-eggshell h-screen">
+          <h1 className="text-3xl text-center mt-4 font-Geologica text-vandyke">
+            Recipe of The Day!
+          </h1>
           <div className="grid grid-cols-1 md:max-w-5xl md:mx-auto md:pt-4">
             <div className=" text-center">
               <img
                 className="w-full mt-4 aspect-video object-cover blur-none lg:rounded"
                 src={`${recipeInfo.image}`}
               />
-              <h1 className="text-4xl font-Caveat pt-3">
-                {recipeInfo.title}
-              </h1>
+              <h1 className="text-4xl font-Caveat pt-3">{recipeInfo.title}</h1>
               <Link
                 onClick={() => setRecipeInfo(recipeInfo.id)}
                 to={`/recipeInfo/${recipeInfo.id}`}
@@ -95,14 +95,14 @@ const Home = ({ setRecipeInfo }) => {
               </Link>
             </div>
           </div>
-        )}
 
-        <CuisineList
-          cuisineHandler={cuisineHandler}
-          isDragging={isDragging}
-          setIsDragging={setIsDragging}
-        />
-      </div>
+          <CuisineList
+            cuisineHandler={cuisineHandler}
+            isDragging={isDragging}
+            setIsDragging={setIsDragging}
+          />
+        </div>
+      )}
     </>
   );
 };
