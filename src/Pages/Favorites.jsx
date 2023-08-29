@@ -9,7 +9,6 @@ import { item, container } from "../UI/stagger";
 //todo: style favorites page
 const Favorites = ({ setRecipeInfo }) => {
   const dispatch = useDispatch();
-  const [animationKey, setAnimationKey] = useState(Date.now());
 
   const favorites = useSelector((state) => state.favorites.favoriteRecipes);
   console.log(favorites);
