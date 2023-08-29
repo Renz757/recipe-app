@@ -6,6 +6,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { navActions } from "../store/nav-slice";
 import CuisineList from "../Components/CuisineList";
 import axios from "axios";
+import { motion } from "framer-motion";
+import { fadeIn } from "../UI/fr-animations/fadeIn";
 
 const Home = ({ setRecipeInfo }) => {
   const navigate = useNavigate();
@@ -72,10 +74,18 @@ const Home = ({ setRecipeInfo }) => {
 
   return (
     <>
-      {isLoading && <h1 className="text-center mt-12 text-2xl font-noto">Loading...</h1>}
+      {isLoading && (
+        <h1 className="text-center mt-12 text-2xl font-noto">Loading...</h1>
+      )}
 
       {recipeInfo && (
-        <div className="flex flex-col bg-eggshell h-screen">
+        <motion.div
+          variants={fadeIn}
+          initial="hidden"
+          animate="visible"
+          exit="hidden"
+          className="flex flex-col bg-eggshell h-screen"
+        >
           <h1 className="text-3xl text-center mt-4 font-Geologica text-vandyke">
             Recipe of The Day!
           </h1>
@@ -101,7 +111,7 @@ const Home = ({ setRecipeInfo }) => {
             isDragging={isDragging}
             setIsDragging={setIsDragging}
           />
-        </div>
+        </motion.div>
       )}
     </>
   );

@@ -10,6 +10,7 @@ import { useState, useEffect } from "react";
 import DropDownStatus from "../UI/DropDownStatus";
 import DeleteModal from "../UI/DeleteModal";
 import { customRecipeActions } from "../store/customRecipes-slice";
+import { motion } from "framer-motion";
 
 //create redux slice for recipeInfo
 
@@ -113,6 +114,18 @@ const RecipeInfo = ({ recipeInfoId }) => {
     dispatch(customRecipeActions.modalhandler());
   };
 
+  const fadeIn = {
+    hidden: {
+      opacity: 0,
+    },
+    visible: {
+      opacity: 1,
+      transition: {
+        duration: 1,
+      },
+    },
+  };
+
   return (
     <>
       <DropDownStatus />
@@ -127,7 +140,13 @@ const RecipeInfo = ({ recipeInfoId }) => {
       {hasData === false || isLoading ? (
         <h1>Loading...</h1>
       ) : (
-        <div className="bg-eggshell h-screen">
+        <motion.div
+          variants={fadeIn}
+          initial="hidden"
+          animate="visible"
+          exit="hidden"
+          className="bg-eggshell h-screen"
+        >
           <div
             key={isNotCustomRecipe ? recipeInfo.id : customRecipeInfo.dbID}
             className="md:max-w-2xl md:mx-auto md:pt-5 bg-eggshell"
@@ -274,7 +293,7 @@ const RecipeInfo = ({ recipeInfoId }) => {
                   })}
             </div>
           </div>
-        </div>
+        </motion.div>
       )}
     </>
   );

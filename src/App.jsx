@@ -21,7 +21,7 @@ import Profile from "./Pages/Profile";
 import Recipes from "./Pages/Recipes";
 import RecipeInfo from "./Pages/RecipeInfo";
 import Favorites from "./Pages/Favorites";
-import ShoppingList from "./Pages/shoppingList";
+import ShoppingList from "./Pages/ShoppingList";
 import CustomRecipes from "./Pages/CustomRecipePages/CustomRecipes";
 import CustomRecipeForm from "./Pages/CustomRecipePages/CustomRecipeForm";
 
