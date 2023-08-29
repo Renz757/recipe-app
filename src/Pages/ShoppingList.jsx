@@ -14,7 +14,7 @@ const ShoppingList = () => {
 
   return (
     <div className="bg-eggshell h-auto">
-      <h1 className="text-3xl text-center p-3 font-Geologica">Shopping List</h1>
+      <h1 className="text-3xl text-center p-3 font-Geologica text-vandyke">Shopping List</h1>
       {shoppingList == 0 && (
         <div className="bg-eggshell h-screen text-center w-screen pt-10 text-3xl">
           Browse Recipes to Add Ingredients to Shopping List!
@@ -26,7 +26,7 @@ const ShoppingList = () => {
           return (
             <div key={index} className="pt-4 lg:h-full">
               <div className="pt-5 md:pt-0 flex items-center gap-3">
-                <h1 className="text-3xl font-Caveat">
+                <h1 className="text-3xl font-Caveat text-vandyke">
                   {recipeIngredients.title}
                 </h1>
                 <CheckIcon />

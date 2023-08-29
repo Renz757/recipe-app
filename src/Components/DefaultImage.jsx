@@ -9,7 +9,7 @@ const DefaultImage = ({ src, alt, id }) => {
     setImgSrc('/src/assets/recipe-icon-png-25.jpg')
   };
 
-  return <img src={imgSrc} alt={alt} key={id} onError={handleImageError} className="w-full aspect-video object-cover blur-none"/>;
+  return <img src={imgSrc} alt={alt} key={id} onError={handleImageError} className="w-full aspect-video object-cover blur-none lg:rounded-xl"/>;
 };
 
 export default DefaultImage;
