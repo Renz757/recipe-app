@@ -11,6 +11,7 @@ import DropDownStatus from "../UI/DropDownStatus";
 import DeleteModal from "../UI/DeleteModal";
 import { customRecipeActions } from "../store/customRecipes-slice";
 import { motion } from "framer-motion";
+import { fadeIn } from "../UI/fr-animations/fadeIn";
 
 //create redux slice for recipeInfo
 
@@ -114,18 +115,6 @@ const RecipeInfo = ({ recipeInfoId }) => {
     dispatch(customRecipeActions.modalhandler());
   };
 
-  const fadeIn = {
-    hidden: {
-      opacity: 0,
-    },
-    visible: {
-      opacity: 1,
-      transition: {
-        duration: 1,
-      },
-    },
-  };
-
   return (
     <>
       <DropDownStatus />
@@ -174,7 +163,6 @@ const RecipeInfo = ({ recipeInfoId }) => {
                     : customRecipeInfo.title}
                 </h1>
                 <div
-                  className=""
                   onClick={
                     isNotCustomRecipe
                       ? () => {
