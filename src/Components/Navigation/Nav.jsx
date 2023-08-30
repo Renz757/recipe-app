@@ -30,7 +30,7 @@ const Nav = () => {
           <h1 className="text-2xl font-Geologica text-vandyke w-screen">Recipe Book</h1>
         </Link>
 
-        <ul className="hidden md:col-span-10 xl:col-span-4 xl:order-last items-center md:flex md:justify-end text-eggshell font-Geologica text-xl">
+        <ul className="hidden md:col-span-10 xl:col-span-6 xl:order-last items-center md:flex md:justify-end text-eggshell font-Geologica text-xl">
           {user && <NavLinks />}
         </ul>
 
@@ -46,7 +46,7 @@ const Nav = () => {
           </div>
         </div>
 
-        <div className="col-span-12 p-2 md:p-4 xl:col-span-6">
+        <div className="col-span-12 p-2 md:p-4 xl:col-span-4 xl:justify-start">
           {user && <SearchRecipe />}
         </div>
 

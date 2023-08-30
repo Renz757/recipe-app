@@ -41,12 +41,12 @@ const SearchRecipe = (props) => {
 
   return (
     <>
-      <form className="flex w-10/12 justify-center bg-white rounded-lg border-vandyke border-2 mx-auto">
+      <form className="flex justify-between rounded bg-white w-10/12 mx-auto xl:w-auto">
         <input
           type="text"
           id="searchRecipe"
           placeholder={placeHolder}
-          className="p-2 w-10/12 outline-none bg-white"
+          className="p-2 rounded outline-none bg-white grow"
           onChange={searchHandler}
           value={searchInput}
         />
@@ -60,7 +60,7 @@ const SearchRecipe = (props) => {
                     setPlaceHolder("Recipe Cannot Be Empty");
                   }
             }
-            className="py-2 bg-white"
+            className="py-2 bg-white rounded p-2"
             type="submit"
           >
             <SearchIcon />
