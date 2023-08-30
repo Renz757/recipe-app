@@ -6,7 +6,7 @@ import { navActions } from "../store/nav-slice";
 import RecipeDetails from "../Components/RecipeDetails";
 import DefaultImage from "../Components/DefaultImage";
 import { motion, AnimatePresence } from "framer-motion";
-import { container, item } from "../UI/stagger";
+import { container, item } from "../UI/fr-animations/stagger";
 
 const Recipes = ({ setRecipeInfo }) => {
   const searchInput = useSelector((state) => state.nav.searchInput);

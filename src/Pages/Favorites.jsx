@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import DefaultImage from "../Components/DefaultImage";
 import RecipeDetails from "../Components/RecipeDetails";
 import { motion } from "framer-motion";
-import { item, container } from "../UI/stagger";
+import { item, container } from "../UI/fr-animations/stagger";
 
 //todo: style favorites page
 const Favorites = ({ setRecipeInfo }) => {

@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import DefaultImage from "../../Components/DefaultImage";
 import RecipeDetails from "../../Components/RecipeDetails";
 import { motion } from "framer-motion";
-import { item, container } from "../../UI/stagger";
+import { item, container } from "../../UI/fr-animations/stagger";
 const CustomRecipeList = ({ setRecipeInfo }) => {
   const customRecipes = useSelector((state) => state.customRecipe);
 
