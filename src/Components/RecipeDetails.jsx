@@ -7,8 +7,6 @@ const RecipeDetails = ({
   readyInMinutes,
   servings,
   setRecipeInfo,
-  setfavoritesInfo,
-  isFavorite,
 }) => {
   return (
     <div className="p-4">

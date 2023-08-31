@@ -29,6 +29,7 @@ const CustomRecipeForm = () => {
   const user = useSelector((state) => state.auth.user);
   const navigate = useNavigate();
 
+  // todo: move submit logic into redux thunk function 
   const submitHandler = async (event) => {
     event.preventDefault();
 

@@ -11,6 +11,7 @@ const Profile = () => {
 
   const navigate = useNavigate();
 
+  //todo: move async logic in redux thunk function 
   const logoutHandler = async () => {
     try {
       setError("");

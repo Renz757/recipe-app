@@ -18,6 +18,7 @@ const DeleteModal = ({ customRecipeId, imageName }) => {
       })
     );
 
+    //todo: move async logic in redux thunk function
     //remove
     const imageRef = ref(imageDB, `images/${imageName}`);
     deleteObject(imageRef)

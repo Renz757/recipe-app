@@ -27,6 +27,7 @@ const Login = () => {
     setPassword(event.target.value);
   };
 
+  //todo: move async logic in redux thunk function
   const submitHandler = async (event) => {
     event.preventDefault();
 

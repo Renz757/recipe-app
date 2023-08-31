@@ -13,6 +13,7 @@ const ResetPassword = () => {
     setEmail(event.target.value);
   };
 
+  //todo: move async logic in redux thunk function
   const submitHandler = async (e) => {
     e.preventDefault();
     setIsError(false);
