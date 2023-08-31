@@ -25,7 +25,8 @@ const Nav = () => {
           <Backdrop />
         </div>
       )}
-      <div className={`bg-darkgold ${!user ? "text-center p-7" : "grid grid-cols-12 grid-rows-2 items-center p-7 xl:grid-rows-1"}`}>
+      {!user && <div className="text-center p-5 bg-darkgold text-2xl font-Geologica text-vandyke">Recipe Book</div>}
+      {user && <div className="bg-darkgold grid grid-cols-12 grid-rows-2 items-center p-7 xl:grid-rows-1">
         <Link className="col-span-6 md:col-span-2 lg:col-span-2" to="/">
           <h1 className="text-2xl font-Geologica text-vandyke w-screen">Recipe Book</h1>
         </Link>
@@ -53,7 +54,7 @@ const Nav = () => {
         <div className="md:hidden">
           {user && <SideMenu />}
         </div>
-      </div>
+      </div>}
     </>
   );
 };

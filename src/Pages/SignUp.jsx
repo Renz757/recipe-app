@@ -66,7 +66,7 @@ const SignUp = () => {
 
   return (
     <>
-      <div className="p-12 rounded-lg shadow-md bg-eggshell bg-no-repeat w-screen h-screen">
+      <div className="p-12 rounded-lg shadow-md bg-eggshell bg-no-repeat w-screen">
         <div className="w-10/12 mx-auto">
           <form onSubmit={submitHandler} className="max-w-sm mx-auto">
             <h1 className="text-2xl font-bold font-Geologica text-vandyke mb-4 text-center">
@@ -120,12 +120,6 @@ const SignUp = () => {
                 className="mt-1 p-2 w-full border rounded-md"
                 onChange={validatePasswordHandler}
               />
-            </div>
-
-            <div className="mb-6">
-              <a href="#" className="text-sm text-vandyke hover:underline">
-                Forgot Username
-              </a>
             </div>
 
             <div className="flex flex-col gap-y-3 ">
