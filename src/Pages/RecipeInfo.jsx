@@ -134,7 +134,7 @@ const RecipeInfo = ({ recipeInfoId }) => {
           initial="hidden"
           animate="visible"
           exit="hidden"
-          className="bg-eggshell h-screen"
+          className="bg-eggshell h-auto"
         >
           <div
             key={isNotCustomRecipe ? recipeInfo.id : customRecipeInfo.dbID}
