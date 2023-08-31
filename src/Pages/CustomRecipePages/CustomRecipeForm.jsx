@@ -101,7 +101,7 @@ const CustomRecipeForm = () => {
 
   return (
     <>
-      <div className="w-full h-screen bg-eggshell p-7">
+      <div className="w-full h-auto bg-eggshell p-7">
         <form
           onSubmit={submitHandler}
           className=" md:max-w-md lg:max-w-xl mx-auto font-noto pt-10 pb-20"
