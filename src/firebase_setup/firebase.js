@@ -11,12 +11,12 @@ import { getAnalytics } from "firebase/analytics";
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-    apiKey: "AIzaSyAxM0UokC-vaJRMcWIPLLZvKDj8k2f6rAE",
+    apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
     authDomain: "recipe-app-4aeeb.firebaseapp.com",
     projectId: "recipe-app-4aeeb",
     storageBucket: "recipe-app-4aeeb.appspot.com",
     messagingSenderId: "99149166774",
-    appId: import.meta.env.VITE_FIREBASE_API_KEY,
+    appId: import.meta.env.VITE_FIREBASE_APP_ID,
     measurementId: "G-QDXHGKGNV0"
 };
 
