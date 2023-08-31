@@ -7,7 +7,7 @@ const CustomRecipes = ({ setRecipeInfo }) => {
 
   //create component that renders a list of custom recipes
   return (
-    <div className="bg-eggshell h-screen">
+    <div className="bg-eggshell h-auto">
       <div className="flex flex-col justify-center lg:w-8/12 mx-auto">
       
           <Link

@@ -84,7 +84,7 @@ const Home = ({ setRecipeInfo }) => {
           initial="hidden"
           animate="visible"
           exit="hidden"
-          className="flex flex-col bg-eggshell h-screen"
+          className="flex flex-col bg-eggshell h-auto"
         >
           <h1 className="text-3xl text-center mt-4 font-Geologica text-vandyke">
             Recipe of The Day!

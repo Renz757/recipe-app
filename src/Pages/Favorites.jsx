@@ -15,12 +15,12 @@ const Favorites = ({ setRecipeInfo }) => {
 
 
   return (
-    <div className="bg-eggshell h-screen">
+    <div className="bg-eggshell h-auto">
       <h1 className="text-3xl text-center p-3 font-Geologica text-vandyke">
         Favorites
       </h1>
       {favorites <= 0 && (
-        <p className="bg-eggshell h-screen text-center w-screen pt-10 text-3xl">
+        <p className="bg-eggshell text-center w-screen pt-10 text-3xl">
           No Favorites
         </p>
       )}
