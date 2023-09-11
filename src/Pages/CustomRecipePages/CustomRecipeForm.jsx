@@ -8,7 +8,6 @@ import InstructionList from "./CustomRecipeInstructions";
 import IngredientsList from "./CustomRecipeIngredients";
 import { Link } from "react-router-dom";
 
-
 // TODO: Change from multistep form to normal form
 
 const CustomRecipeForm = () => {
@@ -17,7 +16,6 @@ const CustomRecipeForm = () => {
   const [cookTime, setCookTime] = useState("");
   const [image, setImage] = useState("");
   const [imageName, setImageName] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
   const [ingredients, setIngredients] = useState([""]);
   const [instructions, setInstructions] = useState([""]);
   const [imageUploaded, setImageUploaded] = useState(false);
@@ -29,7 +27,7 @@ const CustomRecipeForm = () => {
   const user = useSelector((state) => state.auth.user);
   const navigate = useNavigate();
 
-  // todo: move submit logic into redux thunk function 
+  // todo: move submit logic into redux thunk function
   const submitHandler = async (event) => {
     event.preventDefault();
 
@@ -49,35 +47,33 @@ const CustomRecipeForm = () => {
     } catch (error) {
       console.log(error);
     }
-    if (imageUploaded || imageUrl != "") {
-      //remove last element from array, empty string
-      ingredients.slice(-1);
-      instructions.slice(-1);
 
-      const recipeData = {
-        title: name,
-        servingSize: serving,
-        cookTime,
-        image: image == "" ? imageUrl : imageUrlLink,
-        imageName,
-        ingredients,
-        instructions,
-      };
+    //remove last element from array, empty string
+    ingredients.slice(-1);
+    instructions.slice(-1);
 
-      console.log(recipeData);
+    const recipeData = {
+      title: name,
+      servingSize: serving,
+      cookTime,
+      image: imageUrlLink,
+      imageName,
+      ingredients,
+      instructions,
+    };
 
-      dispatch(
-        customRecipeActions.submitForm({
-          uid: user.uid,
-          recipeData: recipeData,
-        })
-      );
+    console.log(recipeData);
 
-      navigate("/customRecipes");
-      setImageUploaded(false);
-    }
+    dispatch(
+      customRecipeActions.submitForm({
+        uid: user.uid,
+        recipeData: recipeData,
+      })
+    );
+
+    navigate("/customRecipes");
+    setImageUploaded(false);
   };
-
 
   const nameHandler = (e) => {
     setName(e.target.value);
@@ -95,9 +91,6 @@ const CustomRecipeForm = () => {
     setImage(e.target.files[0]);
   };
 
-  const imageUrlHandler = (e) => {
-    setImageUrl(e.target.value);
-  };
 
   return (
     <>
@@ -175,28 +168,6 @@ const CustomRecipeForm = () => {
                 accept="image/*"
                 className="mt-1 p-2 w-full border border-eggshell rounded-md"
                 onChange={imageHandler}
-                disabled={imageUrl == "" ? false : true}
-              />
-            </div>
-
-            <h1 className="text-center">or</h1>
-
-            {/* if imageUrl has data, make image disabled */}
-            <div className="mb-4">
-              <label
-                htmlFor="imageUrl"
-                className="block text-lg font-medium text-vandyke"
-              >
-                Image Url
-              </label>
-              <input
-                type="text"
-                id="imageUrl"
-                name="imageUrl"
-                required
-                className="mt-1 p-2 w-full border rounded-md"
-                onChange={imageUrlHandler}
-                disabled={image == "" ? false : true}
               />
             </div>
           </div>
