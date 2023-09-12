@@ -1,4 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
+import thunk from "redux-thunk";
 import { navSlice } from "./nav-slice";
 import { favoriteSlice } from "./favorites-slice"
 import { shoppingListSlice } from "./shoppingList-slice";
@@ -19,7 +20,7 @@ const store = configureStore({
     middleware: getDefaultMiddleware =>
         getDefaultMiddleware({
             serializableCheck: false,
-        }),
+        }), thunk
 });
 
 export default store;
