@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import DefaultImage from "../../Components/DefaultImage";
 import RecipeDetails from "../../Components/RecipeDetails";
@@ -7,6 +7,7 @@ import { item, container } from "../../UI/fr-animations/stagger";
 const CustomRecipeList = ({ setRecipeInfo }) => {
   const customRecipes = useSelector((state) => state.customRecipe);
 
+  useEffect(() => {console.log("re run")}, [customRecipes]);
   return (
     <>
       <motion.div

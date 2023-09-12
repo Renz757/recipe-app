@@ -20,7 +20,7 @@ const CustomRecipeForm = () => {
   const [instructions, setInstructions] = useState([""]);
   const [imageUploaded, setImageUploaded] = useState(false);
 
-  const [isImageTouched, setIsImageTouched] = useState(false);
+  const [isLaoding, setIsLoading] = useState(false);
 
   const dispatch = useDispatch();
   const recipeInfo = useSelector((state) => state.customRecipe);
@@ -30,20 +30,20 @@ const CustomRecipeForm = () => {
   // todo: move submit logic into redux thunk function
   const submitHandler = async (event) => {
     event.preventDefault();
+    
 
     let imageUrlLink = null;
 
     try {
-      if (image != "") {
-        setImageName(image.name);
-        //get ref to image storage
-        const imageRef = ref(imageDB, `images/${image.name}`);
+      setIsLoading(true)
+      setImageName(image.name);
+      //get ref to image storage
+      const imageRef = ref(imageDB, `images/${image.name}`);
 
-        //upload image to storage
-        await uploadBytes(imageRef, image);
-        imageUrlLink = await getDownloadURL(imageRef);
-        setImageUploaded(true);
-      }
+      //upload image to storage
+      await uploadBytes(imageRef, image);
+      imageUrlLink = await getDownloadURL(imageRef);
+      setImageUploaded(true);
     } catch (error) {
       console.log(error);
     }
@@ -72,6 +72,7 @@ const CustomRecipeForm = () => {
     );
 
     navigate("/customRecipes");
+    setIsLoading(false)
     setImageUploaded(false);
   };
 
@@ -90,7 +91,6 @@ const CustomRecipeForm = () => {
   const imageHandler = (e) => {
     setImage(e.target.files[0]);
   };
-
 
   return (
     <>
@@ -194,6 +194,7 @@ const CustomRecipeForm = () => {
             <button
               type="submit"
               className="bg-vandyke text-eggshell px-3 py-2 rounded-md m-2 w-8/12 mx-auto text-xl"
+              disabled={isLaoding}
             >
               Create Custom Recipe
             </button>
