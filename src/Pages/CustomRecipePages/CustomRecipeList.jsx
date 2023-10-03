@@ -21,11 +21,12 @@ const CustomRecipeList = ({ setRecipeInfo }) => {
             <motion.div key={index} variants={item}>
               <div className="">
                 <div className="">
-                  <DefaultImage
+                  {/* <DefaultImage
                     src={recipe.image}
                     alt={recipe.title}
                     key={index}
-                  />
+                  /> */}
+                  <img className="w-full aspect-video object-cover blur-none lg:rounded-xl" src={recipe.image} alt={recipe.title} key={index} />
                 </div>
                 <RecipeDetails
                   title={recipe.title}
