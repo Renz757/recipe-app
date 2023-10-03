@@ -7,7 +7,7 @@ import { item, container } from "../../UI/fr-animations/stagger";
 const CustomRecipeList = ({ setRecipeInfo }) => {
   const customRecipes = useSelector((state) => state.customRecipe);
 
-  useEffect(() => {console.log("re run")}, [customRecipes]);
+  useEffect(() => {console.log("re run ")}, [customRecipes]);
   return (
     <>
       <motion.div

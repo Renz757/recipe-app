@@ -27,7 +27,7 @@ const RecipeInfo = ({ recipeInfoId }) => {
   const [isNotCustomRecipe, setisNotCustomRecipe] = useState(false);
   const [hasData, setHasData] = useState(false);
   const [customRecipeInfo, setCustomRecipeInfo] = useState(null);
-
+  
   useEffect(() => {
     //id (recipeInfoId) from spoonacular API will will always be a number
     if (typeof recipeInfoId === "number") {

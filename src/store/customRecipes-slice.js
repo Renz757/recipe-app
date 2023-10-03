@@ -1,5 +1,7 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { collection, addDoc, deleteDoc, doc } from "firebase/firestore";
+import { deleteObject, ref } from "firebase/storage"
+import { imageDB } from "../firebase_setup/firebase";
 import { db } from "../firebase_setup/firebase";
 
 const initialState = {
@@ -7,6 +9,21 @@ const initialState = {
     customRecipe: {},
     showModal: false
 }
+
+// export const deleteCustomRecipe = createAsyncThunk('deleteCustomRecipe', async (imageName, customRecipeId, userUid) => {
+//     const imageRef = ref(imageDB, `images/${imageName}`);
+//     console.log(imageName)
+//     deleteObject(imageRef)
+//         .then(() => {
+//             console.log("file was deleted");
+//         })
+//         .catch((error) => {
+//             console.log(error);
+//         });
+
+
+
+// })
 
 export const customRecipeSlice = createSlice({
     name: 'customRecipe',
@@ -21,7 +38,7 @@ export const customRecipeSlice = createSlice({
         },
         deleteCustomRecipe(state, action) {
 
-            //todo: delete image from frie store
+            //todo: delete image from fire store
             const docRef = doc(db, "users", `${action.payload.uid}`, "customRecipes", action.payload.id)
             deleteDoc(docRef)
             state.showModal = false
@@ -32,6 +49,33 @@ export const customRecipeSlice = createSlice({
 
     }
 });
+
+export const deleteCustomRecipe = (imageName, recipeId, uid) => {
+    return async (dispatch) => {
+        console.log(imageName, uid, recipeId)
+        const imageRef = ref(imageDB, `images/${imageName}`)
+
+
+        const deleteRecipe = async () => {
+
+            await deleteObject(imageRef)
+            console.log('image was deleted')
+
+        }
+
+        try {
+            await deleteRecipe()
+
+            dispatch(customRecipeSlice.actions.deleteCustomRecipe({
+                id: recipeId,
+                uid: uid,
+            }))
+        } catch (error) {
+            console.error("an error occured")
+        }
+
+    }
+}
 
 export const customRecipeActions = customRecipeSlice.actions
 

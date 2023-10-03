@@ -57,7 +57,7 @@ const CustomRecipeForm = () => {
       servingSize: serving,
       cookTime,
       image: imageUrlLink,
-      imageName,
+      imageName: image.name,
       ingredients,
       instructions,
     };

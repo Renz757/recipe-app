@@ -1,6 +1,7 @@
 import ReactDOM from "react-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { customRecipeActions } from "../store/customRecipes-slice";
+import { deleteCustomRecipe } from "../store/customRecipes-slice";
 import { imageDB } from "../firebase_setup/firebase";
 import { deleteObject, ref } from "firebase/storage";
 import { Link } from "react-router-dom";
@@ -11,23 +12,26 @@ const DeleteModal = ({ customRecipeId, imageName }) => {
 
   const removeRecipeHandler = () => {
     //remove custom recipe
-    dispatch(
-      customRecipeActions.deleteCustomRecipe({
-        id: customRecipeId,
-        uid: user.uid,
-      })
-    );
+
+    
+    dispatch(deleteCustomRecipe(imageName, customRecipeId, user.uid))
+    // dispatch(
+    //   customRecipeActions.deleteCustomRecipe({
+    //     id: customRecipeId,
+    //     uid: user.uid,
+    //   })
+    // );
 
     //todo: move async logic in redux thunk function
     //remove
-    const imageRef = ref(imageDB, `images/${imageName}`);
-    deleteObject(imageRef)
-      .then(() => {
-        console.log("file was deleted");
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    // const imageRef = ref(imageDB, `images/${imageName}`);
+    // deleteObject(imageRef)
+    //   .then(() => {
+    //     console.log("file was deleted");
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
   };
   const cancelHandler = () => {
     dispatch(customRecipeActions.modalhandler());
