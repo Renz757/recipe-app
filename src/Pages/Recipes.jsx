@@ -71,7 +71,7 @@ const Recipes = ({ setRecipeInfo }) => {
               return (
                 <motion.div key={index} variants={item}>
                   <div>
-                    <DefaultImage
+                    <img
                       src={recipe.image}
                       alt={recipe.title}
                       key={recipe.id}

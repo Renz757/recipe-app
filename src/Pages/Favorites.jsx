@@ -36,10 +36,11 @@ const Favorites = ({ setRecipeInfo }) => {
             return (
               <motion.div key={index} variants={item}>
                 <div>
-                  <DefaultImage
+                  <img
                     src={favorites.image}
                     alt={favorites.title}
                     key={index}
+                    className="w-full aspect-video object-cover blur-none lg:rounded-xl"
                   />
                 </div>
                 <RecipeDetails
