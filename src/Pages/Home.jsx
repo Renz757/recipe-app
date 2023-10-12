@@ -70,7 +70,6 @@ const Home = ({ setRecipeInfo }) => {
     return <h1>{`An Error Has Occured ${error}`}</h1>;
   }
 
-  console.log(isLoading);
 
   return (
     <>

@@ -11,8 +11,6 @@ const Favorites = ({ setRecipeInfo }) => {
   const dispatch = useDispatch();
 
   const favorites = useSelector((state) => state.favorites.favoriteRecipes);
-  console.log(favorites);
-
 
   return (
     <div className="bg-eggshell h-auto">
